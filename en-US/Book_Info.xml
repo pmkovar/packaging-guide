@@ -1,19 +1,18 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "Software_Collections_Guide.ent">
+<!ENTITY % BOOK_ENTITIES SYSTEM "en-US/Software_Collections_Guide.ent">
 %BOOK_ENTITIES;
 ]>
 <bookinfo id="book-Software_Collections_Guide-Software_Collections_Guide">
-	<title>Software Collections Guide</title>
-	<subtitle>short description</subtitle>
-	<productname>Documentation</productname>
-	<productnumber>0.1</productnumber>
+	<title>&DSCL;s Guide</title>
+	<subtitle>A guide to &DSCL;s for &MAJOROSVER;</subtitle>
+	<productname>Red Hat Developer Toolset</productname>
+	<productnumber>1.0</productnumber>
 	<edition>0</edition>
 	<pubsnumber>0</pubsnumber>
 	<abstract>
 		<para>
-			A short overview and summary of the book's subject and purpose, traditionally no more than one paragraph long. Note: the abstract will appear in the front matter of your book and will also be placed in the description field of the book's RPM spec file.
-		</para>
+			The &DSCL;s Guide provides an explanation of &DSCL;s, including the process of building and packaging them. The audience are developers and system administrators who have a basic understanding of software packaging and RPM but who are new to the concept of &DSCL;s.</para>
 	</abstract>
 	<corpauthor>
 		<inlinemediaobject>

@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "Software_Collections_Guide.ent">
-%BOOK_ENTITIES;
 ]>
 <appendix id="appe-Software_Collections_Guide-Revision_History">
 	<title>Revision History</title>
@@ -11,9 +9,9 @@
 				<revnumber>0-0</revnumber>
 				<date>Thu Feb 23 2012</date>
 				<author>
-					<firstname>Dude</firstname>
-					<surname>McPants</surname>
-					<email>Dude.McPants@example.com</email>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
 				</author>
 				<revdescription>
 					<simplelist>

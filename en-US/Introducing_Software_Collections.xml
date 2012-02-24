@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="chap-Introducing_Software_Collections">
+  <title>Introducing &DSCL;s</title>
+  <para>This chapter introduces you to the packaging with &DSCL;s (&DSC;) for short.</para>
+  <section id="sect-What_Are_Software_Collections">
+    <title>What Are &DSCL;s</title>
+    <para>With &DSCL;s, you can concurrently install multiple versions of the same software packages on your system. &DSCL;s do not affect the system versions of the packages installed by the conventional RPM package manager.
+</para>
+    <variablelist>
+    <title>&DSCL;s:</title>
+      <varlistentry>
+        <term>Do not overwrite system files</term>
+        <listitem>
+          <para>&DSCL;s are distributed as a set of several components, which provide their full functionality without overwriting system files.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Are designed to avoid conflicts with system files</term>
+        <listitem>
+          <para>&DSCL;s make use of a special file system hierarchy to avoid possible conflicts between a single &DSCL; and the base system installation.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Require no changes to the RPM package manager</term>
+        <listitem>
+          <para>&DSCL; require no changes to the RPM package manager present on the host system.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Need only minor changes to the spec file</term>
+        <listitem>
+          <para>To convert a conventional package to a single &DSCL;, you only need to make minor changes to the package spec file.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Allow you to build a conventional package and a &DSCL; package with a single spec file</term>
+        <listitem>
+          <para>With a single spec file, you can build both the conventional package and the &DSCL; package.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Allow you to use a spec file from one &DSCL; to build a different &DSCL;</term>
+        <listitem>
+          <para>You can use a single spec file from one &DSCL; to build a different &DSCL;.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Uniquely name all included packages</term>
+        <listitem>
+          <para>With &DSCL;'s namespace, all packages that are included in the &DSCL; are uniquely named.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Do not conflict with updated packages</term>
+        <listitem>
+          <para>&DSCL;'s namespace ensures that updating packages on your system causes no conflicts.
+</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Can depend on other &DSCL;s</term>
+        <listitem>
+          <para>Because one &DSCL; can depend on another, you can define multiple levels of dependencies.
+</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+  <section id="sect-File_System_Hierarchy">
+    <title>File System Hierarchy</title>
+    <para>The root directory of the &DSCL;s is typically located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between the &DSCL;s and the base system installation.</para>
+    <para>You can change the location of the root directory by setting the %_scl_prefix macro in the spec file.</para>
+    <para>Below is a typical layout of the file system hierarchy with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
+    <programlisting><replaceable>&OPT;</replaceable>
+`-- <replaceable>&RH;</replaceable>
+    |-- &DSCL; 1
+    |   `-- <replaceable>architecture</replaceable>
+    |       |-- &DSCL; root directory
+    |       `-- &DSCL; scriptlets
+    |
+    `-- &DSCL; 2
+        `-- <replaceable>architecture</replaceable>
+            |-- &DSCL; root directory
+            `-- &DSCL; scriptlets
+	</programlisting>
+    <!--FIXME: What are SC scriptlets, reference them.-->
+    <para>For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
+  </section>
+  <section id="sect-Software_Collection_Scriptlets">
+    <title>&DSCL; Scriptlets</title>
+    <para>The &DSCL; scriptlets are simple shell scripts that change the current system environment so that the group of packages in the &DSCL; is preferred over the corresponding group of conventional packages installed on the system.</para>
+    <para>To utilize the &DSCL; scriptlets, use the <application>scl</application> tool. For more information on <application>scl</application>, refer to <xref linkend="sect-Enabling_the_Software_Collection"/>.</para>
+  </section>
+  <section id="sect-Package_Layout">
+    <title>Package Layout</title>
+    <para>The &DSCL; layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL; packages, which are installed within the &DSCL; namespace.</para>
+    <section id="sect-Meta_Package">
+      <title>Meta Package</title>
+      <para>
+		Each &DSCL; includes a meta package, which installs essential, minimal subset of packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The &DSCL; also contains a basic file system hierarchy and ships a number of &DSCL; scriptlets. The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
+      <para>The meta package produces the following packages that are part of the &DSCL;:</para>
+      <variablelist>
+        <varlistentry>
+          <term>The main package: %{scl_prefix}%scl</term>
+          <listitem>
+            <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package contains no files.</para>
+            <para>For example, the main package macro is expanded to:</para>
+            <programlisting>scl_core</programlisting>
+            <para>where <literal>core</literal> is the name of the &DSCL;.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>The runtime subpackage: scl_<replaceable>name</replaceable>-runtime</term>
+          <listitem>
+            <para>The runtime subpackage in the &DSCL; owns the &DSCL; file system and ships the &DSCL; scriptlets.</para>
+            <para>For example, the runtime subpackage macro is expanded to:</para>
+            <programlisting>scl_core-runtime</programlisting>
+            <para>where <literal>core</literal> is the name of the &DSCL;.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>The build subpackage: scl_<replaceable>name</replaceable>-build</term>
+          <listitem>
+            <para>The build subpackage in the &DSCL; ships the &DSCL; build configuration. The build subpackage is optional can be excluded from the &DSCL;.</para>
+            <para>For example, the build subpackage macro is expanded to:</para>
+            <programlisting>scl_core-build</programlisting>
+            <para>where <literal>core</literal> is the name of the &DSCL;.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+    <section id="sect-Packages_in_the_Software_Collection_Namespace">
+      <title>Packages in the &DSCL; Namespace</title>
+      <para>Besides the minimal subset of packages installed by the meta package, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
+      <variablelist>
+        <varlistentry>
+          <term>&DSCL; package: scl_<replaceable>name</replaceable>_<replaceable>pkgname</replaceable></term>
+          <listitem>
+            <para>The package collection of the &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL; file system hierarchy.</para>
+            <para>For example, the &DSCL; package name for the <package>ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <programlisting>scl_ruby_1.8.7_ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
+            <para>where <literal>ruby_1.8.7</literal> is the name of the &DSCL;.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </section>
+  <section id="sect-Enabling_the_Software_Collection">
+    <title>Enabling a &DSCL;</title>
+    <para>The <application>scl</application> tool is used to enable a &DSCL; and to run programs in the &DSCL; environment.</para>
+    <para>General usage of the <application>scl</application> tool can be described using the following syntax:</para>
+    <synopsis>
+      <command>scl</command>
+      <replaceable>action</replaceable>
+      <replaceable>software_collection_1</replaceable>
+      <replaceable>software_collection_2</replaceable>
+      <replaceable>command</replaceable>
+    </synopsis>
+    <para>For example, use the following command to execute <command>ruby --version</command> in the &DSCL; environment:</para>
+    <synopsis>
+      <command>scl enable ruby_1.8.7 'ruby --version'</command>
+    </synopsis>
+    <para>where <literal>ruby_1.8.7</literal> is the name of the &DSCL;. With this command, the <application>ruby</application> program, which is provided by one of the packages in the &DSCL;, is run in an environment that is completely separated from the system one.</para>
+    <para>With <application>scl</application>, you can also run a program in the separated environment with multiple &DSCL;s enabled. For example, to run the <application>bash</application> shell with the <literal>rails_3.2</literal> and <literal>postgresql_8.2</literal> &DSCL;s, execute the following command:</para>
+    <synopsis>
+      <command>scl enable rails_3.2 postgresql_8.2 bash</command>
+    </synopsis>
+    <para>In the separated environment, it is also possible to execute a list of commands that is, for example, included in a file. You can run the following command to get the commands from the <filename>cmd</filename> file and execute these commands in the separated environment:</para>
+    <synopsis>
+      <command>cat cmd | scl enable core -</command>
+    </synopsis>
+    <para>where <literal>core</literal> is the name of the &DSCL;.</para>
+  </section>
+</chapter>

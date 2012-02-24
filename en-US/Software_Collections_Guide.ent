@@ -1,4 +1,15 @@
-<!ENTITY PRODUCT "Documentation">
-<!ENTITY BOOKID "Software_Collections_Guide">
+<!ENTITY PRODUCT "Red Hat Developer Toolkit">
+<!ENTITY VERSIONNUM "1.0">
+<!ENTITY BOOKID "doc-Software_Collections_Guide">
 <!ENTITY YEAR "2012">
-<!ENTITY HOLDER "| You need to change the HOLDER entity in the en-US/Software_Collections_Guide.ent file |">
+<!ENTITY HOLDER "Red Hat, Inc">
+<!ENTITY CAPITALOSORG 'Red Hat'>
+<!ENTITY MAJOROS 'Red Hat Enterprise Linux'>
+<!ENTITY MAJOROSVER 'Red Hat Enterprise Linux 6'>
+<!ENTITY OSORG 'Red Hat'>
+<!ENTITY PKGOS "el6">
+<!ENTITY DSCL 'Software Collection'>
+<!ENTITY DSC 'SCL'>
+<!ENTITY OPT 'opt'>
+<!ENTITY RH 'rh'>
+
