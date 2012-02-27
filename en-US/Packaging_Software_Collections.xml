@@ -45,7 +45,9 @@
           <tbody>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%scl_name</code> </para>
+                <para>
+                  <code>%scl_name</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> name of the &DSCL; </para>
@@ -58,7 +60,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%pkg_name</code>   </para>
+                <para>
+                  <code>%pkg_name</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> name of the original package </para>
@@ -71,7 +75,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_scl_prefix</code> </para>
+                <para>
+                  <code>%_scl_prefix</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> root of the &DSCL; (not package root) </para>
@@ -84,7 +90,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_scl_scripts</code> </para>
+                <para>
+                  <code>%_scl_scripts</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> location of the &DSCL; scriptlets </para>
@@ -97,7 +105,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_scl_root</code> </para>
+                <para>
+                  <code>%_scl_root</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> installation root (install-root) of the package </para>
@@ -137,7 +147,9 @@
           <tbody>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_prefix</code> </para>
+                <para>
+                  <code>%_root_prefix</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_prefix</code> macro of the &DSCL; </para>
@@ -150,7 +162,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_exec_prefix</code> </para>
+                <para>
+                  <code>%_root_exec_prefix</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_exec_prefix</code> macro of the &DSCL; </para>
@@ -163,7 +177,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_bindir</code> </para>
+                <para>
+                  <code>%_root_bindir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_bindir</code> macro of the &DSCL;</para>
@@ -176,7 +192,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_sbindir</code> </para>
+                <para>
+                  <code>%_root_sbindir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_sbindir</code> macro of the &DSCL;</para>
@@ -189,7 +207,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_datadir</code> </para>
+                <para>
+                  <code>%_root_datadir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_datadir</code> macro of the &DSCL;</para>
@@ -202,7 +222,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_sysconfdir</code> </para>
+                <para>
+                  <code>%_root_sysconfdir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_sysconfdir</code> macro of the &DSCL;</para>
@@ -215,7 +237,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_libexecdir</code> </para>
+                <para>
+                  <code>%_root_libexecdir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_libexecdir</code> macro of the &DSCL; </para>
@@ -228,7 +252,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_sharedstatedir</code> </para>
+                <para>
+                  <code>%_root_sharedstatedir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_sharedstatedir</code> macro of the &DSCL;</para>
@@ -241,7 +267,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_localstatedir</code> </para>
+                <para>
+                  <code>%_root_localstatedir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_localstatedir</code> macro of the &DSCL; </para>
@@ -254,7 +282,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_includedir</code> </para>
+                <para>
+                  <code>%_root_includedir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_includedir</code> macro of the &DSCL; </para>
@@ -267,7 +297,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_infodir</code> </para>
+                <para>
+                  <code>%_root_infodir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_infodir</code> macro of the &DSCL; </para>
@@ -280,7 +312,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_mandir</code> </para>
+                <para>
+                  <code>%_root_mandir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_mandir</code> macro of the &DSCL; </para>
@@ -293,7 +327,9 @@
             </row>
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
-                <para> <code>%_root_initddir</code> </para>
+                <para>
+                  <code>%_root_initddir</code>
+                </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para> non-relocated <code>%_initddir</code> macro of the &DSCL;</para>
@@ -324,12 +360,8 @@
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
     <title>Converting a Conventional Spec File</title>
-    <task>
-      <title>Converting a Conventional Spec File to a &DSCL; Spec File</title>
-      <tasksummary>
-        <para>These steps shows how to convert a conventional spec file to a &DSCL; spec file so that the latter can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
+        <para>These steps show how to convert a conventional spec file to a &DSCL; spec file so that the latter can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
 Software Collection macros simply relocate package to non-conflicting namespaced path by redefining essential build macros such as %_bindir, %_sysconfdir, etc. and adding Software Collection specific virtual provides. With this concept the Software Collection specific actions in spec file need to be put into the %{?scl: <something> } constructs. --></para>
-      </tasksummary>
       <procedure>
         <title>Converting a Conventional Spec File to a &DSCL; Spec File</title>
         <step>
@@ -348,8 +380,74 @@ Software Collection macros simply relocate package to non-conflicting namespaced
           <para>In the %prep section of the spec file, edit the %setup macro so that the macro can deal with a different package name in the &DSCL; environment:</para>
           <programlisting language="RPM Spec">%setup -q %{?scl:-n %{<replaceable>package_name</replaceable>}-%{version}}</programlisting>
         </step>
-      </procedure>
-    </task>
+              </procedure>
+       <bridgehead id="bh-Example_of_the_Converted_Spec_File">Example of the Converted Spec File</bridgehead>
+<para>To get an idea of how a diff between the conventional spec file and the converted spec file like, see the following example of the diff of the converted spec file for the <application>less</application> program:</para>
+      <programlisting language="RPM Spec">--- a/less.spec
++++ b/less.spec
+@@ -1,10 +1,12 @@
++%{?scl:%scl_package less}
++
+ Summary: A text file browser similar to more, but better
+-Name: less
++Name: %{?scl_prefix}less
+ Version: 443
+ Release: 1%{?dist}
+ License: GPLv3+
+ Group: Applications/Text
+-Source: http://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
++Source: http://www.greenwoodsoftware.com/less/less-%{version}.tar.gz
+ Source1: lesspipe.sh
+ Source2: less.sh
+ Source3: less.csh
+@@ -19,6 +21,7 @@ Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ BuildRequires: ncurses-devel
+ BuildRequires: pcre-devel
+ BuildRequires: autoconf automake libtool
++%{?scl:Requires:%scl_runtime}
+ 
+ %description
+ The less utility is a text file browser that resembles more, but has
+@@ -31,7 +34,7 @@ You should install less because it is a basic utility for viewing text
+ files, and you'll use it frequently.
+ 
+ %prep
+-%setup -q
++%setup -q %{?scl:-n %{pkg_name}-%{version}}
+ %patch1 -p1 -b .Foption
+ %patch4 -p1 -b .time
+ %patch5 -p1 -b .fsync
+@@ -52,16 +55,16 @@ make CC="gcc $RPM_OPT_FLAGS -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOU
+ rm -rf $RPM_BUILD_ROOT
+ %makeinstall
+ strip -R .comment $RPM_BUILD_ROOT/%{_bindir}/less
+-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
++mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
+ install -p -c -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}
+-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d
+-install -p -c -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
+-ls -la $RPM_BUILD_ROOT/etc/profile.d
++install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
++install -p -c -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
++ls -la $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
+ 
+ %files
+ %defattr(-,root,root,-)
+ %doc LICENSE
+-/etc/profile.d/*
++%{_sysconfdir}/profile.d/*
+ %{_bindir}/*
+ %{_mandir}/man1/*
+ </programlisting>
+  </section>
+  <section id="sect-Using_a_Software_Collection_in_Your_Application">
+    <title>Using a &DSCL; in Your Application</title>
+<para>To use a &DSCL; in your application, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in your application's spec file so that these tags define proper &DSCL; dependencies.</para>
+<para>For example, to define dependencies on two &DSCL;s named <application>core1</application> and <application>core2</application>, add the following three lines to your application's spec file:</para>
+<programlisting language="RPM Spec">BuildRequires: scl-utils-build
+Requires: %scl_require core1
+Requires: %scl_require core2
+</programlisting>
   </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>
@@ -379,11 +477,11 @@ Software Collection macros simply relocate package to non-conflicting namespaced
     </section>
     <section id="sect-Running_Commands_Stored_in_a_File">
       <title>Running Commands Stored in a File</title>
-      <para>To execute a list of commands, which are stored in a file, in the &DSCL; environment, you can run the following command:</para>
+      <para>To execute a number of commands, which are stored in a file, in the &DSCL; environment, you can run the following command:</para>
       <synopsis>
         <command>cat cmd | scl enable core -</command>
       </synopsis>
-      <para>The command above first reads a file named <filename>cmd</filename>, then runs a list of commands stored in the <filename>cmd</filename> file in the environment of the &DSCL; named <application>core</application>.</para>
+      <para>The command above first reads a file named <filename>cmd</filename>, then runs a number of commands stored in the <filename>cmd</filename> file in the environment of the &DSCL; named <application>core</application>.</para>
     </section>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
@@ -433,89 +531,121 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/ld.so.conf.d/
   </section>
   <section id="sect-Software_Collection_manpath_Support">
     <title>&DSCL; manpath Support</title>
-    <para>In order to allow the system man command to display man pages from the &DSCL; that is enabled, you need update the MANPATH environment variable with the paths to the man pages associated with the &DSCL;.</para>
-    <para>To update the MANPATH environment variable, add the following line to the spec file:</para>
+    <para>In order to allow the system man command to display man pages from the &DSCL; that is enabled, you need update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
+    <para>To update the <envar>MANPATH</envar> environment variable, add the following line to the spec file:</para>
     <programlisting language="RPM Spec">export MANPATH=${MANPATH}:%{_mandir}</programlisting>
     <para>This update relocates the <code>%{_mandir}</code> macro to the &DSCL; path. This means that the man pages associated with the &DSCL; will not be visible as long as the &DSCL; is not enabled.</para>
     <para>There may be cases where the &DSCL; provides a wrapper script visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin</filename> directory. In these cases, the man pages should be visible to the system even if the &DSCL; was not enabled.</para>
-    <para>In order to allow the system man command to display man pages from the &DSCL; that is not enabled, you need to update the MANPATH environment variable with the paths to the man pages associated with the &DSCL;.</para>
-    <para>To update the MANPATH environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script will be preloaded once a shell is started one the system.</para>
-<para>As an example, create the following file:</para>
-<screen>%{?scl_prefix}manpage.sh</screen>
-<para>Add the file to your spec file:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting>
-<para>The file itself is a short script that only modifies the MANPATH variable to refer to your man path directory:</para>
-<screen>export MANPATH=${MANPATH}:/opt/rh/collection_name/path/to/your/manpages</screen>
-<para>Finally install this file into the system /etc/profile.d/ directory in the %install section:</para>
-<programlisting language="RPM Spec">%install
+    <para>In order to allow the system man command to display man pages from the &DSCL; that is not enabled, you need to update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
+<procedure><title>Updating the MANPATH environment variable</title>
+<step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script will be preloaded once a shell is started on the system.</para>
+<para>For example, create the following file:</para>
+    <screen>%{?scl_prefix}manpage.sh</screen></step>
+<step><para>The file <filename>%{?scl_prefix}manpage.sh</filename> is a short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
+    <screen>export MANPATH=${MANPATH}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/man_pages</replaceable></screen></step>
+<step><para>Add the file to your &DSCL; package's spec file:</para>
+<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
+    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
+    <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
+</step>
+</procedure>
   </section>
   <section id="sect-Software_Collection_cronjob_Support">
     <title>&DSCL; cronjob Support</title>
-    <para>Your Software Collection might require regular tasks to be performed while the system is running. This is usually achieved either with a dedicated service itself, covered in the initscripts section before or via cronjobs. To do the later those need to be installed again in the system path for cron to be picked up properly while the system is running. Simply put your a dedicated <filename>crontab</filename> file for your Software Collection in the <filename>/etc/cron.d</filename> directory with a Software Collection name again.</para>
-<para>As an example, create the following file:</para>
-<screen>%{?scl_prefix}crontab</screen>
-<para>add that to your specfile:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}crontab</programlisting>
-<para>The file itself is a typical crontab file. A sample line might look like this:</para>
-<screen>0 1 * * Sun root /usr/scl/collection_name/arch/usr/bin/yourcronjob</screen>
-<para>Finally install this file into the system <filename>/etc/cron.d/</filename> directory in the <code>%install</code> section:</para>
-<programlisting language="RPM Spec">%install
+    <para>With your &DSCL;, you can run regular tasks on the system either with a dedicated service or with cronjobs. If you intend to use a dedicated service, refer to <xref linkend="sect-Software_Collection_Initscript_Support"/> for instructions on how to work with initscripts in the &DSCL; environment.</para>
+    <procedure>
+      <title>Running regular tasks with cronjobs</title>
+      <step>
+        <para>To make use of cronjobs for running regular tasks, place a <filename>crontab</filename> file for your &DSCL; in the <filename>/etc/cron.d/</filename> directory with the &DSCL;'s name.</para>
+        <para>For example, create the following file:</para>
+        <screen>%{?scl_prefix}crontab</screen>
+      </step>
+      <step>
+        <para>The <filename>%{?scl_prefix}crontab</filename> file's contents should follow the standard <filename>crontab</filename> file format, as in the following example:</para>
+        <screen>0 1 * * Sun root <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/<replaceable>architecture</replaceable>/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
+      </step>
+      <step>
+        <para>Add the file to your &DSCL; package's spec file:</para>
+        <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}crontab</programlisting>
+      </step>
+      <step>
+        <para>Install the file into the system directory <filename>/etc/cron.d/</filename> by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
+        <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/cron.d/
 </programlisting>
+      </step>
+    </procedure>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
     <title>&DSCL; logrotate Support</title>
-    <para>Similar to the cronjobs your Software Collection or applications within it might create logfiles that you want to trim using the logrotate functionality from the system. To do so you need to install your custom <filename>logrotate</filename> file for your Software Collection in the system directory for logrotate jobs <filename>/etc/logrotate.d/</filename>.</para>
-<para>As an example, create the following file:</para>
-<screen>%{?scl_prefix}logrotate</screen>
-<para>Add that to your specfile:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}logrotate</programlisting>
-<para>The file itself is a custom logrotate file. An sample line might look like this:</para>
-<screen>/usr/scl/collection_name/var/log/yourapp.log {
+    <para>With your &DSCL; or an application associated with your &DSCL;, you can manage log files with the <application>logrotate</application> program.</para>
+    <procedure>
+      <title>Managing log files with logrotate</title>
+      <step>
+        <para>To make use of <application>logrotate</application> for managing your log files, place a custom <application>logrotate</application> file for your &DSCL; in the system directory for the <application>logrotate</application> jobs <filename>/etc/logrotate.d/</filename>.</para>
+        <para>For example, create the following file:</para>
+        <screen>%{?scl_prefix}logrotate</screen>
+      </step>
+      <step>
+        <para>The <filename>%{?scl_prefix}logrotate</filename> file's contents should follow the standard logrotate file format, as in the following example:</para>
+        <screen>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/log/<replaceable>your_application_name</replaceable>.log {
       missingok
       notifempty
       size 30k
       yearly
       create 0600 root root
   }</screen>
-<para>Finally install this file into the system <filename>/etc/logrotate.d/</filename> directory in the <code>%install</code> section:</para>
-<programlisting language="RPM Spec">%install
+      </step>
+      <step>
+        <para>Add the file to your &DSCL; package's spec file:</para>
+        <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}logrotate</programlisting>
+      </step>
+      <step>
+        <para>Install the file into the system directory <filename>/etc/logrotate.d/</filename> by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
+        <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/logrotate.d/</programlisting>
+      </step>
+    </procedure>
   </section>
   <section id="sect-Software_Collection_Lock_File_Support">
     <title>&DSCL; Lock File Support</title>
     <para>It is recommended that you store your &DSCL;'s lock files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy. This way, you can avoid any possible conflicts with the system versions of the applications or services that can be present on the system.</para>
     <para>However, if you want to prevent &DSCL;'s application or service from running while the system version of the respective application or service is running, make sure that your application or service, which requires a lock, writes the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>. This way, your application or service's lock file will not be overwritten. This also means that the lock file will not be renamed but it will keep the name identical to the system version instead.</para>
-    
-<para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (in cases when the &DSCL; version's resources will not conflict with the system version's ones), make sure that the application or service writes the lock to the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
+    <para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (in cases when the &DSCL; version's resources will not conflict with the system version's ones), make sure that the application or service writes the lock to the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
   </section>
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
-<para>It is recommended that you store your &DSCL;'s configuration files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy. This way, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
-<para>If you are not able to store the configuration files within <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename>, then make sure to properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
-</section>
+    <para>It is recommended that you store your &DSCL;'s configuration files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy. This way, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
+    <para>If you are not able to store the configuration files within <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename>, then make sure to properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
+  </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
     <title>&DSCL; Kernel Module Support</title>
     <para>Because Linux kernel modules are typically tied to a particular version of the Linux kernel, special precautions must be taken when packaging kernel modules into a &DSCL;. 
 </para>
     <para>Keep in mind that the package management system on &MAJOROSVER; does not automatically update or install an updated version of the kernel module if an updated version of the Linux kernel is installed. However, to make packaging the kernel modules into the &DSCL; easier, consider the following recommendations:</para>
-<orderedlist>
- <listitem><para>Make sure that the name of your kernel module package includes the kernel version.</para></listitem>
-<listitem><para>Make sure that the tag <code>Requires</code>, which can be found in your kernel module spec file, includes the kernel version and revision (in the format <code>kernel-<replaceable>version</replaceable>-<replaceable>revision</replaceable></code>)</para></listitem>
-</orderedlist>
+    <orderedlist>
+      <listitem>
+        <para>Make sure that the name of your kernel module package includes the kernel version.</para>
+      </listitem>
+      <listitem>
+        <para>Make sure that the tag <code>Requires</code>, which can be found in your kernel module spec file, includes the kernel version and revision (in the format <code>kernel-<replaceable>version</replaceable>-<replaceable>revision</replaceable></code>)</para>
+      </listitem>
+    </orderedlist>
   </section>
   <section id="sect-Software_Collection_SELinux_Support">
     <title>&DSCL; SELinux Support</title>
     <para>Because &DSCL;s are designed to install the &DSCL; packages in an alternate directory, you need to set up the necessary SELinux labels so that SELinux is aware of the alternate directory.</para>
-<para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
-<para>For example, if the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels with the following commands:</para>
-<synopsis>
-<command>semanage fcontext -a -e /usr /&OPT;/&RH;/core/x86_64/root/usr</command>
-</synopsis>
-<synopsis><command>restorecon -R -v /&OPT;/&RH;/core/x86_64/root/usr</command></synopsis>
-<para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
-<para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
+    <para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
+    <para>For example, if the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels with the following commands:</para>
+    <synopsis>
+      <command>semanage fcontext -a -e /usr /&OPT;/&RH;/core/x86_64/root/usr</command>
+    </synopsis>
+    <synopsis>
+      <command>restorecon -R -v /&OPT;/&RH;/core/x86_64/root/usr</command>
+    </synopsis>
+    <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
+    <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
   </section>
   <section id="sect-Getting_More_Information">
     <title>Getting More Information</title>
