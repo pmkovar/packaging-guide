@@ -377,8 +377,8 @@ Software Collection macros simply relocate package to non-conflicting namespaced
       </synopsis>
       <para>The command above enables two &DSCL;s named <application>core1</application> and <application>core2</application>.</para>
     </section>
-    <section id="sect-Executing_Commands_Stored_in_a_File">
-      <title>Executing Commands Stored in a File</title>
+    <section id="sect-Running_Commands_Stored_in_a_File">
+      <title>Running Commands Stored in a File</title>
       <para>To execute a list of commands, which are stored in a file, in the &DSCL; environment, you can run the following command:</para>
       <synopsis>
         <command>cat cmd | scl enable core -</command>
@@ -485,22 +485,25 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/logrotate.d/<
   </section>
   <section id="sect-Software_Collection_Lock_File_Support">
     <title>&DSCL; Lock File Support</title>
-    <para>Lockfiles should typically be able to reside inside the Software Collection directory itself as the applications and/or services should be isolated from the system versions. There might be cases though where you would want to prevent the version of your Software Collection to be running while the system version is running or vice versa.</para>
-<para>To do so your Software Collection version of your service or app that requires a lock should instead of writing its lock to <filename>/usr/scl/collection_name/var/lock/</filename> to the system directory <filename>/var/lock</filename>. And this time you do not want that lockfile to be renamed but keep the name of the system version in order to achieve the wanted behavior.</para>
-<para>Should your Software Collection version of the service be able to run concurrently with the system version (e.g. because it is configured to listen to a different port or does not otherwise conflict over resources from the system itself) you can keep the lockfile in your Software Collection directory.</para>
+    <para>It is recommended that you store your &DSCL;'s lock files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy. This way, you can avoid any possible conflicts with the system versions of the applications or services that can be present on the system.</para>
+    <para>However, if you want to prevent &DSCL;'s application or service from running while the system version of the respective application or service is running, make sure that your application or service, which requires a lock, writes the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>. This way, your application or service's lock file will not be overwritten. This also means that the lock file will not be renamed but it will keep the name identical to the system version instead.</para>
+    
+<para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (in cases when the &DSCL; version's resources will not conflict with the system version's ones), make sure that the application or service writes the lock to the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
   </section>
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
-<para>Configuration files should typically always be kept in the <filename>/usr/scl/collection_name/</filename> directory structure to prevent any overlaps with system versions of the same applications. If that is for any reason not possible at all then the principle of a &DSCL; configuration file name applies again to make sure to avoid conflicts or overwrite with system versions of those configuration files.</para>
-<para>How to do that is very dependent on the application or project that requires configuration files, but almost all provide some way to configure during build or install time where the application or project related configuration files will be stored. Using that method is strongly recommended.</para>
+<para>It is recommended that you store your &DSCL;'s configuration files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy. This way, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
+<para>If you are not able to store the configuration files within <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename>, then make sure to properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
 </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
     <title>&DSCL; Kernel Module Support</title>
-    <para>Kernel modules are a very special case as they are typically tied to a specific kernel version. Unfortunately there is no easy way to trigger an automatic update or install of newer versions of kernel modules should a newer system kernel be installed, but as a guidance there are a few things to make working with kernel module packages easier:</para>
-<itemizedlist>
- <listitem><para>Name of your kernel module package needs to include the kernel version</para></listitem>
-<listitem><para>Precise Requires: kernel-V-R need to be in the kernel module package</para></listitem>
-</itemizedlist>
+    <para>Because Linux kernel modules are typically tied to a particular version of the Linux kernel, special precautions must be taken when packaging kernel modules into a &DSCL;. 
+</para>
+    <para>Keep in mind that the package management system on &MAJOROSVER; does not automatically update or install an updated version of the kernel module if an updated version of the Linux kernel is installed. However, to make packaging the kernel modules into the &DSCL; easier, consider the following recommendations:</para>
+<orderedlist>
+ <listitem><para>Make sure that the name of your kernel module package includes the kernel version.</para></listitem>
+<listitem><para>Make sure that the tag <code>Requires</code>, which can be found in your kernel module spec file, includes the kernel version and revision (in the format <code>kernel-<replaceable>version</replaceable>-<replaceable>revision</replaceable></code>)</para></listitem>
+</orderedlist>
   </section>
   <section id="sect-Software_Collection_SELinux_Support">
     <title>&DSCL; SELinux Support</title>
