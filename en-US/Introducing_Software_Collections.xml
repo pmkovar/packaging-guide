@@ -91,7 +91,6 @@
             |-- &DSCL; root directory
             `-- &DSCL; scriptlets
 	</programlisting>
-    <!--FIXME: What are SC scriptlets, reference them.-->
     <para>For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
   </section>
   <section id="sect-Software_Collection_Scriptlets">

@@ -122,8 +122,8 @@
         </tgroup>
       </table>
     </section>
-    <section id="sect-Macros_Non_Specific_to_a_Software_Collection">
-      <title>Macros Non Specific to a &DSCL;</title>
+    <section id="sect-Macros_Not_Specific_to_a_Software_Collection">
+      <title>Macros Not Specific to a &DSCL;</title>
       <para>The table below shows a list of macros that are not specific to a particular &DSCL;, that is, these macros do not point to the &DSCL; file system. These macros use <code>_root</code> as a prefix.</para>
       <table>
         <title>&DSCL; Non-Specific Macros</title>
