@@ -95,7 +95,7 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> location of the &DSCL; scriptlets </para>
+                <para> location of &DSCL;'s scriptlets </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -127,7 +127,7 @@
       <para>The table below shows a list of macros that are not specific to a particular &DSCL;, that is, these macros do not point to the &DSCL; file system. These macros use <code>_root</code> as a prefix.</para>
       <table>
         <title>&DSCL; Non-Specific Macros</title>
-        <tgroup cols="3">
+        <tgroup cols="4">
           <colspec colname="col_0"/>
           <colspec colname="col_1"/>
           <colspec colname="col_2"/>
@@ -138,6 +138,9 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>Description</para>
+              </entry>              
+              <entry colsep="1" rowsep="1">
+                <para>Relocated</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>Example value</para>
@@ -152,7 +155,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_prefix</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_prefix</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -167,7 +173,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_exec_prefix</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_exec_prefix</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -182,7 +191,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_bindir</code> macro of the &DSCL;</para>
+                <para>&DSCL;'s <code>%_bindir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -197,7 +209,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_sbindir</code> macro of the &DSCL;</para>
+                <para>&DSCL;'s <code>%_sbindir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -212,7 +227,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_datadir</code> macro of the &DSCL;</para>
+                <para>&DSCL;'s <code>%_datadir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -227,7 +245,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_sysconfdir</code> macro of the &DSCL;</para>
+                <para>&DSCL;'s <code>%_sysconfdir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -242,7 +263,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_libexecdir</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_libexecdir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -257,9 +281,12 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_sharedstatedir</code> macro of the &DSCL;</para>
+                <para>&DSCL;'s <code>%_sharedstatedir</code> macro</para>
               </entry>
               <entry colsep="1" rowsep="1">
+                <para>no</para>
+              </entry>
+             <entry colsep="1" rowsep="1">
                 <para>
                   <code>/usr/com</code>
                 </para>
@@ -272,7 +299,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_localstatedir</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_localstatedir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -287,9 +317,12 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_includedir</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_includedir</code> macro</para>
               </entry>
               <entry colsep="1" rowsep="1">
+                <para>no</para>
+              </entry>
+             <entry colsep="1" rowsep="1">
                 <para>
                   <code>/usr/include</code>
                 </para>
@@ -302,7 +335,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_infodir</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_infodir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -317,7 +353,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_mandir</code> macro of the &DSCL; </para>
+                <para>&DSCL;'s <code>%_mandir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -332,7 +371,10 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_initddir</code> macro of the &DSCL;</para>
+                <para>&DSCL;'s <code>%_initddir</code> macro</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -345,7 +387,10 @@
                 <para> %<code>_root_libdir</code> </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> non-relocated <code>%_libdir</code> macro of the &DSCL;, this macro does not work if the &DSCL; meta package is platform-independent </para>
+                <para>&DSCL;'s <code>%_libdir</code> macro, this macro does not work if &DSCL;'s meta package is platform-independent</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>no</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
