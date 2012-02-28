@@ -124,7 +124,7 @@
     </section>
     <section id="sect-Macros_Not_Specific_to_a_Software_Collection">
       <title>Macros Not Specific to a &DSCL;</title>
-      <para>The table below shows a list of macros that are not specific to a particular &DSCL;, that is, these macros do not point to the &DSCL; file system. These macros use <code>_root</code> as a prefix.</para>
+      <para>The table below shows a list of macros that are not specific to a particular &DSCL;, that is, these macros are not relocated and do not point to the &DSCL;'s file system. These macros use <code>_root</code> as a prefix.</para>
       <table>
         <title>&DSCL; Non-Specific Macros</title>
         <tgroup cols="4">
@@ -410,19 +410,19 @@ Software Collection macros simply relocate package to non-conflicting namespaced
       <procedure>
         <title>Converting a Conventional Spec File to a &DSCL; Spec File</title>
         <step>
-          <para>Add the %scl_package macro to the spec file. It must be placed before the spec file preamble, in the following format:</para>
+          <para>Add the <code>%scl_package</code> macro to the spec file. It must be placed before the spec file preamble, in the following format:</para>
           <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>package_name</replaceable>}</programlisting>
         </step>
         <step>
-          <para>In the spec file preamble, change the Name tag as follows:</para>
+          <para>In the spec file preamble, change the <code>Name</code> tag as follows:</para>
           <programlisting language="RPM Spec">Name: %{?scl_prefix}<replaceable>package_name</replaceable></programlisting>
         </step>
         <step>
-          <para>To make sure that all essential &DSCL; packages depend on the main meta package, add the following macro after the BuildRequires or Requires tags in the spec file:</para>
+          <para>To make sure that all essential &DSCL;'s packages depend on the main meta package, add the following macro after the <code>BuildRequires</code> or <code>Requires</code> tags in the spec file:</para>
           <programlisting language="RPM Spec">%{?scl:Requires: %scl_runtime}</programlisting>
         </step>
         <step>
-          <para>In the %prep section of the spec file, edit the %setup macro so that the macro can deal with a different package name in the &DSCL; environment:</para>
+          <para>In the <code>%prep</code> section of the spec file, edit the <code>%setup</code> macro so that the macro can deal with a different package name in the &DSCL; environment:</para>
           <programlisting language="RPM Spec">%setup -q %{?scl:-n %{<replaceable>package_name</replaceable>}-%{version}}</programlisting>
         </step>
               </procedure>
@@ -526,7 +526,7 @@ Requires: %scl_require core2
       <synopsis>
         <command>cat cmd | scl enable core -</command>
       </synopsis>
-      <para>The command above first reads a file named <filename>cmd</filename>, then runs a number of commands stored in the <filename>cmd</filename> file in the environment of the &DSCL; named <application>core</application>.</para>
+      <para>The command above executes commands, which are stored in the <filename>cmd</filename> file, in the environment of the &DSCL; named <application>core</application>.</para>
     </section>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">

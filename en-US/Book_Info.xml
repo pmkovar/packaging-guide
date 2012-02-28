@@ -4,14 +4,14 @@
 %BOOK_ENTITIES;
 ]>
 <bookinfo id="book-Software_Collections_Guide-Software_Collections_Guide">
-	<title>&DSCL;s Guide</title>
+	<title>Software Collections Guide</title>
 	<subtitle>A guide to &DSCL;s for &MAJOROSVER;</subtitle>
 	<productname>Red Hat Developer Toolset</productname>
 	<productnumber>1.0</productnumber>
 	<edition>0</edition>
 	<pubsnumber>0</pubsnumber>
 	<abstract>
-		<para>The &DSCL;s Guide provides an explanation of &DSCL;s, including the process of building and packaging them. The audience are developers and system administrators who have a basic understanding of software packaging and RPM but who are new to the concept of &DSCL;s.</para>
+		<para>The Software Collections Guide provides an explanation of &DSCL;s, including the process of building and packaging them. The audience are developers and system administrators who have a basic understanding of software packaging and RPM but who are new to the concept of &DSCL;s.</para>
 	</abstract>
 	<corpauthor>
 		<inlinemediaobject>
