@@ -2,15 +2,18 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
 ]>
 <book status="draft">
-	<xi:include href="Book_Info.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-	<xi:include href="Preface.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-<xi:include
-      xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="Introducing_Software_Collections.xml" />
-    <xi:include
-      xmlns:xi="http://www.w3.org/2001/XInclude"
-      href="Packaging_Software_Collections.xml" />
-	<xi:include href="Revision_History.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-	<!--<index />-->
+    <xi:include href="Book_Info.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <xi:include href="Preface.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <xi:include href="Introducing_Software_Collections.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <xi:include href="Packaging_Software_Collections.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <xi:include href="Getting_More_Information.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <xi:include href="Revision_History.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <!--<index />-->
 </book>
 

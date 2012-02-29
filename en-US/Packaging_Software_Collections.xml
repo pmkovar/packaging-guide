@@ -692,8 +692,4 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/logrotate.d/<
     <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
     <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
   </section>
-  <section id="sect-Getting_More_Information">
-    <title>Getting More Information</title>
-    <para>Hic sunt leones.</para>
-  </section>
 </chapter>
