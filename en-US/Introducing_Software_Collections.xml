@@ -54,7 +54,7 @@
       <varlistentry>
         <term>Uniquely name all included packages</term>
         <listitem>
-          <para>With &DSCL;'s namespace, all packages that are included in the &DSCL; are uniquely named.
+          <para>With &DSCL;'s namespace, all packages included in the &DSCL; are uniquely named.
 </para>
         </listitem>
       </varlistentry>
@@ -103,34 +103,32 @@
     <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL;'s namespace.</para>
     <section id="sect-Meta_Package">
       <title>Meta Package</title>
-      <para>Each &DSCL; includes a meta package, which installs essential, minimal subset of packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and ships a number of the &DSCL;'s scriptlets. The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
-      <para>The meta package produces the following packages that are part of the &DSCL;:</para>
+      <para>Each &DSCL; includes a meta package, which installs essential, minimal subset of packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and ships a number of the &DSCL;'s scriptlets.</para>
+      <para>The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
+      <para>The meta package produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
         <varlistentry>
           <term>The main package: %{scl_prefix}%scl</term>
           <listitem>
-            <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package contains no files.</para>
-            <para>For example, the main package macro is expanded to:</para>
+            <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
+            <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the main package macro is expanded to:</para>
             <programlisting>scl_core</programlisting>
-            <para>where <literal>core</literal> is the name of the &DSCL;.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The runtime subpackage: scl_<replaceable>name</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and ships the &DSCL;'s scriptlets.</para>
-            <para>For example, the runtime subpackage macro is expanded to:</para>
+            <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the runtime subpackage macro is expanded to:</para>
             <programlisting>scl_core-runtime</programlisting>
-            <para>where <literal>core</literal> is the name of the &DSCL;.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The build subpackage: scl_<replaceable>name</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; ships the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
-            <para>For example, the build subpackage macro is expanded to:</para>
+            <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the build subpackage macro is expanded to:</para>
             <programlisting>scl_core-build</programlisting>
-            <para>where <literal>core</literal> is the name of the &DSCL;.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -192,10 +190,10 @@ EOF
         <varlistentry>
           <term>&DSCL; package: scl_<replaceable>name</replaceable>_<replaceable>pkgname</replaceable></term>
           <listitem>
-            <para>The package collection of the &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL; file system hierarchy.</para>
-            <para>For example, the &DSCL; package name for the <package>ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <para>The &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL;'s file system hierarchy.</para>
+            <para>For example, if the name of the &DSCL; is <literal>ruby_1.8.7</literal>, then the &DSCL;'s package name for the <package>ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
             <programlisting>scl_ruby_1.8.7_ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
-            <para>where <literal>ruby_1.8.7</literal> is the name of the &DSCL;.</para>
+            <para></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -203,7 +201,7 @@ EOF
   </section>
   <section id="sect-Enabling_the_Software_Collection">
     <title>Enabling a &DSCL;</title>
-    <para>The <application>scl</application> tool is used to enable a &DSCL; and to run programs in the &DSCL; environment.</para>
+    <para>The <application>scl</application> tool is used to enable a &DSCL; and to run applications in the &DSCL; environment.</para>
     <para>General usage of the <application>scl</application> tool can be described using the following syntax:</para>
     <synopsis>
       <command>scl</command>
@@ -212,19 +210,28 @@ EOF
       <replaceable>software_collection_2</replaceable>
       <replaceable>command</replaceable>
     </synopsis>
-    <para>For example, use the following command to execute <command>ruby --version</command> in the &DSCL; environment:</para>
-    <synopsis>
-      <command>scl enable ruby_1.8.7 'ruby --version'</command>
-    </synopsis>
-    <para>where <literal>ruby_1.8.7</literal> is the name of the &DSCL;. With this command, the <application>ruby</application> program, which is provided by one of the packages in the &DSCL;, is run in an environment that is completely separated from the system one.</para>
-    <para>With <application>scl</application>, you can also run a program in the separated environment with multiple &DSCL;s enabled. For example, to run the <application>bash</application> shell with the <literal>rails_3.2</literal> and <literal>postgresql_8.2</literal> &DSCL;s, execute the following command:</para>
-    <synopsis>
-      <command>scl enable rails_3.2 postgresql_8.2 bash</command>
-    </synopsis>
-    <para>In the separated environment, it is also possible to execute a list of commands that is, for example, included in a file. You can run the following command to get the commands from the <filename>cmd</filename> file and execute these commands in the separated environment:</para>
-    <synopsis>
-      <command>cat cmd | scl enable core -</command>
-    </synopsis>
-    <para>where <literal>core</literal> is the name of the &DSCL;.</para>
+    <section id="sect-Running_an_Application_Directly">
+      <title>Running an Application Directly</title>
+      <para>For example, to directly run <application>Perl</application> with the <option>--version</option> option in the &DSCL; named <application>core</application>, execute the following command:</para>
+      <synopsis>
+        <command>scl enable core 'perl --version'</command>
+      </synopsis>
+    </section>
+    <section id="sect-Running_a_Shell_with_Multiple_Software_Collections_Enabled">
+      <title>Running a Shell with Multiple &DSCL;s Enabled</title>
+      <para>To run the <application>Bash</application> shell in the environment with multiple &DSCL;s enabled, execute the following command:</para>
+      <synopsis>
+        <command>scl enable core1 core2 bash</command>
+      </synopsis>
+      <para>The command above enables two &DSCL;s named <application>core1</application> and <application>core2</application>.</para>
+    </section>
+    <section id="sect-Running_Commands_Stored_in_a_File">
+      <title>Running Commands Stored in a File</title>
+      <para>To execute a number of commands, which are stored in a file, in the &DSCL; environment, run the following command:</para>
+      <synopsis>
+        <command>cat cmd | scl enable core -</command>
+      </synopsis>
+      <para>The command above executes commands, which are stored in the <filename>cmd</filename> file, in the environment of the &DSCL; named <application>core</application>.</para>
+    </section>
   </section>
 </chapter>

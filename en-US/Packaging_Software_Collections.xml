@@ -5,19 +5,19 @@
   <para>&#xA0;</para>
   <section id="sect-Building_a_Software_Collection_Locally">
     <title>Building a &DSCL; Locally</title>
-    <para>To install a &DSCL; on your system, run the following command:</para>
+    <para>To build a &DSCL; on your system, run the following command:</para>
     <synopsis>
       <command>rpmbuild -bb <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
     </synopsis>
-    <para>As you can see, the difference between the above command and the standard command to build conventional packages (<command>rpmbuild -bb <replaceable>package.spec</replaceable></command>) is that you have to append the <option>--define</option> option to the build command. This option basically defines the scl macro, which takes care of using the &DSCL; as configured in the spec file.</para>
+    <para>As you can see, the difference between the above command and the standard command to build conventional packages (<command>rpmbuild -bb <replaceable>package.spec</replaceable></command>) is that you append the <option>--define</option> option to the build command when building a &DSCL;. </para>
+    <para>The <option>--define</option> option basically defines the <code>scl</code> macro, which takes care of using the &DSCL; as configured in the &DSCL; spec file.</para>
   </section>
   <section id="sect-Software_Collection_Macros">
     <title>&DSCL; Macros</title>
-    <para>The &DSCL; packaging macro is responsible for relocating the file structure that is part of the &DSCL; to a file system, which is used exclusively by the &DSCL;. 
+    <para>The &DSCL; packaging macro <code>scl</code> is responsible for relocating the file structure, which is part of the &DSCL;, to a file system that is used exclusively by the &DSCL;.</para>
+    <para>The <code>scl</code> macro also defines files ownership for the &DSCL;'s meta package and provides additional packaging macros that can be used in the &DSCL; environment.
 </para>
-    <para>The macro also defines file ownerships for the &DSCL; meta package and provides additional packaging macros that can be used in the &DSCL; environment.
-</para>
-    <para>When using &DSCL;s macros in the spec file, you must prefix them with <code>%{?scl:<replaceable>macro</replaceable>}</code>, as in the following example:</para>
+    <para>When using &DSCL; macros in the spec file, you must prefix them with <code>%{?scl:<replaceable>macro</replaceable>}</code>, as in the following example:</para>
     <programlisting language="RPM Spec">%{?scl:Requires:%scl_runtime}</programlisting>
     <para>Here, the <code>%scl_runtime</code> macro is the value of the <code>Requires</code> tag. Both the macro and tag are prefixed with the <code>%{?scl:</code> prefix.</para>
     <section id="sect-Macros_Specific_to_a_Software_Collection">
@@ -80,7 +80,7 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> root of the &DSCL; (not package root) </para>
+                <para> root of the &DSCL; (not package's root) </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -405,10 +405,10 @@
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
     <title>Converting a Conventional Spec File</title>
-        <para>These steps show how to convert a conventional spec file to a &DSCL; spec file so that the latter can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
+        <para>These steps show how to convert a conventional spec file into a &DSCL; spec file so that the latter can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
 Software Collection macros simply relocate package to non-conflicting namespaced path by redefining essential build macros such as %_bindir, %_sysconfdir, etc. and adding Software Collection specific virtual provides. With this concept the Software Collection specific actions in spec file need to be put into the %{?scl: <something> } constructs. --></para>
       <procedure>
-        <title>Converting a Conventional Spec File to a &DSCL; Spec File</title>
+        <title>Converting a Conventional Spec File into a &DSCL; Spec File</title>
         <step>
           <para>Add the <code>%scl_package</code> macro to the spec file. It must be placed before the spec file preamble, in the following format:</para>
           <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>package_name</replaceable>}</programlisting>
@@ -427,7 +427,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
         </step>
               </procedure>
        <bridgehead id="bh-Example_of_the_Converted_Spec_File">Example of the Converted Spec File</bridgehead>
-<para>To get an idea of how a diff between the conventional spec file and the converted spec file like, see the following example of the diff of the converted spec file for the <application>less</application> program:</para>
+<para>To get an idea of how a diff between the conventional spec file and the converted spec file looks like, see the following example that shows the diff of the converted spec file of the <application>less</application> program:</para>
       <programlisting language="RPM Spec">--- a/less.spec
 +++ b/less.spec
 @@ -1,10 +1,12 @@
@@ -487,7 +487,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
   </section>
   <section id="sect-Using_a_Software_Collection_in_Your_Application">
     <title>Using a &DSCL; in Your Application</title>
-<para>To use a &DSCL; in your application, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in your application's spec file so that these tags define proper &DSCL; dependencies.</para>
+<para>To use a &DSCL; in your application, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in your application's spec file so that these tags properly define dependencies on &DSCL;s.</para>
 <para>For example, to define dependencies on two &DSCL;s named <application>core1</application> and <application>core2</application>, add the following three lines to your application's spec file:</para>
 <programlisting language="RPM Spec">BuildRequires: scl-utils-build
 Requires: %scl_require core1
@@ -502,37 +502,14 @@ Requires: %scl_require core2
     </synopsis>
     <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
   </section>
-  <section id="sect-Running_an_Application_in_the_Software_Collection">
+  <!--section id="sect-Running_an_Application_in_the_Software_Collection">
     <title>Running an Application in the &DSCL;</title>
     <para>To run an application that is part of the &DSCL;, use the <command>scl</command> tool. You can run the application directly or use a wrapper script to make running the application in the &DSCL; environment easier.</para>
-    <section id="sect-Running_an_Application_Directly">
-      <title>Running an Application Directly</title>
-      <para>For example, to directly run <application>Perl</application> with the <option>--version</option> option in the &DSCL; named <application>core</application>, execute the following command:</para>
-      <synopsis>
-        <command>scl enable core 'perl --version'</command>
-      </synopsis>
-    </section>
-    <section id="sect-Running_a_Shell_with_Multiple_Software_Collections_Enabled">
-      <title>Running a Shell with Multiple &DSCL;s Enabled</title>
-      <para>To run the <application>Bash</application> shell in the environment with multiple &DSCL;s enabled, execute the following command:</para>
-      <synopsis>
-        <command>scl enable core1 core2 bash</command>
-      </synopsis>
-      <para>The command above enables two &DSCL;s named <application>core1</application> and <application>core2</application>.</para>
-    </section>
-    <section id="sect-Running_Commands_Stored_in_a_File">
-      <title>Running Commands Stored in a File</title>
-      <para>To execute a number of commands, which are stored in a file, in the &DSCL; environment, you can run the following command:</para>
-      <synopsis>
-        <command>cat cmd | scl enable core -</command>
-      </synopsis>
-      <para>The command above executes commands, which are stored in the <filename>cmd</filename> file, in the environment of the &DSCL; named <application>core</application>.</para>
-    </section>
-  </section>
+  </section-->
   <section id="sect-Software_Collection_Initscript_Support">
     <title>&DSCL; Initscript Support</title>
     <para>You are advised to make it possible for users to directly manage any services that can be provided by the &DSCL; or one of the associated application with the system default tools like <application>service</application> or <application>chkconfig</application>.</para>
-    <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the %install section configuration of the spec file as follows:</para>
+    <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows:</para>
     <programlisting language="RPM Spec">
 %install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/rc.d/%{?scl_prefix}<replaceable>service_name</replaceable>
@@ -542,14 +519,14 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/rc.d/%{?scl_p
   </section>
   <section id="sect-Software_Collection_Library_Support">
     <title>&DSCL; Library Support</title>
-    <para>In case you distribute libraries that you intend to use only in the &DSCL; environment or in addition to the libraries available on the system, you can adjust the LD_LIBRARY_PATH environment variable in the spec file as follows:</para>
+    <para>In case you distribute libraries that you intend to use only in the &DSCL; environment or in addition to the libraries available on the system, adjust the <envar>LD_LIBRARY_PATH</envar> environment variable in the spec file as follows:</para>
     <programlisting language="RPM Spec">
 export LD_LIBRARY_PATH=%{_libdir}:$LD_LIBRARY_PATH
 </programlisting>
     <para>This configuration ensures that the version of the library in the &DSCL; is preferred over the version of the library available on the system if the &DSCL; is enabled.</para>
     <para>If you distribute libraries that you intend to use outside of the &DSCL; environment, you can use the directory <filename>/etc/ld.so.conf.d/</filename> for this purpose.</para>
     <warning>
-      <title>Do not use /etc/ld.so.conf.d/ for libraries already available on the system</title>
+      <title>Do not use /etc/ld.so.conf.d/ for libraries available on the system</title>
       <para>Do not use <filename>/etc/ld.so.conf.d/</filename> for libraries already available on the system. Using <filename>/etc/ld.so.conf.d/</filename> is only recommended for a library that is not available on the system, as otherwise the version of the library in the &DSCL; might get preference over the system version of the library. That could have led to undesired behavior of the system versions of the applications, including unexpected termination and data loss.</para>
     </warning>
     <procedure>
@@ -576,13 +553,13 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/ld.so.conf.d/
   </section>
   <section id="sect-Software_Collection_manpath_Support">
     <title>&DSCL; manpath Support</title>
-    <para>In order to allow the system man command to display man pages from the &DSCL; that is enabled, you need update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
+    <para>In order to allow the system man command to display man pages from the enabled &DSCL;, you need update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
     <para>To update the <envar>MANPATH</envar> environment variable, add the following line to the spec file:</para>
     <programlisting language="RPM Spec">export MANPATH=${MANPATH}:%{_mandir}</programlisting>
     <para>This update relocates the <code>%{_mandir}</code> macro to the &DSCL; path. This means that the man pages associated with the &DSCL; will not be visible as long as the &DSCL; is not enabled.</para>
-    <para>There may be cases where the &DSCL; provides a wrapper script visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin</filename> directory. In these cases, the man pages should be visible to the system even if the &DSCL; was not enabled.</para>
-    <para>In order to allow the system man command to display man pages from the &DSCL; that is not enabled, you need to update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
-<procedure><title>Updating the MANPATH environment variable</title>
+    <para>There may be cases where the &DSCL; provides a wrapper script visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin</filename> directory. In these cases, the man pages should be visible to the system even if the &DSCL; is disabled.</para>
+    <para>In order to allow the system man command to display man pages from the disabled &DSCL;, you need to update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
+<procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
 <step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script will be preloaded once a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}manpage.sh</screen></step>
