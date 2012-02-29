@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="chap-Getting_More_Information">
+  <title>Getting More Information</title>
+  <!--Hic sunt leones.-->
+  <para>For more information on &DSCL; packaging, refer to the resources listed below.</para>
+  <bridgehead id="bh-Installed_Documentation">Installed Documentation</bridgehead>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">scl --help</emphasis> &ndash; General usage information for the <application>scl</application> tool for enabling &DSCL;s and running programs in &DSCL;'s environment.</para>
+    </listitem>
+    <listitem>
+      <para><emphasis role="bold">rpmbuild</emphasis> &ndash; The manual page for the <application>rpmbuild</application> utility for building both binary and source packages.</para>
+    </listitem>
+  </itemizedlist>
+  <bridgehead id="bh-Online_Documentation">Online Documentation</bridgehead>
+  <itemizedlist>
+    <listitem>
+      <para><ulink url="http://jnovy.fedorapeople.org/scl-utils/scl.pp.pdf">&DSCL;s Packaging Draft</ulink> (pdf) &ndash; The &DSCL;s Packaging Draft can serve as a quick-start guide on packaging &DSCL;s.</para>
+    </listitem>
+  </itemizedlist>
+</chapter>
