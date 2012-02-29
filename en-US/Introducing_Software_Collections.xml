@@ -100,11 +100,10 @@
   </section>
   <section id="sect-Package_Layout">
     <title>Package Layout</title>
-    <para>The &DSCL; layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL; packages, which are installed within the &DSCL; namespace.</para>
+    <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL;'s namespace.</para>
     <section id="sect-Meta_Package">
       <title>Meta Package</title>
-      <para>
-		Each &DSCL; includes a meta package, which installs essential, minimal subset of packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The &DSCL; also contains a basic file system hierarchy and ships a number of &DSCL; scriptlets. The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
+      <para>Each &DSCL; includes a meta package, which installs essential, minimal subset of packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and ships a number of the &DSCL;'s scriptlets. The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
       <para>The meta package produces the following packages that are part of the &DSCL;:</para>
       <variablelist>
         <varlistentry>
@@ -119,7 +118,7 @@
         <varlistentry>
           <term>The runtime subpackage: scl_<replaceable>name</replaceable>-runtime</term>
           <listitem>
-            <para>The runtime subpackage in the &DSCL; owns the &DSCL; file system and ships the &DSCL; scriptlets.</para>
+            <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and ships the &DSCL;'s scriptlets.</para>
             <para>For example, the runtime subpackage macro is expanded to:</para>
             <programlisting>scl_core-runtime</programlisting>
             <para>where <literal>core</literal> is the name of the &DSCL;.</para>
@@ -128,7 +127,7 @@
         <varlistentry>
           <term>The build subpackage: scl_<replaceable>name</replaceable>-build</term>
           <listitem>
-            <para>The build subpackage in the &DSCL; ships the &DSCL; build configuration. The build subpackage is optional can be excluded from the &DSCL;.</para>
+            <para>The build subpackage in the &DSCL; ships the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, the build subpackage macro is expanded to:</para>
             <programlisting>scl_core-build</programlisting>
             <para>where <literal>core</literal> is the name of the &DSCL;.</para>

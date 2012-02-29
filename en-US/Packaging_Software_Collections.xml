@@ -124,7 +124,7 @@
     </section>
     <section id="sect-Macros_Not_Specific_to_a_Software_Collection">
       <title>Macros Not Specific to a &DSCL;</title>
-      <para>The table below shows a list of macros that are not specific to a particular &DSCL;, that is, these macros are not relocated and do not point to the &DSCL;'s file system. These macros use <code>_root</code> as a prefix.</para>
+      <para>The table below shows a list of macros that are not specific to a particular &DSCL;. These macros are not relocated, that is, they do not point to the &DSCL;'s file system. These macros use <code>_root</code> as a prefix.</para>
       <table>
         <title>&DSCL; Non-Specific Macros</title>
         <tgroup cols="4">
