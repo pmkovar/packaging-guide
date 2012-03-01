@@ -5,7 +5,7 @@
   <para>This chapter introduces you to packaging with &DSCL;s or &DSC;s for short.</para>
   <section id="sect-What_Are_Software_Collections">
     <title>What Are &DSCL;s</title>
-    <para>With &DSCL;s, you can concurrently install multiple versions of the same software packages on your system. &DSCL;s do not affect the system versions of the packages installed by the conventional RPM package manager.
+    <para>With &DSCL;s, you can concurrently install multiple versions of the same RPM packages on your system. &DSCL;s have no impact on the system versions of the packages installed by the conventional RPM package manager.
 </para>
     <variablelist>
     <title>&DSCL;s:</title>
