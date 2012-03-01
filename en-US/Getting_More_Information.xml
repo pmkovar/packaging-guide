@@ -10,7 +10,7 @@
       <para><emphasis role="bold">scl --help</emphasis> &ndash; General usage information for the <application>scl</application> tool for enabling &DSCL;s and running programs in &DSCL;'s environment.</para>
     </listitem>
     <listitem>
-      <para><emphasis role="bold">rpmbuild</emphasis> &ndash; The manual page for the <application>rpmbuild</application> utility for building both binary and source packages.</para>
+      <para><emphasis role="bold">rpmbuild</emphasis>(8) &ndash; The manual page for the <application>rpmbuild</application> utility for building both binary and source packages.</para>
     </listitem>
   </itemizedlist>
   <bridgehead id="bh-Online_Documentation">Online Documentation</bridgehead>

@@ -100,7 +100,7 @@
   </section>
   <section id="sect-Package_Layout">
     <title>Package Layout</title>
-    <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL;'s namespace.</para>
+    <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL; namespace.</para>
     <section id="sect-Meta_Package">
       <title>Meta Package</title>
       <para>Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
