@@ -76,7 +76,7 @@
   </section>
   <section id="sect-File_System_Hierarchy">
     <title>File System Hierarchy</title>
-    <para>The root directory of &DSCL;s is typically located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation.</para>
+    <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation.</para>
     <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file.</para>
     <para>Below is a typical layout of the file system hierarchy with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
     <programlisting><replaceable>&OPT;</replaceable>
@@ -103,7 +103,7 @@
     <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL;'s namespace.</para>
     <section id="sect-Meta_Package">
       <title>Meta Package</title>
-      <para>Each &DSCL; includes a meta package, which installs essential, minimal subset of packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and ships a number of the &DSCL;'s scriptlets.</para>
+      <para>Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
       <para>The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
       <para>The meta package produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
@@ -118,7 +118,7 @@
         <varlistentry>
           <term>The runtime subpackage: scl_<replaceable>name</replaceable>-runtime</term>
           <listitem>
-            <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and ships the &DSCL;'s scriptlets.</para>
+            <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
             <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the runtime subpackage macro is expanded to:</para>
             <programlisting>scl_core-runtime</programlisting>
           </listitem>
@@ -126,14 +126,14 @@
         <varlistentry>
           <term>The build subpackage: scl_<replaceable>name</replaceable>-build</term>
           <listitem>
-            <para>The build subpackage in the &DSCL; ships the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
+            <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the build subpackage macro is expanded to:</para>
             <programlisting>scl_core-build</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Meta Package</bridgehead>
-<para>To get an idea of how a typical &DSCL; meta package looks like, see the following example:</para>
+<para>To get an idea of what a typical &DSCL; meta package looks like, see the following example:</para>
       <programlisting language="RPM Spec">%{!?scl:%global scl example}
 %scl_package %scl
 

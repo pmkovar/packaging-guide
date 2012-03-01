@@ -427,7 +427,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
         </step>
               </procedure>
        <bridgehead id="bh-Example_of_the_Converted_Spec_File">Example of the Converted Spec File</bridgehead>
-<para>To get an idea of how a diff between the conventional spec file and the converted spec file looks like, see the following example that shows the diff of the converted spec file of the <application>less</application> program:</para>
+<para>To get an idea of what the diff between a conventional spec file and a converted spec file looks like, see the following example that shows the diff of the converted spec file of the <application>less</application> program:</para>
       <programlisting language="RPM Spec">--- a/less.spec
 +++ b/less.spec
 @@ -1,10 +1,12 @@
@@ -643,7 +643,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/logrotate.d/<
   </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
     <title>&DSCL; Kernel Module Support</title>
-    <para>Because Linux kernel modules are typically tied to a particular version of the Linux kernel, special precautions must be taken when packaging kernel modules into a &DSCL;. 
+    <para>Because Linux kernel modules are normally tied to a particular version of the Linux kernel, special precautions must be taken when packaging kernel modules into a &DSCL;. 
 </para>
     <para>Keep in mind that the package management system on &MAJOROSVER; does not automatically update or install an updated version of the kernel module if an updated version of the Linux kernel is installed. However, to make packaging the kernel modules into the &DSCL; easier, consider the following recommendations:</para>
     <orderedlist>
