@@ -108,27 +108,27 @@
       <para>The meta package produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
         <varlistentry>
-          <term>The main package: %{scl_prefix}%scl</term>
+          <term>The main package: <!--%{scl_prefix}-->%scl</term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
             <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the main package macro is expanded to:</para>
-            <programlisting>scl_core</programlisting>
+            <programlisting><!--scl_-->core</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The runtime subpackage: scl_<replaceable>name</replaceable>-runtime</term>
+          <term>The runtime subpackage: <!--scl_--><replaceable>name</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
             <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the runtime subpackage macro is expanded to:</para>
-            <programlisting>scl_core-runtime</programlisting>
+            <programlisting><!--scl_-->core-runtime</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The build subpackage: scl_<replaceable>name</replaceable>-build</term>
+          <term>The build subpackage: <!--scl_--><replaceable>name</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the build subpackage macro is expanded to:</para>
-            <programlisting>scl_core-build</programlisting>
+            <programlisting><!--scl_-->core-build</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -188,11 +188,11 @@ EOF
       <para>Besides the minimal subset of packages installed by the meta package, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
       <variablelist>
         <varlistentry>
-          <term>&DSCL; package: scl_<replaceable>name</replaceable>_<replaceable>pkgname</replaceable></term>
+          <term>&DSCL; package: <!--scl_--><replaceable>name</replaceable>-<replaceable>pkgname</replaceable></term>
           <listitem>
             <para>The &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL;'s file system hierarchy.</para>
-            <para>For example, if the name of the &DSCL; is <literal>ruby_1.8.7</literal>, then the &DSCL;'s package name for the <package>ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
-            <programlisting>scl_ruby_1.8.7_ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the &DSCL;'s package name for the <package>ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <programlisting><!--scl_-->ruby-1.8.7-ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
             <para></para>
           </listitem>
         </varlistentry>

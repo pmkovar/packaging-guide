@@ -498,7 +498,7 @@ Requires: %scl_require core2
     <title>Installing a &DSCL;</title>
     <para>To ensure that a &DSCL; is on your system, install the main meta package of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager. For example, to install a &DSCL; named <code>core</code> with <application>Yum</application>, run the following command:</para>
     <synopsis>
-      <command>yum install -y scl_core</command>
+      <command>yum install -y <!--scl_-->core</command>
     </synopsis>
     <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
   </section>
