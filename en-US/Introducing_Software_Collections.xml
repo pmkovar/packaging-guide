@@ -103,7 +103,7 @@
     <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL; namespace.</para>
     <section id="sect-Meta_Package">
       <title>Meta Package</title>
-      <para>Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. For example, it can provide the Perl language interpreter, but no Perl extension modules. The meta package also contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
+      <para>Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. For example, the essential packages can provide the Perl language interpreter, but no Perl extension modules. The meta package contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
       <para>The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
       <para>The meta package produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
@@ -111,24 +111,24 @@
           <term>The main package: <!--%{scl_prefix}-->%scl</term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
-            <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the main package macro is expanded to:</para>
-            <programlisting><!--scl_-->core</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the main package macro is expanded to:</para>
+            <programlisting><!--scl_-->ruby-1.8.7-core</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The runtime subpackage: <!--scl_--><replaceable>name</replaceable>-runtime</term>
+          <term>The runtime subpackage: <!--scl_--><replaceable>name</replaceable>-core-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
-            <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the runtime subpackage macro is expanded to:</para>
-            <programlisting><!--scl_-->core-runtime</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the runtime subpackage macro is expanded to:</para>
+            <programlisting><!--scl_-->ruby-1.8.7-core-runtime</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The build subpackage: <!--scl_--><replaceable>name</replaceable>-build</term>
+          <term>The build subpackage: <!--scl_--><replaceable>name</replaceable>-core-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
-            <para>For example, if the name of the &DSCL; is <literal>core</literal>, then the build subpackage macro is expanded to:</para>
-            <programlisting><!--scl_-->core-build</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the build subpackage macro is expanded to:</para>
+            <programlisting><!--scl_-->ruby-1.8.7-core-build</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>

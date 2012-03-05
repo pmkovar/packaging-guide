@@ -579,12 +579,12 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</p
     <procedure>
       <title>Running regular tasks with cronjobs</title>
       <step>
-        <para>To use cronjobs for running regular tasks, place a <filename>.crontab</filename> file for your &DSCL; in the <filename>/etc/cron.d/</filename> directory with the &DSCL;'s name.</para>
+        <para>To use cronjobs for running regular tasks, place a <filename>crontab</filename> file for your &DSCL; in the <filename>/etc/cron.d/</filename> directory with the &DSCL;'s name.</para>
         <para>For example, create the following file:</para>
         <screen>%{?scl_prefix}crontab</screen>
       </step>
       <step>
-        <para>Ensure that the contents of the <filename>%{?scl_prefix}crontab</filename> file follow the standard <filename>.crontab</filename> file format, as in the following example:</para>
+        <para>Ensure that the contents of the <filename>%{?scl_prefix}crontab</filename> file follow the standard <filename>crontab</filename> file format, as in the following example:</para>
         <screen>0 1 * * Sun root <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/<replaceable>architecture</replaceable>/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
       </step>
       <step>
