@@ -9,7 +9,7 @@
 	<productname>Red Hat Developer Toolset</productname>
 	<productnumber>1.0</productnumber>
 	<edition>0</edition>
-	<pubsnumber>2</pubsnumber>
+	<pubsnumber>6</pubsnumber>
 	<abstract>
 		<para>The Software Collections Guide provides an explanation of &DSCL;s, including the process of building and packaging them. The audience are developers and system administrators who have a basic understanding of software packaging and RPM but who are new to the concept of &DSCL;s.</para>
 	</abstract>
@@ -23,4 +23,3 @@
 	<xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="Author_Group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 </bookinfo>
-
