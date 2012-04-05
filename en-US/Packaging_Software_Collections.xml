@@ -54,7 +54,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>core</code>
+                  <code>software_collection_1</code>
                 </para>
               </entry>
             </row>
@@ -99,7 +99,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/&OPT;/&RH;/core/</code>
+                  <code>/&OPT;/&RH;/software_collection_1/</code>
                 </para>
               </entry>
             </row>
@@ -114,7 +114,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/&OPT;/&RH;/core/root</code>
+                  <code>/&OPT;/&RH;/software_collection_1/root</code>
                 </para>
               </entry>
             </row>
@@ -488,19 +488,26 @@ Software Collection macros simply relocate package to non-conflicting namespaced
   <section id="sect-Using_a_Software_Collection_in_Your_Application">
     <title>Using a &DSCL; in Your Application</title>
 <para>To use a &DSCL; in your application, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in your application's spec file so that these tags properly define dependencies on &DSCL;s.</para>
-<para>For example, to define dependencies on two &DSCL;s named <application>core1</application> and <application>core2</application>, add the following three lines to your application's spec file:</para>
+<para>For example, to define dependencies on two &DSCL;s named <application>software_collection_1</application> and <application>software_collection_2</application>, add the following three lines to your application's spec file:</para>
 <programlisting language="RPM Spec">BuildRequires: scl-utils-build
-Requires: %scl_require core1
-Requires: %scl_require core2
+Requires: %scl_require software_collection_1
+Requires: %scl_require software_collection_2
 </programlisting>
   </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>
-    <para>To ensure that a &DSCL; is on your system, install the main meta package of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager. For example, to install a &DSCL; named <code>core</code> with <application>Yum</application>, run the following command:</para>
+    <para>To ensure that a &DSCL; is on your system, install the main meta package of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager. For example, to install a &DSCL; named <code>software_collection_1</code> with <application>Yum</application>, run the following command:</para>
     <synopsis>
-      <command>yum install -y <!--scl_-->core</command>
+      <command>yum install -y <!--scl_-->software_collection_1</command>
     </synopsis>
     <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
+  </section>
+  <section id="sect-Listing_Installed_Software_Collections">
+    <title>Listing Installed &DSCL;s</title>
+    <para>To get a list of &DSCL;s that are currently installed on the system, run the following command:</para>
+    <synopsis>
+      <command>scl --list</command>
+    </synopsis>
   </section>
   <!--section id="sect-Running_an_Application_in_the_Software_Collection">
     <title>Running an Application in the &DSCL;</title>
@@ -539,9 +546,9 @@ SOURCE2: %{?scl_prefix}libs.conf
       </step>
       <step>
         <para>In the <filename>%{?scl_prefix}libs.conf</filename> file, include a list of directories where the versions of the libraries associated with the &DSCL; are located. For example:</para>
-        <programlisting>/&OPT;/&RH;/core/root/usr/lib64/
+        <programlisting>/&OPT;/&RH;/software_collection_1/root/usr/lib64/
 </programlisting>
-        <para>In the example above, the <filename>/usr/lib64/</filename> directory that is part of the &DSCL; <application>core</application> is included in the list.</para>
+        <para>In the example above, the <filename>/usr/lib64/</filename> directory that is part of the &DSCL; <application>software_collection_1</application> is included in the list.</para>
       </step>
       <step>
         <para>Edit the <code>%install</code> section of the spec file, so the <filename>%{?scl_prefix}libs.conf</filename> file is installed as follows:</para>
@@ -657,14 +664,14 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/logrotate.d/<
     <title>&DSCL; SELinux Support</title>
     <para>Because &DSCL;s are designed to install the &DSCL; packages in an alternate directory, set up the necessary SELinux labels so that SELinux is aware of the alternate directory.</para>
     <para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
-    <para>For example, if the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels as follows:</para>
+    <para>For example, if the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels as follows:</para>
     <synopsis>
-      <command>semanage fcontext -a -e /usr /&OPT;/&RH;/core/x86_64/root/usr</command>
+      <command>semanage fcontext -a -e /usr /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
     </synopsis>
     <synopsis>
-      <command>restorecon -R -v /&OPT;/&RH;/core/x86_64/root/usr</command>
+      <command>restorecon -R -v /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
     </synopsis>
-    <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/core/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
+    <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
     <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
   </section>
 </chapter>

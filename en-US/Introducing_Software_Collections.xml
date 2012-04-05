@@ -112,23 +112,23 @@
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
             <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the main package macro is expanded to:</para>
-            <programlisting><!--scl_-->ruby-1.8.7-core</programlisting>
+            <programlisting><!--scl_-->ruby-1.8.7<!---core--></programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The runtime subpackage: <!--scl_--><replaceable>name</replaceable>-core-runtime</term>
+          <term>The runtime subpackage: <!--scl_--><replaceable>name</replaceable><!---core-->-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
             <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the runtime subpackage macro is expanded to:</para>
-            <programlisting><!--scl_-->ruby-1.8.7-core-runtime</programlisting>
+            <programlisting><!--scl_-->ruby-1.8.7<!---core-->-runtime</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The build subpackage: <!--scl_--><replaceable>name</replaceable>-core-build</term>
+          <term>The build subpackage: <!--scl_--><replaceable>name</replaceable><!---core-->-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the build subpackage macro is expanded to:</para>
-            <programlisting><!--scl_-->ruby-1.8.7-core-build</programlisting>
+            <programlisting><!--scl_-->ruby-1.8.7<!---core-->-build</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -212,26 +212,26 @@ EOF
     </synopsis>
     <section id="sect-Running_an_Application_Directly">
       <title>Running an Application Directly</title>
-      <para>For example, to directly run <application>Perl</application> with the <option>--version</option> option in the &DSCL; named <application>core</application>, execute the following command:</para>
+      <para>For example, to directly run <application>Perl</application> with the <option>--version</option> option in the &DSCL; named <application>software_collection_1</application>, execute the following command:</para>
       <synopsis>
-        <command>scl enable core 'perl --version'</command>
+        <command>scl enable software_collection_1 'perl --version'</command>
       </synopsis>
     </section>
     <section id="sect-Running_a_Shell_with_Multiple_Software_Collections_Enabled">
       <title>Running a Shell with Multiple &DSCL;s Enabled</title>
       <para>To run the <application>Bash</application> shell in the environment with multiple &DSCL;s enabled, execute the following command:</para>
       <synopsis>
-        <command>scl enable core1 core2 bash</command>
+        <command>scl enable software_collection_1 software_collection_2 bash</command>
       </synopsis>
-      <para>The command above enables two &DSCL;s named <application>core1</application> and <application>core2</application>.</para>
+      <para>The command above enables two &DSCL;s named <application>software_collection_1</application> and <application>software_collection_2</application>.</para>
     </section>
     <section id="sect-Running_Commands_Stored_in_a_File">
       <title>Running Commands Stored in a File</title>
       <para>To execute a number of commands, which are stored in a file, in the &DSCL; environment, run the following command:</para>
       <synopsis>
-        <command>cat cmd | scl enable core -</command>
+        <command>cat cmd | scl enable software_collection_1 -</command>
       </synopsis>
-      <para>The command above executes commands, which are stored in the <filename>cmd</filename> file, in the environment of the &DSCL; named <application>core</application>.</para>
+      <para>The command above executes commands, which are stored in the <filename>cmd</filename> file, in the environment of the &DSCL; named <application>software_collection_1</application>.</para>
     </section>
   </section>
 </chapter>
