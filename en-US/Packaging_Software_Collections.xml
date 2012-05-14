@@ -533,7 +533,7 @@ export LD_LIBRARY_PATH=%{_libdir}:$LD_LIBRARY_PATH
     <para>This configuration ensures that the version of the library in the &DSCL; is preferred over the version of the library available on the system if the &DSCL; is enabled.</para>
     <para>If you distribute libraries that you intend to use outside of the &DSCL; environment, you can use the directory <filename>/etc/ld.so.conf.d/</filename> for this purpose.</para>
     <warning>
-      <title>Do not use /etc/ld.so.conf.d/ for libraries available on the system</title>
+      <!--title>Do not use /etc/ld.so.conf.d/ for libraries available on the system</title-->
       <para>Do not use <filename>/etc/ld.so.conf.d/</filename> for libraries already available on the system. Using <filename>/etc/ld.so.conf.d/</filename> is only recommended for a library that is not available on the system, as otherwise the version of the library in the &DSCL; might get preference over the system version of the library. That could have led to undesired behavior of the system versions of the applications, including unexpected termination and data loss.</para>
     </warning>
     <procedure>
