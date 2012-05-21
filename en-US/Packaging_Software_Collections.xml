@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Packaging_Software_Collections">
   <title>Packaging &DSCL;s</title>
-  <para>&#xA0;</para>
+  <para>This chapter introduces you to packaging &DSCL;s.</para>
   <section id="sect-Building_a_Software_Collection_Locally">
     <title>Building a &DSCL; Locally</title>
     <para>To build a &DSCL; on your system, run the following command:</para>

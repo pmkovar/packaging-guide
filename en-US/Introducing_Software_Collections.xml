@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Introducing_Software_Collections">
   <title>Introducing &DSCL;s</title>
-  <para>This chapter introduces you to packaging with &DSCL;s or &DSC;s for short.</para>
+  <para>This chapter introduces you to the concept of &DSCL;s or &DSC;s for short.</para>
   <section id="sect-What_Are_Software_Collections">
     <title>What Are &DSCL;s</title>
     <para>With &DSCL;s, you can concurrently install multiple versions of the same RPM packages on your system. &DSCL;s have no impact on the system versions of the packages installed by the conventional RPM package manager.
