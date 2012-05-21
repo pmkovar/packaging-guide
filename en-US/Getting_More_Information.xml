@@ -7,6 +7,9 @@
   <bridgehead id="bh-Installed_Documentation">Installed Documentation</bridgehead>
   <itemizedlist>
     <listitem>
+      <para><emphasis role="bold">scl</emphasis>(1) &ndash; The manual page for the <application>scl</application> tool for enabling &DSCL;s and running programs in &DSCL;'s environment.</para>
+    </listitem>
+    <listitem>
       <para><emphasis role="bold">scl --help</emphasis> &ndash; General usage information for the <application>scl</application> tool for enabling &DSCL;s and running programs in &DSCL;'s environment.</para>
     </listitem>
     <listitem>
@@ -15,8 +18,37 @@
   </itemizedlist>
   <bridgehead id="bh-Online_Documentation">Online Documentation</bridgehead>
   <itemizedlist>
-    <listitem>
+    <!--listitem>
       <para><ulink url="http://jnovy.fedorapeople.org/scl-utils/scl.pp.pdf">&DSCL;s Packaging Draft</ulink> (pdf) &ndash; The &DSCL;s Packaging Draft can serve as a quick-start guide on packaging &DSCL;s.</para>
-    </listitem>
+    </listitem-->
+    <listitem>
+         <para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Developer_Toolset/1.0/html/User_Guide/index.html">Red Hat Developer Toolset 1.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 1.0 contains information about Red Hat Developer Toolset that is a new Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>gcc</application> compiler, <application>gdb</application> debugger and other binary utilities.</para>
+       </listitem>
+       <listitem>
+         <para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed <!--description of Red Hat Developer Toolset features, as well as -->information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/index.html">Red Hat Enterprise Linux 6 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 6 provides more details on getting, installing, and updating the system.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Installation_Guide/index.html">Red Hat Enterprise Linux 5 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 5 provides more details on getting, installing, and updating the system.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 6 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 6.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
+         </para>
+       </listitem>
   </itemizedlist>
 </chapter>

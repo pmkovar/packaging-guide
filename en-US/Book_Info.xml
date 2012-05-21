@@ -9,7 +9,7 @@
 	<productname>Red Hat Developer Toolset</productname>
 	<productnumber>1.0</productnumber>
 	<edition>0</edition>
-	<pubsnumber>9</pubsnumber>
+	<pubsnumber>10</pubsnumber>
 	<abstract>
 		<para>The Software Collections Guide provides an explanation of &DSCL;s, including the process of building and packaging them. The audience are developers and system administrators who have a basic understanding of software packaging and RPM but who are new to the concept of &DSCL;s.</para>
 	</abstract>
