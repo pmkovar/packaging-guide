@@ -558,28 +558,6 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/ld.so.conf.d/
       </step>
     </procedure>
   </section>
-  <section id="sect-Software_Collection_manpath_Support">
-    <title>&DSCL; manpath Support</title>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages that are associated with the &DSCL;.</para>
-    <para>To update the <envar>MANPATH</envar> environment variable, add the following line to the spec file:</para>
-    <programlisting language="RPM Spec">export MANPATH=${MANPATH}:%{_mandir}</programlisting>
-    <para>This update relocates the <code>%{_mandir}</code> macro to the &DSCL; path. So that the manual pages associated with the &DSCL; are not visible as long as the &DSCL; is not enabled.</para>
-    <para>Under certain circumstances the &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
-<procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
-<step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
-<para>For example, create the following file:</para>
-    <screen>%{?scl_prefix}manpage.sh</screen></step>
-<step><para>Use the <filename>%{?scl_prefix}manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
-    <screen>export MANPATH=${MANPATH}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/man_pages</replaceable></screen></step>
-<step><para>Add the file to your &DSCL; package's spec file:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
-    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-    <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
-</step>
-</procedure>
-  </section>
 <section id="sect-Software_Collection_pc_Files_Support">
     <title>&DSCL; .pc Files Support</title>
     <para>.pc files are special metadata files used by the <application>pkg-config</application> program to store information about libraries available on the system. In case you distribute .pc files that you intend to use only in the &DSCL; environment or in addition to the .pc files installed on the system, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable. Depending on what is defined in your .pc files, either adjust the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro (which expands to the library directory, typically <filename>/usr/share/</filename>) or the <varname>%{_datadir}</varname> macro (which expands to the share directory, typically <filename>/usr/share/</filename>).</para>
@@ -621,6 +599,28 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</p
 </step>
 </procedure>
 </section>
+  <section id="sect-Software_Collection_manpath_Support">
+    <title>&DSCL; manpath Support</title>
+    <para>To allow the <command>man</command> command on the system to display manual pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages that are associated with the &DSCL;.</para>
+    <para>To update the <envar>MANPATH</envar> environment variable, add the following line to the spec file:</para>
+    <programlisting language="RPM Spec">export MANPATH=${MANPATH}:%{_mandir}</programlisting>
+    <para>This update relocates the <code>%{_mandir}</code> macro to the &DSCL; path. So that the manual pages associated with the &DSCL; are not visible as long as the &DSCL; is not enabled.</para>
+    <para>Under certain circumstances the &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
+    <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
+<procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
+<step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
+<para>For example, create the following file:</para>
+    <screen>%{?scl_prefix}manpage.sh</screen></step>
+<step><para>Use the <filename>%{?scl_prefix}manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
+    <screen>export MANPATH=${MANPATH}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/man_pages</replaceable></screen></step>
+<step><para>Add the file to your &DSCL; package's spec file:</para>
+<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
+    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
+    <programlisting language="RPM Spec">%install
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
+</step>
+</procedure>
+  </section>
     <section id="sect-Software_Collection_SystemTap_Support">
     <title>&DSCL; SystemTap Support</title>
     <para>SystemTap is a useful instrumentation platform for probing running processes and kernel activity on the Linux system.  In case you distribute the SystemTap data directory for cached SystemTap data files that you intend to use only in the &DSCL; environment or in addition to the SystemTap data files available on the system, adjust the <envar>XDG_DATA_DIRS</envar> environment variable in the spec file as follows:</para>

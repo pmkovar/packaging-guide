@@ -4,7 +4,7 @@
   <title>Introducing &DSCL;s</title>
   <para>This chapter introduces you to the concept of &DSCL;s or &DSC;s for short.</para>
   <section id="sect-What_Are_Software_Collections">
-    <title>What Are &DSCL;s</title>
+    <title>What Are &DSCL;s?</title>
     <para>With &DSCL;s, you can concurrently install multiple versions of the same RPM packages on your system. &DSCL;s have no impact on the system versions of the packages installed by the conventional RPM package manager.
 </para>
     <variablelist>
@@ -83,7 +83,7 @@
 <para>The <package>scl-utils-build</package> package provides macros that are essential for building &DSCL;s.</para>
 </section>
   <section id="sect-File_System_Hierarchy">
-    <title>File System Hierarchy</title>
+    <title>The File System Hierarchy</title>
     <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation.</para>
     <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file.</para>
     <para>Below is a typical layout of the file system hierarchy with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
