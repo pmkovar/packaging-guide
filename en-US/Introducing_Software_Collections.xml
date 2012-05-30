@@ -3,6 +3,37 @@
 <chapter id="chap-Introducing_Software_Collections">
   <title>Introducing &DSCL;s</title>
   <para>This chapter introduces you to the concept of &DSCL;s or &DSC;s for short.</para>
+       <section id="sect-Why_to_Package_Software_with_RPM">
+       <title>Why Package Software with RPM?</title>
+   <para>The Red Hat Package Manager (RPM) makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
+    <variablelist>
+    <title>With RPM, you can:</title>
+    <varlistentry>
+     <term>Install, reinstall, remove, upgrade and verify packages.</term>
+      <listitem><para>Users can use standard package management tools (for example <application>Yum</application> or <application>PackageKit</application>) to install, reinstall, remove, upgrade and verify your RPM packages.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>Use a database of installed packages to query and verify packages.</term>
+      <listitem><para>Because RPM maintains a database of installed packages and their files, users can easily query and verify packages on their system.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>Use metadata to describe packages, their installation instructions, and so on.</term>
+      <listitem><para>Each RPM package includes metadata that describes the package's components, version, release, size, project URL, installation instructions, and so on.</para></listitem>
+          </varlistentry>
+    <varlistentry>
+     <term>Package pristine software sources into source and binary packages.</term>
+      <listitem><para>RPM allows you to take pristine software sources and package them into source and binary packages for your users. In source packages, you have the pristine sources along with any patches that were used, plus complete build instructions. This design eases the maintenance of the packages as new versions of your software are released.</para></listitem>
+      </varlistentry>
+    <varlistentry>
+     <term>Add packages to Yum repositories.</term>
+      <listitem><para>You can add your package to a <application>Yum</application> repository that enables clients to easily find and deploy your software.</para></listitem>
+      </varlistentry>
+    <varlistentry>
+     <term>Digitally sign your packages.</term>
+      <listitem><para>Using a GPG signing key, you can digitally sign your package so that users are able to verify the authenticity of the package.</para></listitem>
+      </varlistentry>
+    </variablelist>
+    </section>
   <section id="sect-What_Are_Software_Collections">
     <title>What Are &DSCL;s?</title>
     <para>With &DSCL;s, you can concurrently install multiple versions of the same RPM packages on your system. &DSCL;s have no impact on the system versions of the packages installed by the conventional RPM package manager.
@@ -82,11 +113,19 @@
 <para>The <package>scl-utils</package> package provides the <application>scl</application> tool that lets you enable &DSCL;s on your system. For more information on enabling &DSCL;s, refer to <xref linkend="sect-Enabling_the_Software_Collection"/>.</para>
 <para>The <package>scl-utils-build</package> package provides macros that are essential for building &DSCL;s.</para>
 </section>
-  <section id="sect-File_System_Hierarchy">
-    <title>The File System Hierarchy</title>
-    <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation.</para>
-    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file.</para>
-    <para>Below is a typical layout of the file system hierarchy with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
+  <section id="sect-Recommended_File_System_Hierarchy">
+    <title>The Recommended File System Hierarchy</title>
+    <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation. The use of the <filename>/&OPT;/</filename> directory is recommended by the UNIX Filesystem Hierarchy Standard (FHS).</para>
+    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file. You are advised to make the file system hierarchy conform to the following layout:</para>
+    <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>application-version</replaceable>/</programlisting>
+    <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the UNIX Filesystem Hierarchy Standard.</para>
+    <para>For more information on the UNIX Filesystem Hierarchy Standard, refer to <ulink url="http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</ulink>.</para>
+    <para>For more information on the Linux Assigned Names and Numbers Authority, refer to <ulink url="http://www.lanana.org/">http://www.lanana.org/</ulink>.</para>
+  </section>
+  <section id="sect-Default_File_System_Hierarchy">
+    <title>The Default File System Hierarchy</title>
+    <para>The location of the root directory of &DSCL;s is defined by the <code>%_scl_prefix</code> macro, which is by default set to the <filename>/opt/rh/</filename> directory. This location of the root directory conforms to the UNIX Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
+    <para>Below is the default layout of the file system hierarchy with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
     <programlisting><replaceable>&OPT;</replaceable>
 `-- <replaceable>&RH;</replaceable>
     |-- &DSCL; 1
