@@ -114,7 +114,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/&OPT;/&RH;/software_collection_1/root</code>
+                  <code>/&OPT;/&RH;/software_collection_1/root/</code>
                 </para>
               </entry>
             </row>
@@ -162,7 +162,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr</code>
+                  <code>/usr/</code>
                 </para>
               </entry>
             </row>
@@ -180,7 +180,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr</code>
+                  <code>/usr/</code>
                 </para>
               </entry>
             </row>
@@ -198,7 +198,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/bin</code>
+                  <code>/usr/bin/</code>
                 </para>
               </entry>
             </row>
@@ -216,7 +216,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/sbin</code>
+                  <code>/usr/sbin/</code>
                 </para>
               </entry>
             </row>
@@ -234,7 +234,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/share</code>
+                  <code>/usr/share/</code>
                 </para>
               </entry>
             </row>
@@ -252,7 +252,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/etc</code>
+                  <code>/etc/</code>
                 </para>
               </entry>
             </row>
@@ -270,7 +270,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/libexec</code>
+                  <code>/usr/libexec/</code>
                 </para>
               </entry>
             </row>
@@ -288,7 +288,7 @@
               </entry>
              <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/com</code>
+                  <code>/usr/com/</code>
                 </para>
               </entry>
             </row>
@@ -306,7 +306,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/var</code>
+                  <code>/usr/var/</code>
                 </para>
               </entry>
             </row>
@@ -324,7 +324,7 @@
               </entry>
              <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/include</code>
+                  <code>/usr/include/</code>
                 </para>
               </entry>
             </row>
@@ -342,7 +342,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/share/info</code>
+                  <code>/usr/share/info/</code>
                 </para>
               </entry>
             </row>
@@ -360,7 +360,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/share/man</code>
+                  <code>/usr/share/man/</code>
                 </para>
               </entry>
             </row>
@@ -378,7 +378,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/etc/rc.d/init.d</code>
+                  <code>/etc/rc.d/init.d/</code>
                 </para>
               </entry>
             </row>
@@ -394,7 +394,7 @@
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>/usr/lib</code>
+                  <code>/usr/lib/</code>
                 </para>
               </entry>
             </row>
@@ -561,7 +561,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/ld.so.conf.d/
   </section>
 <section id="sect-Software_Collection_pc_Files_Support">
     <title>&DSCL; .pc Files Support</title>
-    <para>The .pc files are special metadata files used by the <application>pkg-config</application> program to store information about libraries available on the system. In case you distribute .pc files that you intend to use only in the &DSCL; environment or in addition to the .pc files installed on the system, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable. Depending on what is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro (which expands to the library directory, typically <filename>/usr/share/</filename>), or for the <varname>%{_datadir}</varname> macro (which expands to the share directory, typically <filename>/usr/share/</filename>).</para>
+    <para>The .pc files are special metadata files used by the <application>pkg-config</application> program to store information about libraries available on the system. In case you distribute .pc files that you intend to use only in the &DSCL; environment or in addition to the .pc files installed on the system, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable. Depending on what is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro (which expands to the library directory, typically <filename>/usr/lib/</filename> or <filename>/usr/lib64/</filename>), or for the <varname>%{_datadir}</varname> macro (which expands to the share directory, typically <filename>/usr/share/</filename>).</para>
     <para>If the library directory is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable in the spec file as follows:</para>
     <programlisting language="RPM Spec">
 export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:\$PKG_CONFIG_PATH
