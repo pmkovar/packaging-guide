@@ -414,6 +414,11 @@ Software Collection macros simply relocate package to non-conflicting namespaced
           <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>package_name</replaceable>}</programlisting>
         </step>
         <step>
+        <para>You are advised to define the <varname>%pkg_name</varname> macro in the spec file in case the package is not built for the &DSCL;:</para>
+        <programlisting language="RPM Spec">%{!?scl:%global pkg_name %{name}}</programlisting>
+        <para>Consequently, you can use the <varname>%pkg_name</varname> macro to define the original name of the package wherever it is needed in the spec file that you can then use for building both the conventional package and the &DSCL;.</para>
+        </step>
+        <step>
           <para>Change the <code>Name</code> tag in the spec file preamble as follows:</para>
           <programlisting language="RPM Spec">Name: %{?scl_prefix}<replaceable>package_name</replaceable></programlisting>
         </step>
@@ -423,49 +428,50 @@ Software Collection macros simply relocate package to non-conflicting namespaced
         </step>
         <step>
           <para>Edit the <code>%setup</code> macro in the <code>%prep</code> section of the spec file so that the macro can deal with a different package name in the &DSCL; environment:</para>
-          <programlisting language="RPM Spec">%setup -q %{?scl:-n %{<replaceable>package_name</replaceable>}-%{version}}</programlisting>
+          <programlisting language="RPM Spec">%setup -q -n %{pkg_name}-%{version}</programlisting>
         </step>
               </procedure>
        <bridgehead id="bh-Example_of_the_Converted_Spec_File">Example of the Converted Spec File</bridgehead>
 <para>To see what the diff file comparing a conventional spec file with a converted spec file looks like, see the following example:</para>
       <programlisting language="RPM Spec">--- a/less.spec
 +++ b/less.spec
-@@ -1,10 +1,12 @@
+@@ -1,10 +1,13 @@
 +%{?scl:%scl_package less}
++%{!?scl:%global pkg_name %{name}}
 +
  Summary: A text file browser similar to more, but better
 -Name: less
 +Name: %{?scl_prefix}less
- Version: 443
- Release: 1%{?dist}
+ Version: 444
+ Release: 7%{?dist}
  License: GPLv3+
  Group: Applications/Text
 -Source: http://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-+Source: http://www.greenwoodsoftware.com/less/less-%{version}.tar.gz
++Source: http://www.greenwoodsoftware.com/less/%{pkg_name}-%{version}.tar.gz
  Source1: lesspipe.sh
  Source2: less.sh
  Source3: less.csh
-@@ -19,6 +21,7 @@ Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+@@ -19,6 +22,7 @@ URL: http://www.greenwoodsoftware.com/less/
+ Requires: groff
  BuildRequires: ncurses-devel
- BuildRequires: pcre-devel
  BuildRequires: autoconf automake libtool
-+%{?scl:Requires:%scl_runtime}
++%{?scl:Requires: %scl_runtime}
  
  %description
  The less utility is a text file browser that resembles more, but has
-@@ -31,7 +34,7 @@ You should install less because it is a basic utility for viewing text
+@@ -31,7 +35,7 @@ You should install less because it is a basic utility for viewing text
  files, and you'll use it frequently.
  
  %prep
 -%setup -q
-+%setup -q %{?scl:-n %{pkg_name}-%{version}}
++%setup -q -n %{pkg_name}-%{version}
  %patch1 -p1 -b .Foption
+ %patch2 -p1 -b .search
  %patch4 -p1 -b .time
- %patch5 -p1 -b .fsync
-@@ -52,16 +55,16 @@ make CC="gcc $RPM_OPT_FLAGS -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOU
+@@ -51,16 +55,16 @@ make CC="gcc $RPM_OPT_FLAGS -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOU
+ %install
  rm -rf $RPM_BUILD_ROOT
- %makeinstall
- strip -R .comment $RPM_BUILD_ROOT/%{_bindir}/less
+ make DESTDIR=$RPM_BUILD_ROOT install
 -mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 +mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
  install -p -c -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}
@@ -520,7 +526,7 @@ Requires: %scl_require software_collection_2
     <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows:</para>
     <programlisting language="RPM Spec">
 %install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/rc.d/%{?scl_prefix}<replaceable>service_name</replaceable>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/%{?scl_prefix}<replaceable>service_name</replaceable>
 </programlisting>
     <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
     <screen>%{?scl_prefix}<replaceable>service_name</replaceable></screen>
@@ -554,7 +560,7 @@ SOURCE2: %{?scl_prefix}libs.conf
       <step>
         <para>Edit the <code>%install</code> section of the spec file, so the <filename>%{?scl_prefix}libs.conf</filename> file is installed as follows:</para>
         <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/ld.so.conf.d/
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/ld.so.conf.d/
 </programlisting>
       </step>
     </procedure>
@@ -583,7 +589,7 @@ export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:\$PKG_CONFIG_PATH
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-libdir.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
     <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
 </step>
 </procedure>
 <procedure><title>Updating the PKG_CONFIG_PATH environment variable for %{_datadir}</title>
@@ -596,7 +602,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</p
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-datadir.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
     <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
 </step>
 </procedure>
 </section>
@@ -618,7 +624,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</p
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
     <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
 </step>
 </procedure>
   </section>
@@ -641,7 +647,7 @@ export XDG_DATA_DIRS=%{_datadir}:\$XDG_DATA_DIRS
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}systemtap.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
     <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</programlisting>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
 </step>
 </procedure>
   </section>
@@ -666,7 +672,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/profile.d/</p
       <step>
         <para>Install the file into the system directory <filename>/etc/cron.d/</filename> by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
         <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/cron.d/
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/cron.d/
 </programlisting>
       </step>
     </procedure>
@@ -698,7 +704,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/cron.d/
       <step>
         <para>Install the file into the system directory <filename>/etc/logrotate.d/</filename> by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
         <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_root_sysconfdir}/logrotate.d/</programlisting>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/logrotate.d/</programlisting>
       </step>
     </procedure>
   </section>
