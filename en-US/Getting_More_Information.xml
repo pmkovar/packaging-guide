@@ -23,7 +23,7 @@
     </listitem-->
     <listitem>
          <para>
-           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Developer_Toolset/1.0/html/User_Guide/index.html">Red Hat Developer Toolset 1.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 1.0 contains information about Red Hat Developer Toolset that is a new Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://docs.redhat.com/docs/en-US/Red_Hat_Developer_Toolset/1/html/User_Guide/index.html">Red Hat Developer Toolset 1.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 1.0 contains information about Red Hat Developer Toolset that is a new Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
        <listitem>
          <para>
