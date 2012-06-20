@@ -57,7 +57,7 @@
       <varlistentry>
         <term>Require no changes to the RPM package manager</term>
         <listitem>
-          <para>&DSCL; require no changes to the RPM package manager present on the host system.
+          <para>&DSCL;s require no changes to the RPM package manager present on the host system.
 </para>
         </listitem>
       </varlistentry>
