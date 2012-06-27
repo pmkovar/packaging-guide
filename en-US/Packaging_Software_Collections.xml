@@ -583,7 +583,7 @@ export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:\$PKG_CONFIG_PATH
 <step><para>To update the <envar>PKG_CONFIG_PATH</envar> environment variable the <varname>%{_libdir}</varname> macro, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-libdir.sh</screen></step>
-<step><para>Use the <filename>%{?scl_prefix}pc-libdir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
+<step><para>Use the <filename>pc-libdir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
     <screen>export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-libdir.sh</programlisting></step>
@@ -596,7 +596,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 <step><para>To update the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_datadir}</varname> macro, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-datadir.sh</screen></step>
-<step><para>Use the <filename>%{?scl_prefix}pc-datadir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
+<step><para>Use the <filename>pc-datadir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
     <screen>export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-datadir.sh</programlisting></step>
@@ -618,7 +618,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 <step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}manpage.sh</screen></step>
-<step><para>Use the <filename>%{?scl_prefix}manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
+<step><para>Use the <filename>manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
     <screen>export MANPATH=${MANPATH}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/man_pages</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
@@ -641,7 +641,7 @@ export XDG_DATA_DIRS=%{_datadir}:\$XDG_DATA_DIRS
 <step><para>To update the <envar>XDG_DATA_DIRS</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}systemtap.sh</screen></step>
-<step><para>Use the <filename>%{?scl_prefix}systemtap.sh</filename> short script that modifies the <envar>XDG_DATA_DIRS</envar> variable to refer to your SystemTap data files directory:</para>
+<step><para>Use the <filename>systemtap.sh</filename> short script that modifies the <envar>XDG_DATA_DIRS</envar> variable to refer to your SystemTap data files directory:</para>
     <screen>export XDG_DATA_DIRS=${XDG_DATA_DIRS}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/systemtap_data_files</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}systemtap.sh</programlisting></step>
@@ -662,7 +662,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
         <screen>%{?scl_prefix}crontab</screen>
       </step>
       <step>
-        <para>Ensure that the contents of the <filename>%{?scl_prefix}crontab</filename> file follow the standard <filename>crontab</filename> file format, as in the following example:</para>
+        <para>Ensure that the contents of the <filename>crontab</filename> file follow the standard <filename>crontab</filename> file format, as in the following example:</para>
         <screen>0 1 * * Sun root <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/<replaceable>architecture</replaceable>/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
       </step>
       <step>
@@ -688,7 +688,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
         <screen>%{?scl_prefix}logrotate</screen>
       </step>
       <step>
-        <para>Ensure that the contents of the <filename>%{?scl_prefix}logrotate</filename> follow the standard logrotate file format as follows:</para>
+        <para>Ensure that the contents of the <filename>logrotate</filename> file follow the standard <filename>logrotate</filename> file format as follows:</para>
         <screen>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/log/<replaceable>your_application_name</replaceable>.log {
       missingok
       notifempty
