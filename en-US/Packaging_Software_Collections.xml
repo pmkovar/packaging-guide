@@ -584,7 +584,7 @@ export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:\$PKG_CONFIG_PATH
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-libdir.sh</screen></step>
 <step><para>Use the <filename>pc-libdir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
-    <screen>export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
+    <screen>export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-libdir.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
@@ -597,7 +597,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-datadir.sh</screen></step>
 <step><para>Use the <filename>pc-datadir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
-    <screen>export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
+    <screen>export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-datadir.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
@@ -619,7 +619,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}manpage.sh</screen></step>
 <step><para>Use the <filename>manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
-    <screen>export MANPATH=${MANPATH}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/man_pages</replaceable></screen></step>
+    <screen>export MANPATH=${MANPATH}:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/man_pages</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
@@ -642,7 +642,7 @@ export XDG_DATA_DIRS=%{_datadir}:\$XDG_DATA_DIRS
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}systemtap.sh</screen></step>
 <step><para>Use the <filename>systemtap.sh</filename> short script that modifies the <envar>XDG_DATA_DIRS</envar> variable to refer to your SystemTap data files directory:</para>
-    <screen>export XDG_DATA_DIRS=${XDG_DATA_DIRS}:/&OPT;/&RH;/<replaceable>software_collection/path/to/your/systemtap_data_files</replaceable></screen></step>
+    <screen>export XDG_DATA_DIRS=${XDG_DATA_DIRS}:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/systemtap_data_files</replaceable></screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}systemtap.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
@@ -663,7 +663,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       </step>
       <step>
         <para>Ensure that the contents of the <filename>crontab</filename> file follow the standard <filename>crontab</filename> file format, as in the following example:</para>
-        <screen>0 1 * * Sun root <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/<replaceable>architecture</replaceable>/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
+        <screen>0 1 * * Sun root <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/<replaceable>architecture</replaceable>/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
       </step>
       <step>
         <para>Add the file to your spec file of the &DSCL; package:</para>
@@ -689,7 +689,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       </step>
       <step>
         <para>Ensure that the contents of the <filename>logrotate</filename> file follow the standard <filename>logrotate</filename> file format as follows:</para>
-        <screen>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/log/<replaceable>your_application_name</replaceable>.log {
+        <screen>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/log/<replaceable>your_application_name</replaceable>.log {
       missingok
       notifempty
       size 30k
@@ -710,14 +710,14 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Lock_File_Support">
     <title>&DSCL; Lock File Support</title>
-    <para>If you store your &DSCL;'s lock files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the applications or services that can be on the system.</para>
-    <para>If you want to prevent &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
-    <para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (when the &DSCL; version's resources will not conflict with the system version's resources), ensure that the applications or services write the lock to the &DSCL;'s directory <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
+    <para>If you store your &DSCL;'s lock files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the applications or services that can be on the system.</para>
+    <para>If you want to prevent &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
+    <para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (when the &DSCL; version's resources will not conflict with the system version's resources), ensure that the applications or services write the lock to the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
   </section>
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
-    <para>If you store your &DSCL;'s configuration files within the <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
-    <para>If you cannot store the configuration files within <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
+    <para>If you store your &DSCL;'s configuration files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
+    <para>If you cannot store the configuration files within <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
   </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
     <title>&DSCL; Kernel Module Support</title>

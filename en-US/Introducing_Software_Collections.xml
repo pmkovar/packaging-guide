@@ -113,19 +113,18 @@
 <para>The <package>scl-utils</package> package provides the <application>scl</application> tool that lets you enable &DSCL;s on your system. For more information on enabling &DSCL;s, refer to <xref linkend="sect-Enabling_the_Software_Collection"/>.</para>
 <para>The <package>scl-utils-build</package> package provides macros that are essential for building &DSCL;s. For more information on building &DSCL;s, refer to <xref linkend="sect-Building_a_Software_Collection_Locally"/>.</para>
 </section>
-  <section id="sect-Recommended_File_System_Hierarchy">
-    <title>The Recommended File System Hierarchy</title>
+  <section id="sect-The_File_System_Hierarchy">
+    <title>The File System Hierarchy</title>
     <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation. The use of the <filename>/&OPT;/</filename> directory is recommended by the Filesystem Hierarchy Standard (FHS).</para>
-    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file. You are advised to make the file system hierarchy conform to the following layout:</para>
-    <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>application-version</replaceable>/</programlisting>
+    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file, as in the following example:</para>
+    <programlisting language="RPM Spec">%_scl_prefix /opt/provider</programlisting>
     <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the Filesystem Hierarchy Standard.</para>
+    <para>Each organization or project building and distributing &DSCL;s should use their own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
+    <para>You are advised to make the file system hierarchy conform to the following layout:</para>
+    <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>application-version</replaceable>/</programlisting>
     <para>For more information on the Filesystem Hierarchy Standard, refer to <ulink url="http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</ulink>.</para>
     <para>For more information on the Linux Assigned Names and Numbers Authority, refer to <ulink url="http://www.lanana.org/">http://www.lanana.org/</ulink>.</para>
-  </section>
-  <section id="sect-Default_File_System_Hierarchy">
-    <title>The Default File System Hierarchy</title>
-    <para>The location of the root directory of &DSCL;s is defined by the <code>%_scl_prefix</code> macro, which is by default set to the <filename>/opt/rh/</filename> directory. This location of the root directory conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
-    <para>Below is the default layout of the file system hierarchy with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
+    <para>Below is an example of the file system hierarchy layout with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
     <programlisting><replaceable>&OPT;</replaceable>
 `-- <replaceable>&RH;</replaceable>
     |-- &DSCL; 1
@@ -136,7 +135,7 @@
         |-- &DSCL; root directory
         `-- &DSCL; scriptlets
 </programlisting>
-    <para>For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
+    <para>As you can see in the example above, each of the &DSCL;s directories contains two subdirectories: the &DSCL; root directory and a directory containing the &DSCL; scriptlets. For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
   </section>
   <section id="sect-Software_Collection_Scriptlets">
     <title>&DSCL; Scriptlets</title>
