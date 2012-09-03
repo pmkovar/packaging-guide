@@ -119,7 +119,7 @@
     <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file, as in the following example:</para>
     <programlisting language="RPM Spec">%_scl_prefix /opt/provider</programlisting>
     <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the Filesystem Hierarchy Standard.</para>
-    <para>Each organization or project building and distributing &DSCL;s should use their own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
+    <para>Each organization or project that builds and distributes &DSCL;s should use its own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
     <para>You are advised to make the file system hierarchy conform to the following layout:</para>
     <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>application-version</replaceable>/</programlisting>
     <para>For more information on the Filesystem Hierarchy Standard, refer to <ulink url="http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</ulink>.</para>
