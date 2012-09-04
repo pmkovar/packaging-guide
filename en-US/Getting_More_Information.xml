@@ -16,14 +16,14 @@
       <para><emphasis role="bold">rpmbuild</emphasis>(8) &ndash; The manual page for the <application>rpmbuild</application> utility for building both binary and source packages.</para>
     </listitem>
   </itemizedlist>
-  <bridgehead id="bh-Online_Documentation">Online Documentation</bridgehead>
+  <bridgehead id="bh-Online_Documentation">Additional Documentation</bridgehead>
   <itemizedlist>
     <!--listitem>
       <para><ulink url="http://jnovy.fedorapeople.org/scl-utils/scl.pp.pdf">&DSCL;s Packaging Draft</ulink> (pdf) &ndash; The &DSCL;s Packaging Draft can serve as a quick-start guide on packaging &DSCL;s.</para>
     </listitem-->
     <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Developer_Toolset/1/html/User_Guide/index.html">Red Hat Developer Toolset 1.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 1.0 contains information about Red Hat Developer Toolset that is a new Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <!--ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Developer_Toolset/1/html/User_Guide/index.html"-->Red Hat Developer Toolset &VERSIONNUM; User Guide<!--/ulink--> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
        <listitem>
          <para>

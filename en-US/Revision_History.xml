@@ -6,20 +6,6 @@
 	<simpara>
 		<revhistory>
 			<revision>
-				<revnumber>1-1</revnumber>
-				<date>Mon Sep 04 2012</date>
-				<author>
-					<firstname>Petr</firstname>
-					<surname>Kovář</surname>
-					<email>pkovar@redhat.com</email>
-				</author>
-				<revdescription>
-					<simplelist>
-						<member>Red Hat Developer Toolset 1.1-Alpha release of the Software Collections Guide.</member>
-					</simplelist>
-				</revdescription>
-			</revision>
-			<revision>
 				<revnumber>1-0</revnumber>
 				<date>Tue Jun 26 2012</date>
 				<author>
