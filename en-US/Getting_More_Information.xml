@@ -16,14 +16,17 @@
       <para><emphasis role="bold">rpmbuild</emphasis>(8) &ndash; The manual page for the <application>rpmbuild</application> utility for building both binary and source packages.</para>
     </listitem>
   </itemizedlist>
-  <bridgehead id="bh-Online_Documentation">Additional Documentation</bridgehead>
+  <bridgehead id="bh-Online_Documentation">Accessing Red Hat Documentation</bridgehead>
+     <para>
+       The <emphasis role="strong">Red Hat Documentation</emphasis> portal located at <ulink url="https://access.redhat.com/knowledge/docs/" /> serves as a central source of all product documentation. It is translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
+     </para>
+     <para>
+       The following is a brief list of documents that are directly or indirectly relevant to this book:
+     </para>
   <itemizedlist>
-    <!--listitem>
-      <para><ulink url="http://jnovy.fedorapeople.org/scl-utils/scl.pp.pdf">&DSCL;s Packaging Draft</ulink> (pdf) &ndash; The &DSCL;s Packaging Draft can serve as a quick-start guide on packaging &DSCL;s.</para>
-    </listitem-->
     <listitem>
          <para>
-           <!--ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Developer_Toolset/1/html/User_Guide/index.html"-->Red Hat Developer Toolset &VERSIONNUM; User Guide<!--/ulink--> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Developer_Toolset/1-Beta/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
        <listitem>
          <para>
