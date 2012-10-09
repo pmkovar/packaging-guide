@@ -6,7 +6,7 @@
 	<simpara>
 		<revhistory>
 			<revision>
-				<revnumber>1-1</revnumber>
+				<revnumber>1.0-1</revnumber>
 				<date>Wed Oct 10 2012</date>
 				<author>
 					<firstname>Petr</firstname>
@@ -20,7 +20,7 @@
 				</revdescription>
 			</revision>
 			<revision>
-				<revnumber>1-0</revnumber>
+				<revnumber>1.0-0</revnumber>
 				<date>Tue Jun 26 2012</date>
 				<author>
 					<firstname>Petr</firstname>
@@ -34,7 +34,7 @@
 				</revdescription>
 			</revision>
 			<revision>
-				<revnumber>0-2</revnumber>
+				<revnumber>0.0-2</revnumber>
 				<date>Tue Apr 10 2012</date>
 				<author>
 					<firstname>Petr</firstname>
@@ -48,7 +48,7 @@
 				</revdescription>
 			</revision>
 			<revision>
-				<revnumber>0-1</revnumber>
+				<revnumber>0.0-1</revnumber>
 				<date>Tue Mar 06 2012</date>
 				<author>
 					<firstname>Petr</firstname>
@@ -62,7 +62,7 @@
 				</revdescription>
 			</revision>
 			<revision>
-				<revnumber>0-0</revnumber>
+				<revnumber>0.0-0</revnumber>
 				<date>Thu Feb 23 2012</date>
 				<author>
 					<firstname>Petr</firstname>
