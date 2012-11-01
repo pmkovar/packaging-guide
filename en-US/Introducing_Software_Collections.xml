@@ -206,6 +206,9 @@ Summary: Package shipping basic build configuration
 %description build
 Package shipping essential configuration macros to build %scl Software Collection.
 
+%prep
+%setup -c -T
+
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_scl_scripts}/root
