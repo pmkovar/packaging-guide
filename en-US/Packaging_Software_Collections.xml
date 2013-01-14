@@ -50,7 +50,7 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> name of the &DSCL; </para>
+                <para>name of the &DSCL; </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -65,7 +65,7 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> name of the original package </para>
+                <para>name of the original package </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -80,7 +80,7 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> root of the &DSCL; (not package's root) </para>
+                <para>root of the &DSCL; (not package's root) </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -95,7 +95,7 @@
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> location of &DSCL;'s scriptlets </para>
+                <para>location of &DSCL;'s scriptlets </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -106,11 +106,26 @@
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
                 <para>
+                  <code>%_scl_require_package</code>
+                </para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>depend on a particular package from the &DSCL;</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>
+                  <code>software_collection_1-package_2</code>
+                </para>
+              </entry>
+            </row>
+            <row rowsep="1">
+              <entry colsep="1" rowsep="1">
+                <para>
                   <code>%_scl_root</code>
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para> installation root (install-root) of the package </para>
+                <para>installation root (install-root) of the package </para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
@@ -124,7 +139,7 @@
     </section>
     <section id="sect-Macros_Not_Specific_to_a_Software_Collection">
       <title>Macros Not Specific to a &DSCL;</title>
-      <para>The table below shows a list of macros that are not specific to a particular &DSCL;. These macros are not relocated, that is, they do not point to the &DSCL;'s file system. These macros use <code>_root</code> as a prefix.</para>
+      <para>The table below shows a list of macros that are not specific to a particular &DSCL;. Because these macros are not relocated and do not point to the &DSCL; file system, they allow you to point to the system root file system. These macros use <code>_root</code> as a prefix.</para>
       <table>
         <title>&DSCL; Non-Specific Macros</title>
         <tgroup cols="4">
