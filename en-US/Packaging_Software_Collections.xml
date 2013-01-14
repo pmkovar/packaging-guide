@@ -106,21 +106,6 @@
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>%_scl_require_package</code>
-                </para>
-              </entry>
-              <entry colsep="1" rowsep="1">
-                <para>depend on a particular package from the &DSCL;</para>
-              </entry>
-              <entry colsep="1" rowsep="1">
-                <para>
-                  <code>software_collection_1-package_2</code>
-                </para>
-              </entry>
-            </row>
-            <row rowsep="1">
-              <entry colsep="1" rowsep="1">
-                <para>
                   <code>%_scl_root</code>
                 </para>
               </entry>
@@ -130,6 +115,21 @@
               <entry colsep="1" rowsep="1">
                 <para>
                   <code>/&OPT;/&RH;/software_collection_1/root/</code>
+                </para>
+              </entry>
+            </row>
+            <row rowsep="1">
+              <entry colsep="1" rowsep="1">
+                <para>
+                  <code>%_scl_require_package</code>
+                </para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>depend on a particular package from the &DSCL;</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>
+                  <code>software_collection_1-package_2</code>
                 </para>
               </entry>
             </row>
@@ -553,6 +553,8 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 export LD_LIBRARY_PATH=%{_libdir}:$LD_LIBRARY_PATH
 </programlisting>
     <para>This configuration ensures that the version of the library in the &DSCL; is preferred over the version of the library available on the system if the &DSCL; is enabled.</para>
+    <section id="sect-Using_a_Library_Outside_of_the_Collection">
+	<title>Using a Library Outside of the &DSCL;</title>
     <para>If you distribute libraries that you intend to use outside of the &DSCL; environment, you can use the directory <filename>/etc/ld.so.conf.d/</filename> for this purpose.</para>
     <warning>
       <!--title>Do not use /etc/ld.so.conf.d/ for libraries available on the system</title-->
@@ -579,6 +581,33 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 </programlisting>
       </step>
     </procedure>
+    </section>
+    <section id="sect-Prefixing_the_Library_Major_soname_with_the_Collection_Name">
+    <title>Prefixing the Library Major soname with the &DSCL; Name</title>
+    <para>
+    	When using libraries included in the &DSCL;, always remember that a library with the same major soname can already be available on the system as a part of the base system installation. It is thus important not to forget to use the <command>scl enable</command> command when building an application against a library included in the &DSCL;. Failing to do so may result in the application being executed in an incorrect environment, linked against the incorrect system version of the library.</para>
+    <warning>
+      <para>Keep in mind that executing your application in an incorrect environment (for example in the system environment instead of the &DSCL; environment) as well as linking your application against an incorrect library can lead to undesired behavior of your application, including unexpected termination and data loss.</para>
+    </warning>
+<para>To ensure that your application is not linked against an incorrect library even if the <envar>LD_LIBRARY_PATH</envar> environment variable has not been set properly, change the major soname of the library included in the &DSCL;. The recommended way to change the major soname is to prefix the major soname version number with the &DSCL; name.
+</para>
+<para>
+	Below is an example of the MySQL client library with the <literal>mysql55-</literal> prefix:
+</para>
+<screen>
+$ <command>rpm -ql mysql55-mysql-libs | grep 'lib.*so'</command>
+/usr/lib64/mysql/libmysqlclient.so.mysql55-18
+/usr/lib64/mysql/libmysqlclient.so.mysql55-18.0.0
+</screen>
+<para>
+	On the same system, the system version of the MySQL client library is listed below:
+</para>
+<screen>
+$ <command>rpm -ql mysql-libs | grep 'lib.*so'</command>
+/usr/lib64/mysql/libmysqlclient.so.18
+/usr/lib64/mysql/libmysqlclient.so.18.0.0
+</screen>
+</section>
   </section>
 <section id="sect-Software_Collection_pc_Files_Support">
     <title>&DSCL; .pc Files Support</title>
@@ -761,7 +790,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
     <important>
     	<para>
-    		Please keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
+    		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
     	</para>
     </important>
   </section>
