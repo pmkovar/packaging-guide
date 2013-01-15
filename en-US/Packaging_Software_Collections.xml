@@ -553,6 +553,11 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 export LD_LIBRARY_PATH=%{_libdir}:$LD_LIBRARY_PATH
 </programlisting>
     <para>This configuration ensures that the version of the library in the &DSCL; is preferred over the version of the library available on the system if the &DSCL; is enabled.</para>
+    <note>
+    	<para>
+    		In case you distribute a private shared library in the &DSCL;, consider using the <envar>DT_RUNPATH</envar> attribute instead of the <envar>LD_LIBRARY_PATH</envar> environment variable to make the private shared library accessible in the &DSCL; environment.
+    	</para>
+    </note>
     <section id="sect-Using_a_Library_Outside_of_the_Collection">
 	<title>Using a Library Outside of the &DSCL;</title>
     <para>If you distribute libraries that you intend to use outside of the &DSCL; environment, you can use the directory <filename>/etc/ld.so.conf.d/</filename> for this purpose.</para>
