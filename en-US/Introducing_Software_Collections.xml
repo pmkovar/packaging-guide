@@ -36,8 +36,7 @@
     </section>
   <section id="sect-What_Are_Software_Collections">
     <title>What Are &DSCL;s?</title>
-    <para>With &DSCL;s, you can build and concurrently install multiple versions of the same RPM packages on your system. &DSCL;s have no impact on the system versions of the packages installed by the conventional RPM package manager.
-</para>
+    <para>With &DSCL;s, you can build and concurrently install multiple versions of the same software components on your system. &DSCL;s have no impact on the system versions of the packages installed by any of the conventional RPM package management utilities.</para>
     <variablelist>
     <title>&DSCL;s:</title>
       <varlistentry>
@@ -75,6 +74,7 @@
 </para>
         </listitem>
       </varlistentry>
+      <!--TODO: Make it less confusing.
       <varlistentry>
         <term>Allow you to use a spec file from one &DSCL; to build a different &DSCL;</term>
         <listitem>
@@ -82,6 +82,7 @@
 </para>
         </listitem>
       </varlistentry>
+      -->
       <varlistentry>
         <term>Uniquely name all included packages</term>
         <listitem>

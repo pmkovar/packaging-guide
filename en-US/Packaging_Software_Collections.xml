@@ -10,7 +10,7 @@
       <command>rpmbuild -bb <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
     </synopsis>
     <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -bb <replaceable>package.spec</replaceable></command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
-    <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; as configured in the &DSCL; spec file.</para>
+    <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file.</para>
   </section>
   <section id="sect-Software_Collection_Macros">
     <title>&DSCL; Macros</title>
@@ -626,10 +626,10 @@ export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:\$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:\$PKG_CONFIG_PATH
 </programlisting>
     <para>This configuration ensures that the .pc files in the &DSCL; are preferred over the .pc files available on the system if the &DSCL; is enabled.</para>
-    <para>Under certain circumstances the &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the .pc files are visible to the system even if the &DSCL; is disabled.</para>
+    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the .pc files are visible to the system even if the &DSCL; is disabled.</para>
     <para>To allow your system to use .pc files from the disabled &DSCL;, update the <envar>PKG_CONFIG_PATH</envar> environment variable with the paths to the .pc files associated with the &DSCL;. Depending on what is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro (which expands to the library directory), or for the <varname>%{_datadir}</varname> macro (which expands to the share directory).</para>
 <procedure><title>Updating the PKG_CONFIG_PATH environment variable for %{_libdir}</title>
-<step><para>To update the <envar>PKG_CONFIG_PATH</envar> environment variable the <varname>%{_libdir}</varname> macro, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
+<step><para>To update the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-libdir.sh</screen></step>
 <step><para>Use the <filename>pc-libdir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
