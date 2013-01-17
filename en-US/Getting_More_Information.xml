@@ -3,7 +3,16 @@
 <chapter id="chap-Getting_More_Information">
   <title>Getting More Information</title>
   <!--Hic sunt leones.-->
-  <para>For more information on &DSCL; packaging, refer to the resources listed below.</para>
+  <para> For more information on &DSCL; packaging, Red Hat Enterprise Linux Developer Program, Red Hat Developer Toolset, and Red Hat Enterprise Linux, refer to the resources listed below.</para>
+  <bridgehead id="bh-Red_Hat_Enterprise_Linux_Developer_Program">Red Hat Enterprise Linux Developer Program</bridgehead>
+  <itemizedlist>
+  <listitem>
+	<para><ulink url="https://access.redhat.com/products/Red_Hat_Enterprise_Linux/Developer/">Red Hat Enterprise Linux Developer Program</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program</citetitle> delivers industry-leading developer tools, instructional resources, and an ecosystem of experts to help Linux programmers maximize productivity in building Linux applications.</para>
+	</listitem>
+	<listitem>
+	<para><ulink url="https://access.redhat.com/groups/red-hat-enterprise-linux-developer-program">Red Hat Enterprise Linux Developer Program Group</ulink> (requires Red Hat Login) &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program Group</citetitle> contains developer-related information for the development tools available for Red Hat Enterprise Linux. In addition, users can find there developer-related papers and videos on topics that are of interest to developers, for example RPM building, threaded programming, performance tuning, debugging, and so on.</para>
+	</listitem>
+	</itemizedlist>
   <bridgehead id="bh-Installed_Documentation">Installed Documentation</bridgehead>
   <itemizedlist>
     <listitem>
