@@ -5,7 +5,7 @@
   <para>This chapter introduces you to the concept of &DSCL;s or &DSC;s for short.</para>
        <section id="sect-Why_to_Package_Software_with_RPM">
        <title>Why Package Software with RPM?</title>
-   <para>The RPM Package Manager (RPM) is a package management system, which runs on Red Hat Enterprise Linux. RPM makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
+   <para>The RPM Package Manager (RPM) is a package management system that runs on Red Hat Enterprise Linux. RPM makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
     <variablelist>
     <title>With RPM, you can:</title>
     <varlistentry>
@@ -45,36 +45,31 @@
       <varlistentry>
         <term>Do not overwrite system files</term>
         <listitem>
-          <para>&DSCL;s are distributed as a set of several components, which provide their full functionality without overwriting system files.
-</para>
+          <para>&DSCL;s are distributed as a set of several components, which provide their full functionality without overwriting system files.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>Are designed to avoid conflicts with system files</term>
         <listitem>
-          <para>&DSCL;s make use of a special file system hierarchy to avoid possible conflicts between a single &DSCL; and the base system installation.
-</para>
+          <para>&DSCL;s make use of a special file system hierarchy to avoid possible conflicts between a single &DSCL; and the base system installation.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>Require no changes to the RPM package manager</term>
         <listitem>
-          <para>&DSCL;s require no changes to the RPM package manager present on the host system.
-</para>
+          <para>&DSCL;s require no changes to the RPM package manager present on the host system.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>Need only minor changes to the spec file</term>
         <listitem>
-          <para>To convert a conventional package to a single &DSCL;, you only need to make minor changes to the package spec file.
-</para>
+          <para>To convert a conventional package to a single &DSCL;, you only need to make minor changes to the package spec file.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>Allow you to build a conventional package and a &DSCL; package with a single spec file</term>
         <listitem>
-          <para>With a single spec file, you can build both the conventional package and the &DSCL; package.
-</para>
+          <para>With a single spec file, you can build both the conventional package and the &DSCL; package.</para>
         </listitem>
       </varlistentry>
       <!--TODO: Make it less confusing.
