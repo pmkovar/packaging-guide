@@ -5,7 +5,7 @@
   <para>This chapter introduces you to the concept of &DSCL;s or &DSC;s for short.</para>
        <section id="sect-Why_to_Package_Software_with_RPM">
        <title>Why Package Software with RPM?</title>
-   <para>The RPM Package Manager (RPM) makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
+   <para>The RPM Package Manager (RPM) is a package management system, which runs on Red Hat Enterprise Linux. RPM makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
     <variablelist>
     <title>With RPM, you can:</title>
     <varlistentry>
@@ -33,6 +33,9 @@
       <listitem><para>Using a GPG signing key, you can digitally sign your package so that users are able to verify the authenticity of the package.</para></listitem>
       </varlistentry>
     </variablelist>
+    <para>
+    	For in-depth information on what is RPM and how to use it, refer to the <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> or the <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink>.
+    </para>
     </section>
   <section id="sect-What_Are_Software_Collections">
     <title>What Are &DSCL;s?</title>
