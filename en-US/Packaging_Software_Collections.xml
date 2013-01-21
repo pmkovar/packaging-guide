@@ -7,7 +7,7 @@
     <title>Building a &DSCL; Locally</title>
     <para>To build a &DSCL; on your system, run the following command:</para>
     <synopsis>
-      <command>rpmbuild -bb <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
+      <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
     </synopsis>
     <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -bb <replaceable>package.spec</replaceable></command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
     <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file.</para>
@@ -661,7 +661,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>To update the <envar>MANPATH</envar> environment variable, add the following line to the spec file:</para>
     <programlisting language="RPM Spec">export MANPATH=${MANPATH}:%{_mandir}</programlisting>
     <para>This update relocates the <code>%{_mandir}</code> macro to the &DSCL; path. So that the manual pages associated with the &DSCL; are not visible as long as the &DSCL; is not enabled.</para>
-    <para>Under certain circumstances the &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
+    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
     <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
 <procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
 <step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
@@ -684,7 +684,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 export XDG_DATA_DIRS=%{_datadir}:\$XDG_DATA_DIRS
 </programlisting>
     <para>This configuration ensures that the SystemTap data files in the &DSCL; are preferred over the SystemTap data files available on the system if the &DSCL; is enabled.</para>
-    <para>Under certain circumstances the &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the SystemTap data files are visible to the system even if the &DSCL; is disabled.</para>
+    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the SystemTap data files are visible to the system even if the &DSCL; is disabled.</para>
     <para>To allow your system to use SystemTap data files from the disabled &DSCL;, update the <envar>XDG_DATA_DIRS</envar> environment variable with the paths to the SystemTap data files associated with the &DSCL;.</para>
 <procedure><title>Updating the XDG_DATA_DIRS environment variable for the disabled &DSCL;</title>
 <step><para>To update the <envar>XDG_DATA_DIRS</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
