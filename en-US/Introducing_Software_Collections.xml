@@ -108,7 +108,7 @@
 <title>Enabling Support for &DSCL;s</title>
 <para>To enable support for &DSCL;s on your system so that you can enable and build &DSCL;s, you need to have installed the packages <package>scl-utils</package> and <package>scl-utils-build</package>.</para>
 <para>If the packages <package>scl-utils</package> and <package>scl-utils-build</package> are not already installed on your system, you can install them by typing the following at a shell prompt as root:</para>
-<screen><command>yum install -y scl-utils scl-utils-build</command></screen>
+<screen><command>yum install scl-utils scl-utils-build</command></screen>
 <para>The <package>scl-utils</package> package provides the <application>scl</application> tool that lets you enable &DSCL;s on your system. For more information on enabling &DSCL;s, refer to <xref linkend="sect-Enabling_the_Software_Collection"/>.</para>
 <para>The <package>scl-utils-build</package> package provides macros that are essential for building &DSCL;s. For more information on building &DSCL;s, refer to <xref linkend="sect-Building_a_Software_Collection_Locally"/>.</para>
 </section>
