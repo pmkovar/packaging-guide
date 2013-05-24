@@ -34,7 +34,7 @@
       </varlistentry>
     </variablelist>
     <para>
-    	For in-depth information on what is RPM and how to use it, refer to the <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> or the <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink>.
+    	For in-depth information on what is RPM and how to use it, refer to the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> or the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink>.
     </para>
     </section>
   <section id="sect-What_Are_Software_Collections">

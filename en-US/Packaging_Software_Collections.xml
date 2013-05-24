@@ -522,7 +522,7 @@ Requires: %scl_require software_collection_2
       <command>yum install <!--scl_-->software_collection_1</command>
     </synopsis>
     <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
-<para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, refer to the <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
+<para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, refer to the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
   </section>
   <section id="sect-Listing_Installed_Software_Collections">
     <title>Listing Installed &DSCL;s</title>

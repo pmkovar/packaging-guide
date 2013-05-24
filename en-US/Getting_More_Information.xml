@@ -32,7 +32,7 @@
   <section id="sect-Online_Documentation">
   	<title>Accessing Red Hat Documentation</title>
      <para>
-       The <emphasis role="strong">Red Hat Documentation</emphasis> portal located at <ulink url="https://access.redhat.com/knowledge/docs/" /> serves as a central source of all product documentation. It is translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
+       The <emphasis role="strong">Red Hat Documentation</emphasis> portal located at <ulink url="https://access.redhat.com/site/documentation/" /> serves as a central source of all product documentation. It is translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
      </para>
      <para>
        The following is a brief list of documents that are directly or indirectly relevant to this book:
@@ -40,31 +40,31 @@
   <itemizedlist>
     <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Developer_Toolset/1/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Developer_Toolset/2-Beta/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed <!--description of Red Hat Developer Toolset features, as well as -->information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed <!--description of Red Hat Developer Toolset features, as well as -->information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/index.html">Red Hat Enterprise Linux 6 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 6 provides more details on getting, installing, and updating the system.
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/index.html">Red Hat Enterprise Linux 6 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 6 provides more details on getting, installing, and updating the system.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Installation_Guide/index.html">Red Hat Enterprise Linux 5 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 5 provides more details on getting, installing, and updating the system.
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Installation_Guide/index.html">Red Hat Enterprise Linux 5 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 5 provides more details on getting, installing, and updating the system.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 6 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 6.
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 6 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 6.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
          </para>
        </listitem>
   </itemizedlist>
