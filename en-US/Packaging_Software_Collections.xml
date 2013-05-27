@@ -541,7 +541,7 @@ Requires: %scl_require software_collection_2
     <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows:</para>
     <programlisting language="RPM Spec">
 %install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/%{?scl_prefix}<replaceable>service_name</replaceable>
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable>
 </programlisting>
     <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
     <screen>%{?scl_prefix}<replaceable>service_name</replaceable></screen>
