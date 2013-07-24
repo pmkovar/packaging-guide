@@ -228,6 +228,9 @@ EOF
 * Thu Jan 07 2012 John Doe &lt;jdoe@example.com&gt; 1-1
 - Initial package
       </programlisting>
+      <para>
+      	Always make sure that your meta package spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the meta package will fail. This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your meta package spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
+      </para>
     </section>
     <section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
