@@ -774,11 +774,38 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       <command>restorecon -R -v /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
     </synopsis>
     <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
-    <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
-    <important>
+    <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> section in the &DSCL; spec file.</para>
+    <section id="sect-Using_restorecon_on_Red_Hat_Enterprise_Linux_6">
+    <!--TODO: Not needed for F18+-->
+    <title>Using the restorecon command on Red Hat Enterprise Linux 6</title>
+    <para>
+    	Note that when using the <command>semanage fcontext</command> and <command>restorecon</command> commands in the &DSCL; spec file, RPM will not set up the desired SELinux labels correctly for certain files if the following conditions are met:
+    </para>
+    <itemizedlist>
+    <listitem>
+    <para>
+    	you also install other packages as dependencies of the  &DSCL; meta package, and
+    </para>
+    </listitem>
+    <listitem>
+    	<para>
+    	these dependencies include files that apply for the desired SELinux context.
+    	</para>
+    </listitem>
+    </itemizedlist>
+    <para>
+    	To set up the SELinux labels correctly for all files, make sure to run <command>restorecon</command> in the <code language="RPM Spec">%post</code> section of each dependency that include files applying for the desired SELinux context. For example, to run <command>restorecon</command> in the <code language="RPM Spec">%post</code> section of a <code>server</code> package in the <literal>mysql55</literal> &DSCL;, ensure that the &DSCL; spec file contains the following lines:
+    </para>
+    <programlisting language="RPM Spec">%post server
+restorecon -R %{_scl_root} >/dev/null 2>&amp;1 || :
+restorecon /etc/rc.d/init.d/%{scl_prefix}mysqld >/dev/null 2>&amp;1 || :</programlisting>
+    </section>
+    <section id="The_semanage_-e_command_and_Red_Hat_Enterprise_Linux_5">
+    	<title>The semanage -e command and Red Hat Enterprise Linux 5</title>
     	<para>
     		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
     	</para>
-    </important>
+    </section>
+
   </section>
 </chapter>
