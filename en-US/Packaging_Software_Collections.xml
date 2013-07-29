@@ -514,6 +514,13 @@ Software Collection macros simply relocate package to non-conflicting namespaced
 Requires: %scl_require software_collection_1
 Requires: %scl_require software_collection_2
 </programlisting>
+  <para>
+  	Ensure that the spec file also contains the <code>%scl_package</code> macro in front of the spec file preamble, for example:
+  </para>
+  <programlisting language="RPM Spec">%{?scl:%scl_package less}</programlisting>
+  <para>
+  	Note that the <code>%scl_package</code> macro must be included in every spec file of your &DSCL;.
+  </para>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>&DSCL; Initscript Support</title>
