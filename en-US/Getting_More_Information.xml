@@ -44,7 +44,7 @@
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed <!--description of Red Hat Developer Toolset features, as well as -->information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
        <listitem>
