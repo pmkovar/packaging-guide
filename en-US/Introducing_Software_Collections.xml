@@ -249,9 +249,9 @@ EOF
   </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>
-    <para>To ensure that a &DSCL; is on your system, install the main meta package of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager. For example, to install a &DSCL; named <code>software_collection_1</code> with <application>Yum</application>, run the following command:</para>
+    <para>To ensure that a &DSCL; is on your system, install the main meta package of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager. For example, to install a &DSCL; named <code>software_collection_1</code>, run the following command:</para>
     <synopsis>
-      <command>yum install <!--scl_-->software_collection_1</command>
+      <command>yum install software_collection_1</command>
     </synopsis>
     <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
 <para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, refer to the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
@@ -309,5 +309,30 @@ EOF
     </para>
     <synopsis><command>echo $X_SCLS</command>
     </synopsis>
+  </section>
+  <section id="sect-Uninstalling_a_Software_Collection">
+    <title>Uninstalling a &DSCL;</title>
+    <para>
+    	You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> when uninstalling a &DSCL; because &DSCL;s are fully compatible with the RPM Package Manager. For example, to uninstall all packages and subpackages that are part of a &DSCL; named <code>software_collection_1</code>, run the following command:</para>
+    <synopsis>
+      <command>yum remove software_collection_1\*</command>
+    </synopsis>
+    <para>
+    	You can also use the <command>yum remove</command> command to remove the <application>scl</application> utility.
+    </para>
+    <para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, refer to the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
+    <section id="sect-Uninstalling_all_Software_Collection_directories">
+    <title>Uninstalling all &DSCL; directories</title>
+    <para>
+    	The <command>yum remove</command> command will not uninstall directories provided by those &DSCL; packages and subpackages that are removed after the <package>runtime</package> subpackage of the &DSCL;.
+    </para>
+    	<para>
+    		To ensure that all directories are uninstalled, make those packages and subpackages depend on the <package>runtime</package> subpackage. To do so, add the following line to the spec file of each of those packages and subpackages:
+    	</para>
+    	<programlisting language="RPM Spec">%{?scl:Requires: %{scl}-runtime}</programlisting>
+    	<para>
+    		Adding the above line ensures that all directories provided by those packages and subpackages will be removed correctly as long as the <package>runtime</package> subpackage does not depend on any of those packages and subpackages.
+    	</para>
+        </section>
   </section>
 </chapter>
