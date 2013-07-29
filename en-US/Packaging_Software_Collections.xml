@@ -547,7 +547,6 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 	<title>Using a Library Outside of the &DSCL;</title>
     <para>If you distribute libraries that you intend to use outside of the &DSCL; environment, you can use the directory <filename>/etc/ld.so.conf.d/</filename> for this purpose.</para>
     <warning>
-      <!--title>Do not use /etc/ld.so.conf.d/ for libraries available on the system</title-->
       <para>Do not use <filename>/etc/ld.so.conf.d/</filename> for libraries already available on the system. Using <filename>/etc/ld.so.conf.d/</filename> is only recommended for a library that is not available on the system, as otherwise the version of the library in the &DSCL; might get preference over the system version of the library. That could lead to undesired behavior of the system versions of the applications, including unexpected termination and data loss.</para>
     </warning>
     <procedure>
@@ -664,31 +663,6 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 </step>
 </procedure>
   </section>
-    <!--
-    <section id="sect-Software_Collection_SystemTap_Support">
-    <title>&DSCL; SystemTap Support</title>
-    <para>SystemTap is a useful instrumentation platform for probing running processes and kernel activity on the Linux system.  In case you distribute the SystemTap data directory for cached SystemTap data files that you intend to use only in the &DSCL; environment or in addition to the SystemTap data files available on the system, adjust the <envar>XDG_DATA_DIRS</envar> environment variable in the spec file as follows:</para>
-    <programlisting language="RPM Spec">
-export XDG_DATA_DIRS=%{_datadir}:\$XDG_DATA_DIRS
-</programlisting>
-    <para>This configuration ensures that the SystemTap data files in the &DSCL; are preferred over the SystemTap data files available on the system if the &DSCL; is enabled.</para>
-    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the SystemTap data files are visible to the system even if the &DSCL; is disabled.</para>
-    <para>To allow your system to use SystemTap data files from the disabled &DSCL;, update the <envar>XDG_DATA_DIRS</envar> environment variable with the paths to the SystemTap data files associated with the &DSCL;.</para>
-<procedure><title>Updating the XDG_DATA_DIRS environment variable for the disabled &DSCL;</title>
-<step><para>To update the <envar>XDG_DATA_DIRS</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
-<para>For example, create the following file:</para>
-    <screen>%{?scl_prefix}systemtap.sh</screen></step>
-<step><para>Use the <filename>systemtap.sh</filename> short script that modifies the <envar>XDG_DATA_DIRS</envar> variable to refer to your SystemTap data files directory:</para>
-    <screen>export XDG_DATA_DIRS=${XDG_DATA_DIRS}:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/systemtap_data_files</replaceable></screen></step>
-<step><para>Add the file to your &DSCL; package's spec file:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}systemtap.sh</programlisting></step>
-    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-    <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
-</step>
-</procedure>
-  </section>
-  -->
   <section id="sect-Software_Collection_cronjob_Support">
     <title>&DSCL; cronjob Support</title>
     <para>With your &DSCL;, you can run regular tasks on the system either with a dedicated service or with cronjobs. If you intend to use a dedicated service, refer to <xref linkend="sect-Software_Collection_Initscript_Support"/> on how to work with initscripts in the &DSCL; environment.</para>
@@ -789,7 +763,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
     <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> section in the &DSCL; spec file.</para>
     <section id="sect-Using_restorecon_on_Red_Hat_Enterprise_Linux_6">
-    <!--TODO: Not needed for F18+-->
+    <!--TODO: Not needed for F18+ -->
     <title>Using the restorecon command on Red Hat Enterprise Linux 6</title>
     <para>
     	Note that when using the <command>semanage fcontext</command> and <command>restorecon</command> commands in the &DSCL; spec file, RPM will not set up the desired SELinux labels correctly for certain files if the following conditions are met:
