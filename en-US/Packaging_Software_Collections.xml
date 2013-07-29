@@ -715,6 +715,12 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       </step>
     </procedure>
   </section>
+  <section id="sect-Software_Collection_Log_File_Support">
+    <title>&DSCL; Log File Support</title>
+    <para>
+    	By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory. Consider creating the log files outside of the &DSCL; file system hierarchy, that is in the <filename>/var/log/</filename> system directory. When using the system directory, all log files are stored in the same location, which makes it easier for users to locate and manage them.
+    </para>
+  </section>
   <section id="sect-Software_Collection_logrotate_Support">
     <title>&DSCL; logrotate Support</title>
     <para>With your &DSCL; or an application associated with your &DSCL;, you can manage log files with the <application>logrotate</application> program.</para>
