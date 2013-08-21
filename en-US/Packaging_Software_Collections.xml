@@ -787,12 +787,26 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 restorecon -R %{_scl_root} >/dev/null 2>&amp;1 || :
 restorecon /etc/rc.d/init.d/%{scl_prefix}mysqld >/dev/null 2>&amp;1 || :</programlisting>
     </section>
-    <section id="The_semanage_-e_command_and_Red_Hat_Enterprise_Linux_5">
+    <section id="sect-The_semanage_-e_command_and_Red_Hat_Enterprise_Linux_5">
     	<title>The semanage -e command and Red Hat Enterprise Linux 5</title>
     	<para>
     		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
     	</para>
     </section>
+  </section>
+  <section id="sect-Packaging_Wrappers_for_Software_Collections">
+  	<title>Packaging Wrappers for &DSCL;s</title>
+  	<para>
+  		Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
+  	 <para>The following is an example of a wrapper from the <package>ruby193</package> &DSCL; that is installed as <filename>/usr/bin/ruby193-ruby</filename> and allows the user to run <command>ruby193-ruby <replaceable>command</replaceable></command> instead of <command>scl enable ruby193 'ruby <replaceable>command</replaceable>'</command>:
+  	</para>
+  	<programlisting language="Bash">#!/bin/bash
 
+COMMAND="ruby $@"
+scl enable ruby193 "$COMMAND"
+</programlisting>
+<para>
+	It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
+</para>
   </section>
 </chapter>
