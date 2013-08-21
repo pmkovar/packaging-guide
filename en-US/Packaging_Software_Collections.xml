@@ -4,13 +4,19 @@
   <title>Packaging &DSCL;s</title>
   <para>This chapter introduces you to packaging &DSCL;s.</para>
   <section id="sect-Building_a_Software_Collection_Locally">
-    <title>Building a &DSCL; Locally</title>
+    <title>Building a &DSCL;</title>
     <para>To build a &DSCL; on your system, run the following command:</para>
     <synopsis>
       <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
     </synopsis>
-    <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -bb <replaceable>package.spec</replaceable></command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
-    <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file.</para>
+    <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -ba <replaceable>package</replaceable>.spec</command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
+    <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file (<filename><replaceable>package</replaceable>.spec</filename>).</para>
+  <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
+  	<title>Rebuilding a &DSCL; without build subpackages</title>
+  	<para>
+  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; metapackage. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.
+  	</para>
+  </section>
   </section>
   <section id="sect-Software_Collection_Macros">
     <title>&DSCL; Macros</title>
