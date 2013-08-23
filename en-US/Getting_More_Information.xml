@@ -40,7 +40,7 @@
   <itemizedlist>
     <listitem>
          <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Developer_Toolset/2-Beta/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Developer_Toolset/2/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
        <listitem>
          <para>
