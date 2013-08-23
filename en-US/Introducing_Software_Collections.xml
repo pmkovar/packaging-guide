@@ -280,6 +280,9 @@ EOF
       <synopsis>
         <command>scl enable software_collection_1 'perl --version'</command>
       </synopsis>
+      <para>
+      	Alternatively, you can create a wrapper script that shortens the commands for running applications in the &DSCL; environment. For more information on wrappers, see <xref linkend="sect-Packaging_Wrappers_for_Software_Collections" />.
+      </para>
     </section>
     <section id="sect-Running_a_Shell_with_Multiple_Software_Collections_Enabled">
       <title>Running a Shell with Multiple &DSCL;s Enabled</title>
@@ -287,7 +290,8 @@ EOF
       <synopsis>
         <command>scl enable software_collection_1 software_collection_2 bash</command>
       </synopsis>
-      <para>The command above enables two &DSCL;s named <application>software_collection_1</application> and <application>software_collection_2</application>.</para>
+      <para>The command above enables two &DSCL;s, named <application>software_collection_1</application> and <application>software_collection_2</application>, and runs a child process (subshell) of the shell. Running the command again then creates a subshell of the subshell.</para>
+      <para>See <xref linkend="sect-Listing_Enabled_Software_Collections" /> for information on how to list enabled &DSCL;s for the current subshell.</para>
     </section>
     <section id="sect-Running_Commands_Stored_in_a_File">
       <title>Running Commands Stored in a File</title>
@@ -297,10 +301,6 @@ EOF
       </synopsis>
       <para>The command above executes commands, which are stored in the <filename>cmd</filename> file, in the environment of the &DSCL; named <application>software_collection_1</application>.</para>
     </section>
-  <!--section id="sect-Running_an_Application_in_the_Software_Collection">
-    <title>Running an Application in the &DSCL;</title>
-    <para>To run an application that is part of the &DSCL;, use the <command>scl</command> tool. You can run the application directly or use a wrapper script to make running the application in the &DSCL; environment easier.</para>
-  </section-->
   </section>
   <section id="sect-Listing_Enabled_Software_Collections">
     <title>Listing Enabled &DSCL;s</title>
