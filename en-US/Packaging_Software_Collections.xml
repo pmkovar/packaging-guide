@@ -14,7 +14,7 @@
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
   	<title>Rebuilding a &DSCL; without build subpackages</title>
   	<para>
-  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; metapackage. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.
+  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; meta package. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; meta package with the <command>rpmbuild</command> command will fail.
   	</para>
   </section>
   </section>
@@ -792,6 +792,60 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <programlisting language="RPM Spec">%post server
 restorecon -R %{_scl_root} >/dev/null 2>&amp;1 || :
 restorecon /etc/rc.d/init.d/%{scl_prefix}mysqld >/dev/null 2>&amp;1 || :</programlisting>
+<procedure>
+	<title>Setting up SELinux File Context Equivalency</title>
+	<step>
+		<para>
+			In the <code language="RPM Spec">%post</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
+		</para>
+		<programlisting language="RPM Spec">%post runtime
+if [ ! -f %{_sysconfdir}/selinux-equiv.created ]; then
+  /usr/sbin/semanage fcontext -a -e / %{_scl_root}
+  restorecon -R %{_scl_root}
+  touch %{_sysconfdir}/selinux-equiv.created
+fi
+		</programlisting>
+	</step>
+	<step>
+		<para>
+			In the <code language="RPM Spec">%preun</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
+		</para>
+		<programlisting language="RPM Spec">%preun runtime
+[ $1 = 0 ] &amp;&amp; rm -f %{_sysconfdir}/selinux-equiv.created || :
+		</programlisting>
+	</step>
+	<step>
+		<para>
+			In the <code language="RPM Spec">%postun</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
+		</para>
+		<programlisting language="RPM Spec">%postun runtime
+if [ $1 = 0 ]; then
+  /usr/sbin/semanage fcontext -d %{_scl_root}
+  restorecon -R %{_scl_root}
+fi
+		</programlisting>
+	</step>
+	<step>
+		<para>
+			Ensure that the <code language="RPM Spec">%files</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package contains the following lines:
+		</para>
+		<programlisting language="RPM Spec">%files runtime
+%defattr(-,root,root,-)
+%scl_files
+%attr(0644,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) %{_sysconfdir}/selinux-equiv.created
+		</programlisting>
+	</step>
+	<step>
+		<para>
+			Ensure that the <code language="RPM Spec">%package runtime</code> section of the &DSCL; meta package spec file contains the following lines:
+		</para>
+		<programlisting language="RPM Spec">%package runtime
+Requires(post): libselinux policycoreutils-python
+Requires(postun): libselinux policycoreutils-python
+Requires(preun): libselinux policycoreutils-python
+		</programlisting>
+	</step>
+</procedure>
     </section>
     <section id="sect-The_semanage_-e_command_and_Red_Hat_Enterprise_Linux_5">
     	<title>The semanage -e command and Red Hat Enterprise Linux 5</title>
