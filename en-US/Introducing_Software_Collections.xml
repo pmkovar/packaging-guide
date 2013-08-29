@@ -115,14 +115,6 @@
   <section id="sect-The_File_System_Hierarchy">
     <title>The File System Hierarchy</title>
     <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation. The use of the <filename>/&OPT;/</filename> directory is recommended by the Filesystem Hierarchy Standard (FHS).</para>
-    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file, as in the following example:</para>
-    <programlisting language="RPM Spec">%_scl_prefix /opt/provider</programlisting>
-    <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the Filesystem Hierarchy Standard.</para>
-    <para>Each organization or project that builds and distributes &DSCL;s should use its own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
-    <para>You are advised to make the file system hierarchy conform to the following layout:</para>
-    <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>application-version</replaceable>/</programlisting>
-    <para>For more information on the Filesystem Hierarchy Standard, refer to <ulink url="http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</ulink>.</para>
-    <para>For more information on the Linux Assigned Names and Numbers Authority, refer to <ulink url="http://www.lanana.org/">http://www.lanana.org/</ulink>.</para>
     <para>Below is an example of the file system hierarchy layout with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
     <programlisting><replaceable>&OPT;</replaceable>
 `-- <replaceable>&RH;</replaceable>
@@ -135,7 +127,64 @@
         `-- &DSCL; scriptlets
 </programlisting>
     <para>As you can see in the example above, each of the &DSCL;s directories contains two subdirectories: the &DSCL; root directory and a directory containing the &DSCL; scriptlets. For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
-  </section>
+    </section>
+    <section id="sect-The_Software_Collection_Root_Directory">
+    	<title>The &DSCL; Root Directory</title>
+    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file, as in the following example:</para>
+    <programlisting language="RPM Spec">%_scl_prefix /opt/provider</programlisting>
+    <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered, where applicable, with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the Filesystem Hierarchy Standard.</para>
+    <para>Each organization or project that builds and distributes &DSCL;s should use its own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
+    <para>You are advised to make the file system hierarchy conform to the following layout:</para>
+    <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>prefix-application-version</replaceable>/</programlisting>
+    <para>For more information on the Filesystem Hierarchy Standard, see <ulink url="http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</ulink>.</para>
+    <para>For more information on the Linux Assigned Names and Numbers Authority, see <ulink url="http://www.lanana.org/">http://www.lanana.org/</ulink>.</para>
+    </section>
+  <section id="sect-The_Software_Collections_Prefix">
+  	<title>The &DSCL; Prefix</title>
+  	<para>
+  		When naming your &DSCL;, it is important to prefix the name of your &DSCL; as described below in order to avoid possible name conflicts with the system versions of the packages that are part of your &DSCL;.
+  	</para>
+  	<para>
+  		The &DSCL; prefix consists of two parts: 
+  	</para>
+  	<itemizedlist>
+  		<listitem>
+  			<para>
+  				the <replaceable>provider</replaceable> part, which defines the provider name, and
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				the name of the &DSCL; itself.
+			</para>
+		</listitem>
+  	</itemizedlist>
+  	<para>These two parts of the &DSCL; prefix are separated by an underscore (<literal>_</literal>), as in the following example:</para>
+	<programlisting>organization_ruby193</programlisting>
+	<para>In this example, <replaceable>organization</replaceable> is the provider name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
+	</para>
+	</section>
+	<section id="sect-Software_Collection_Package_Names">
+		<title>&DSCL; Package Names</title>
+  	<para>
+  		The &DSCL; package name consists of two parts: 
+  	</para>
+  	<itemizedlist>
+  		<listitem>
+  			<para>
+  				the <replaceable>prefix</replaceable> part, discussed in <xref linkend="sect-The_Software_Collections_Prefix" />, and
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				the name and version number of the application that is a part of the &DSCL;.
+			</para>
+		</listitem>
+  	</itemizedlist>
+  	<para>These two parts of the &DSCL; package name are separated by a dash (<literal>-</literal>), as in the following example:</para>
+	<programlisting>organization_ruby193-foreman-1.1</programlisting>
+	<para>In this example, <replaceable>organization_ruby193</replaceable> is the prefix, and <replaceable>foreman-1.1</replaceable> is the name and version number of the application.</para>
+    </section>
   <section id="sect-Software_Collection_Scriptlets">
     <title>&DSCL; Scriptlets</title>
     <para>The &DSCL; scriptlets are simple shell scripts that change the current system environment so that the group of packages in the &DSCL; is preferred over the corresponding group of conventional packages installed on the system.</para>
@@ -154,24 +203,24 @@
           <term>The main package: %scl</term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
-            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the main package macro is expanded to:</para>
-            <programlisting>ruby-1.8.7</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the main package macro is expanded to:</para>
+            <programlisting>organization_ruby193</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
-            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the runtime subpackage macro is expanded to:</para>
-            <programlisting>ruby-1.8.7-runtime</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
+            <programlisting>organization_ruby193-runtime</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The build subpackage: <replaceable>name</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
-            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the build subpackage macro is expanded to:</para>
-            <programlisting>ruby-1.8.7-build</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the build subpackage macro is expanded to:</para>
+            <programlisting>organization_ruby193-build</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -179,6 +228,7 @@
 <para>To get an idea of what a typical &DSCL; meta package looks like, see the following example:</para>
       <programlisting language="RPM Spec">%{!?scl:%global scl example}
 %scl_package %scl
+%_scl_prefix /opt/organization
 
 Summary: Package that installs %scl
 Name: %scl_name
@@ -231,7 +281,7 @@ EOF
       	Always make sure that your meta package spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the meta package will fail. This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your meta package spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
       </para>
     </section>
-    <section id="sect-Packages_in_the_Software_Collection_Namespace">
+<!--    <section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
       <para>Besides the minimal subset of packages installed by the meta package, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
       <variablelist>
@@ -239,13 +289,13 @@ EOF
           <term>&DSCL; package: <replaceable>name</replaceable>-<replaceable>pkgname</replaceable></term>
           <listitem>
             <para>The &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL;'s file system hierarchy.</para>
-            <para>For example, if the name of the &DSCL; is <literal>ruby-1.8.7</literal>, then the &DSCL;'s package name for the <package>ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
-            <programlisting>ruby-1.8.7-ruby-1.8.7.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the &DSCL;'s package name for the <package>ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <programlisting>organization_ruby193-ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
             <para></para>
           </listitem>
         </varlistentry>
       </variablelist>
-    </section>
+    </section>-->
   </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>

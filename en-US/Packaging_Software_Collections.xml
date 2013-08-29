@@ -3,6 +3,66 @@
 <chapter id="chap-Packaging_Software_Collections">
   <title>Packaging &DSCL;s</title>
   <para>This chapter introduces you to packaging &DSCL;s.</para>
+  <section id="Creating_Your_Own_Software_Collections">
+  	<title>Creating Your Own &DSCL;s</title>
+  	<para>In general, you can use one of the following two approaches to deploy an application that depends on an existing &DSCL;:
+  	</para>
+  	<itemizedlist>
+  		<listitem>
+  			<para>
+  				install all required Software Collections and packages manually and then deploy your application, or
+  			</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				create a new Software Collection for your application.
+  			</para>
+  		</listitem>
+  	</itemizedlist>
+  	<variablelist>
+  	<title>When creating a new &DSCL; for your application:</title>
+  	<varlistentry>
+  		<term>Create a &DSCL; meta package</term>
+  		<listitem>
+  			<para>
+  				Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. See <xref linkend="sect-Meta_Package" /> for more information on creating meta packages.
+  			</para>
+  		</listitem>
+  	</varlistentry>
+  	<varlistentry>
+  		<term>Specify the location of the &DSCL; root directory</term>
+  		<listitem>
+  			<para>
+  				Ensure that the location of the &DSCL; root directory is specified by setting the <code>%_scl_prefix</code> macro in the &DSCL; spec file. For more information, see <xref linkend="sect-The_Software_Collection_Root_Directory" />.
+  			</para>
+  		</listitem>
+  	</varlistentry>
+  	<varlistentry>
+  		<term>Prefix the name of your &DSCL; packages</term>
+  		<listitem>
+  			<para>
+  				Ensure that the name of your &DSCL; packages is prefixed with the vendor and &DSCL;'s name. For more information, see <xref linkend="sect-The_Software_Collections_Prefix" />.
+  			</para>
+  		</listitem>
+  	</varlistentry>
+  	<varlistentry>
+  		<term>Specify all &DSCL;s and other packages required by your application as dependencies</term>
+  		<listitem>
+  			<para>
+  				Ensure that all &DSCL;s and other packages required by your application are specified as dependencies of your &DSCL;. For more information, see <xref linkend="sect-Using_a_Software_Collection_in_Your_Application" />.
+  			</para>
+  		</listitem>
+  	</varlistentry>
+  	<varlistentry>
+  		<term>Convert existing conventional packages or create new &DSCL; packages</term>
+  		<listitem>
+  			<para>
+  				Ensure that all macros in your &DSCL; package spec files use conditionals. See <xref linkend="sect-Converting_a_Conventional_Spec_File" /> for more information on how to convert an existing package spec file.
+  			</para>
+  		</listitem>
+  	</varlistentry>
+  	</variablelist>
+  </section>
   <section id="sect-Building_a_Software_Collection_Locally">
     <title>Building a &DSCL;</title>
     <para>To build a &DSCL; on your system, run the following command:</para>
