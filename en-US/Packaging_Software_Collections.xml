@@ -63,20 +63,230 @@
   	</varlistentry>
   	</variablelist>
   </section>
-  <section id="sect-Building_a_Software_Collection_Locally">
-    <title>Building a &DSCL;</title>
-    <para>To build a &DSCL; on your system, run the following command:</para>
-    <synopsis>
-      <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
-    </synopsis>
-    <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -ba <replaceable>package</replaceable>.spec</command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
-    <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file (<filename><replaceable>package</replaceable>.spec</filename>).</para>
-  <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
-  	<title>Rebuilding a &DSCL; without build subpackages</title>
+  <section id="sect-The_File_System_Hierarchy">
+    <title>The File System Hierarchy</title>
+    <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation. The use of the <filename>/&OPT;/</filename> directory is recommended by the Filesystem Hierarchy Standard (FHS).</para>
+    <para>Below is an example of the file system hierarchy layout with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
+    <programlisting><replaceable>&OPT;</replaceable>
+`-- <replaceable>&RH;</replaceable>
+    |-- &DSCL; 1
+    |   |-- &DSCL; root directory
+    |   `-- &DSCL; scriptlets
+    |
+    `-- &DSCL; 2
+        |-- &DSCL; root directory
+        `-- &DSCL; scriptlets
+</programlisting>
+    <para>As you can see in the example above, each of the &DSCL;s directories contains two subdirectories: the &DSCL; root directory and a directory containing the &DSCL; scriptlets. For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
+    </section>
+    <section id="sect-The_Software_Collection_Root_Directory">
+    	<title>The &DSCL; Root Directory</title>
+    <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file, as in the following example:</para>
+    <programlisting language="RPM Spec">%_scl_prefix /opt/<replaceable>provider</replaceable></programlisting>
+    <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered, where applicable, with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the Filesystem Hierarchy Standard.</para>
+    <para>Each organization or project that builds and distributes &DSCL;s should use its own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
+    <para>You are advised to make the file system hierarchy conform to the following layout:</para>
+    <programlisting>/opt/<replaceable>provider</replaceable>/<replaceable>prefix-application-version</replaceable>/</programlisting>
+    <para>For more information on the Filesystem Hierarchy Standard, see <ulink url="http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</ulink>.</para>
+    <para>For more information on the Linux Assigned Names and Numbers Authority, see <ulink url="http://www.lanana.org/">http://www.lanana.org/</ulink>.</para>
+    </section>
+  <section id="sect-The_Software_Collections_Prefix">
+  	<title>The &DSCL; Prefix</title>
   	<para>
-  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; meta package. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; meta package with the <command>rpmbuild</command> command will fail.
+  		When naming your &DSCL;, it is important to prefix the name of your &DSCL; as described below in order to avoid possible name conflicts with the system versions of the packages that are part of your &DSCL;.
   	</para>
+  	<para>
+  		The &DSCL; prefix consists of two parts: 
+  	</para>
+  	<itemizedlist>
+  		<listitem>
+  			<para>
+  				the <replaceable>provider</replaceable> part, which defines the provider name, and
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				the name of the &DSCL; itself.
+			</para>
+		</listitem>
+  	</itemizedlist>
+  	<para>These two parts of the &DSCL; prefix are separated by an underscore (<literal>_</literal>), as in the following example:</para>
+	<programlisting>myorganization_ruby193</programlisting>
+	<para>In this example, <replaceable>myorganization</replaceable> is the provider name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
+	</para>
+	</section>
+	<section id="sect-Software_Collection_Package_Names">
+		<title>&DSCL; Package Names</title>
+  	<para>
+  		The &DSCL; package name consists of two parts: 
+  	</para>
+  	<itemizedlist>
+  		<listitem>
+  			<para>
+  				the <replaceable>prefix</replaceable> part, discussed in <xref linkend="sect-The_Software_Collections_Prefix" />, and
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				the name and version number of the application that is a part of the &DSCL;.
+			</para>
+		</listitem>
+  	</itemizedlist>
+  	<para>These two parts of the &DSCL; package name are separated by a dash (<literal>-</literal>), as in the following example:</para>
+	<programlisting>myorganization_ruby193-foreman-1.1</programlisting>
+	<para>In this example, <replaceable>myorganization_ruby193</replaceable> is the prefix, and <replaceable>foreman-1.1</replaceable> is the name and version number of the application.</para>
+    </section>
+  <section id="sect-Software_Collection_Scriptlets">
+    <title>&DSCL; Scriptlets</title>
+    <para>The &DSCL; scriptlets are simple shell scripts that change the current system environment so that the group of packages in the &DSCL; is preferred over the corresponding group of conventional packages installed on the system.</para>
+    <para>To utilize the &DSCL; scriptlets, use the <application>scl</application> tool. For more information on <application>scl</application>, refer to <xref linkend="sect-Enabling_the_Software_Collection"/>.</para>
   </section>
+  <section id="sect-Package_Layout">
+    <title>Package Layout</title>
+    <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL; namespace.</para>
+    <section id="sect-Meta_Package">
+      <title>Meta Package</title>
+      <para>Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. For example, the essential packages can provide the Perl language interpreter, but no Perl extension modules. The meta package contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
+      <para>The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
+      <para>The meta package produces the following packages that are also part of the &DSCL;:</para>
+      <variablelist>
+        <varlistentry>
+          <term>The main package: %scl</term>
+          <listitem>
+            <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the main package macro is expanded to:</para>
+            <programlisting>myorganization_ruby193</programlisting>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
+          <listitem>
+            <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
+            <programlisting>myorganization_ruby193-runtime</programlisting>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>The build subpackage: <replaceable>name</replaceable>-build</term>
+          <listitem>
+            <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the build subpackage macro is expanded to:</para>
+            <programlisting>myorganization_ruby193-build</programlisting>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+</section>
+<section id="sect-Creating_a_Meta_Package">
+<title>Creating a Meta Package</title>
+<itemizedlist>
+	<title>When creating a new meta package:</title>
+	<listitem>
+		<para>
+			You are advised to add <code language="RPM Spec">Requires: scl-utils-build</code> to the <package>build</package> subpackage.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			Add any macros you need to use to the <filename>macros.%{scl}-config</filename> file in the <package>build</package> subpackage.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			You are not required to use conditionals for &DSCL;-specific macros in the meta package.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			Consider specifying all packages in your &DSCL; that are essential for the &DSCL; run time as dependencies of the meta package. That way you can ensure that the packages are installed with the &DSCL; meta package.
+		</para>
+	</listitem>
+	<listitem>
+		<para> 
+			Include any path redefinition that the packages in your &DSCL; may require in the <filename>enable</filename> scriptlet.
+		</para>
+		<para>
+			For example, to run &DSCL; binary files, add <code language="RPM Spec">PATH=%{_bindir}\${PATH:+:\${PATH}}</code> to the <filename>enable</filename> scriptlet.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+		 	Always make sure that the meta package spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the meta package will fail.
+		 	</para>
+		 	<para>
+		 		This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your meta package spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
+		 	</para>
+	</listitem>
+</itemizedlist>
+<bridgehead id="bh-Example_of_the_Meta_Package">Example of the Meta Package</bridgehead>
+<para>To get an idea of what a typical &DSCL; meta package looks like, see the following example:</para>
+      <programlisting language="RPM Spec">%global scl software_collection
+%scl_package %scl
+%_scl_prefix /opt/myorganization
+
+Summary: Package that installs %scl
+Name: %scl_name
+Version: 1
+Release: 1%{?dist}
+License: GPLv2+
+Requires: %{scl_prefix}less
+BuildRequires: scl-utils-build
+
+%description
+This is the main package for %scl Software Collection.
+
+%package runtime
+Summary: Package that handles %scl Software Collection.
+Requires: scl-utils
+
+%description runtime
+Package shipping essential scripts to work with %scl Software Collection.
+
+%package build
+Summary: Package shipping basic build configuration
+Requires: scl-utils-build
+
+%description build
+Package shipping essential configuration macros to build %scl Software Collection.
+
+%prep
+%setup -c -T
+
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_scl_scripts}/root
+cat &gt;&gt; %{buildroot}%{_scl_scripts}/enable &lt;&lt; EOF
+export PATH=%{_bindir}\${PATH:+:\${PATH}}
+EOF
+%scl_install
+
+%files
+
+%files runtime
+%scl_files
+
+%files build
+%{_root_sysconfdir}/rpm/macros.%{scl}-config
+
+%changelog
+* Fri Aug 30 2013 John Doe &lt;jdoe@example.com&gt; 1-1
+- Initial package
+      </programlisting>
+    </section>
+<!--    <section id="sect-Packages_in_the_Software_Collection_Namespace">
+      <title>Packages in the &DSCL; Namespace</title>
+      <para>Besides the minimal subset of packages installed by the meta package, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
+      <variablelist>
+        <varlistentry>
+          <term>&DSCL; package: <replaceable>name</replaceable>-<replaceable>pkgname</replaceable></term>
+          <listitem>
+            <para>The &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL;'s file system hierarchy.</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the &DSCL;'s package name for the <package>ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <programlisting>myorganization_ruby193-ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
+            <para></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>-->
   </section>
   <section id="sect-Software_Collection_Macros">
     <title>&DSCL; Macros</title>
@@ -572,6 +782,19 @@ Software Collection macros simply relocate package to non-conflicting namespaced
  %{_mandir}/man1/*
  </programlisting>
   </section>
+  <section id="sect-Uninstalling_all_Software_Collection_directories">
+    <title>Uninstalling all &DSCL; directories</title>
+    <para>
+    	Keep in mind that the <command>yum remove</command> command does not uninstall directories provided by those &DSCL; packages and subpackages that are removed after the &DSCL; <package>runtime</package> subpackage is removed.
+    </para>
+    	<para>
+    		To ensure that all directories are uninstalled, make those packages and subpackages depend on the <package>runtime</package> subpackage. To do so, add the following line to the spec file of each of those packages and subpackages:
+    	</para>
+    	<programlisting language="RPM Spec">%{?scl:Requires: %{scl}-runtime}</programlisting>
+    	<para>
+    		Adding the above line ensures that all directories provided by those packages and subpackages are removed correctly as long as the <package>runtime</package> subpackage does not depend on any of those packages and subpackages.
+    	</para>
+  </section>
   <section id="sect-Using_a_Software_Collection_in_Your_Application">
     <title>Using a &DSCL; in Your Application</title>
 <para>To use a &DSCL; in your application, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in your application's spec file so that these tags properly define dependencies on &DSCL;s.</para>
@@ -588,363 +811,19 @@ Requires: %scl_require software_collection_2
   	Note that the <code>%scl_package</code> macro must be included in every spec file of your &DSCL;.
   </para>
   </section>
-  <section id="sect-Software_Collection_Initscript_Support">
-    <title>&DSCL; Initscript Support</title>
-    <para>Ensure that users can directly manage any services provided by the &DSCL; or one of the associated applications with the system default tools, like <application>service</application> or <application>chkconfig</application>.</para>
-    <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows:</para>
-    <programlisting language="RPM Spec">
-%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable>
-</programlisting>
-    <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
-    <screen>%{?scl_prefix}<replaceable>service_name</replaceable></screen>
-  </section>
-  <section id="sect-Software_Collection_Library_Support">
-    <title>&DSCL; Library Support</title>
-    <para>In case you distribute libraries that you intend to use only in the &DSCL; environment or in addition to the libraries available on the system, adjust the <envar>LD_LIBRARY_PATH</envar> environment variable in the spec file as follows:</para>
-    <programlisting language="RPM Spec">export LD_LIBRARY_PATH=%{_libdir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}</programlisting>
-    <para>This configuration ensures that the version of the library in the &DSCL; is preferred over the version of the library available on the system if the &DSCL; is enabled.</para>
-    <note>
-    	<para>
-    		In case you distribute a private shared library in the &DSCL;, consider using the <envar>DT_RUNPATH</envar> attribute instead of the <envar>LD_LIBRARY_PATH</envar> environment variable to make the private shared library accessible in the &DSCL; environment.
-    	</para>
-    </note>
-    <section id="sect-Using_a_Library_Outside_of_the_Collection">
-	<title>Using a Library Outside of the &DSCL;</title>
-    <para>If you distribute libraries that you intend to use outside of the &DSCL; environment, you can use the directory <filename>/etc/ld.so.conf.d/</filename> for this purpose.</para>
-    <warning>
-      <para>Do not use <filename>/etc/ld.so.conf.d/</filename> for libraries already available on the system. Using <filename>/etc/ld.so.conf.d/</filename> is only recommended for a library that is not available on the system, as otherwise the version of the library in the &DSCL; might get preference over the system version of the library. That could lead to undesired behavior of the system versions of the applications, including unexpected termination and data loss.</para>
-    </warning>
-    <procedure>
-      <title>Using /etc/ld.so.conf.d/ for libraries in the &DSCL;</title>
-      <step>
-        <para>Create a file named <filename>libs.conf</filename> and adjust the spec file configuration accordingly:</para>
-        <programlisting language="RPM Spec">
-SOURCE2: %{?scl_prefix}libs.conf
-</programlisting>
-      </step>
-      <step>
-        <para>In the <filename>libs.conf</filename> file, include a list of directories where the versions of the libraries associated with the &DSCL; are located. For example:</para>
-        <programlisting>/&OPT;/&RH;/software_collection_1/root/usr/lib64/
-</programlisting>
-        <para>In the example above, the <filename>/usr/lib64/</filename> directory that is part of the &DSCL; <application>software_collection_1</application> is included in the list.</para>
-      </step>
-      <step>
-        <para>Edit the <code>%install</code> section of the spec file, so the <filename>libs.conf</filename> file is installed as follows:</para>
-        <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/ld.so.conf.d/
-</programlisting>
-      </step>
-    </procedure>
-    </section>
-    <section id="sect-Prefixing_the_Library_Major_soname_with_the_Collection_Name">
-    <title>Prefixing the Library Major soname with the &DSCL; Name</title>
-    <para>
-    	When using libraries included in the &DSCL;, always remember that a library with the same major soname can already be available on the system as a part of the base system installation. It is thus important not to forget to use the <command>scl enable</command> command when building an application against a library included in the &DSCL;. Failing to do so may result in the application being executed in an incorrect environment, linked against the incorrect system version of the library.</para>
-    <warning>
-      <para>Keep in mind that executing your application in an incorrect environment (for example in the system environment instead of the &DSCL; environment) as well as linking your application against an incorrect library can lead to undesired behavior of your application, including unexpected termination and data loss.</para>
-    </warning>
-<para>To ensure that your application is not linked against an incorrect library even if the <envar>LD_LIBRARY_PATH</envar> environment variable has not been set properly, change the major soname of the library included in the &DSCL;. The recommended way to change the major soname is to prefix the major soname version number with the &DSCL; name.
-</para>
-<para>
-	Below is an example of the MySQL client library with the <literal>mysql55-</literal> prefix:
-</para>
-<screen>
-$ <command>rpm -ql mysql55-mysql-libs | grep 'lib.*so'</command>
-/usr/lib64/mysql/libmysqlclient.so.mysql55-18
-/usr/lib64/mysql/libmysqlclient.so.mysql55-18.0.0
-</screen>
-<para>
-	On the same system, the system version of the MySQL client library is listed below:
-</para>
-<screen>
-$ <command>rpm -ql mysql-libs | grep 'lib.*so'</command>
-/usr/lib64/mysql/libmysqlclient.so.18
-/usr/lib64/mysql/libmysqlclient.so.18.0.0
-</screen>
-</section>
-  </section>
-<section id="sect-Software_Collection_pc_Files_Support">
-    <title>&DSCL; .pc Files Support</title>
-    <para>The .pc files are special metadata files used by the <application>pkg-config</application> program to store information about libraries available on the system. In case you distribute .pc files that you intend to use only in the &DSCL; environment or in addition to the .pc files installed on the system, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable. Depending on what is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro (which expands to the library directory, typically <filename>/usr/lib/</filename> or <filename>/usr/lib64/</filename>), or for the <varname>%{_datadir}</varname> macro (which expands to the share directory, typically <filename>/usr/share/</filename>).</para>
-    <para>If the library directory is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable in the spec file as follows:</para>
-    <programlisting language="RPM Spec">
-export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:\$PKG_CONFIG_PATH
-</programlisting>
-    <para>If the share directory is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable in the spec file as follows:</para>
-    <programlisting language="RPM Spec">
-export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:\$PKG_CONFIG_PATH
-</programlisting>
-    <para>This configuration ensures that the .pc files in the &DSCL; are preferred over the .pc files available on the system if the &DSCL; is enabled.</para>
-    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the .pc files are visible to the system even if the &DSCL; is disabled.</para>
-    <para>To allow your system to use .pc files from the disabled &DSCL;, update the <envar>PKG_CONFIG_PATH</envar> environment variable with the paths to the .pc files associated with the &DSCL;. Depending on what is defined in your .pc files, adjust the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro (which expands to the library directory), or for the <varname>%{_datadir}</varname> macro (which expands to the share directory).</para>
-<procedure><title>Updating the PKG_CONFIG_PATH environment variable for %{_libdir}</title>
-<step><para>To update the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_libdir}</varname> macro, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
-<para>For example, create the following file:</para>
-    <screen>%{?scl_prefix}pc-libdir.sh</screen></step>
-<step><para>Use the <filename>pc-libdir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
-    <screen>export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
-<step><para>Add the file to your &DSCL; package's spec file:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-libdir.sh</programlisting></step>
-    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-    <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
-</step>
-</procedure>
-<procedure><title>Updating the PKG_CONFIG_PATH environment variable for %{_datadir}</title>
-<step><para>To update the <envar>PKG_CONFIG_PATH</envar> environment variable for the <varname>%{_datadir}</varname> macro, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
-<para>For example, create the following file:</para>
-    <screen>%{?scl_prefix}pc-datadir.sh</screen></step>
-<step><para>Use the <filename>pc-datadir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
-    <screen>export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
-<step><para>Add the file to your &DSCL; package's spec file:</para>
-<programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-datadir.sh</programlisting></step>
-    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-    <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
-</step>
-</procedure>
-</section>
-  <section id="sect-Software_Collection_manpath_Support">
-    <title>&DSCL; manpath Support</title>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages that are associated with the &DSCL;.</para>
-    <para>To update the <envar>MANPATH</envar> environment variable, add the following line to the spec file:</para>
-    <programlisting language="RPM Spec">export MANPATH=%{_mandir}:\${MANPATH}</programlisting>
-    <para>This update relocates the <code>%{_mandir}</code> macro to the &DSCL; path. So that the manual pages associated with the &DSCL; are not visible as long as the &DSCL; is not enabled.</para>
-    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
-<procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
-<step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
-<para>For example, create the following file:</para>
-    <screen>%{?scl_prefix}manpage.sh</screen></step>
-    <step>
-    <para>Use the <filename>manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
-    <screen>export MANPATH=/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/man_pages</replaceable>:${MANPATH}</screen>
-    </step>
-    <step><para>Add the file to your &DSCL; package's spec file:</para>
-    <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
-    <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-    <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/profile.d/</programlisting>
-</step>
-</procedure>
-  </section>
-  <section id="sect-Software_Collection_cronjob_Support">
-    <title>&DSCL; cronjob Support</title>
-    <para>With your &DSCL;, you can run regular tasks on the system either with a dedicated service or with cronjobs. If you intend to use a dedicated service, refer to <xref linkend="sect-Software_Collection_Initscript_Support"/> on how to work with initscripts in the &DSCL; environment.</para>
-    <procedure>
-      <title>Running regular tasks with cronjobs</title>
-      <step>
-        <para>To use cronjobs for running regular tasks, place a <filename>crontab</filename> file for your &DSCL; in the <filename>/etc/cron.d/</filename> directory with the &DSCL;'s name.</para>
-        <para>For example, create the following file:</para>
-        <screen>%{?scl_prefix}crontab</screen>
-      </step>
-      <step>
-        <para>Ensure that the contents of the <filename>crontab</filename> file follow the standard <filename>crontab</filename> file format, as in the following example:</para>
-        <screen>0 1 * * Sun root <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/<replaceable>architecture</replaceable>/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
-      </step>
-      <step>
-        <para>Add the file to your spec file of the &DSCL; package:</para>
-        <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}crontab</programlisting>
-      </step>
-      <step>
-        <para>Install the file into the system directory <filename>/etc/cron.d/</filename> by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-        <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/cron.d/
-</programlisting>
-      </step>
-    </procedure>
-  </section>
-  <section id="sect-Software_Collection_Log_File_Support">
-    <title>&DSCL; Log File Support</title>
-    <para>
-    	By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory. Consider creating the log files outside of the &DSCL; file system hierarchy, that is in the <filename>/var/log/</filename> system directory. When using the system directory, all log files are stored in the same location, which makes it easier for users to locate and manage them.
-    </para>
-  </section>
-  <section id="sect-Software_Collection_logrotate_Support">
-    <title>&DSCL; logrotate Support</title>
-    <para>With your &DSCL; or an application associated with your &DSCL;, you can manage log files with the <application>logrotate</application> program.</para>
-    <procedure>
-      <title>Managing log files with logrotate</title>
-      <step>
-        <para>To manage your log files with <application>logrotate</application>, place a custom <application>logrotate</application> file for your &DSCL; in the system directory for the <application>logrotate</application> jobs <filename>/etc/logrotate.d/</filename>.</para>
-        <para>For example, create the following file:</para>
-        <screen>%{?scl_prefix}logrotate</screen>
-      </step>
-      <step>
-        <para>Ensure that the contents of the <filename>logrotate</filename> file follow the standard <filename>logrotate</filename> file format as follows:</para>
-        <screen>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/log/<replaceable>your_application_name</replaceable>.log {
-      missingok
-      notifempty
-      size 30k
-      yearly
-      create 0600 root root
-  }</screen>
-      </step>
-      <step>
-        <para>Add the file to your spec file of the &DSCL; package:</para>
-        <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}logrotate</programlisting>
-      </step>
-      <step>
-        <para>Install the file into the system directory <filename>/etc/logrotate.d/</filename> by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
-        <programlisting language="RPM Spec">%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/logrotate.d/</programlisting>
-      </step>
-    </procedure>
-  </section>
-  <section id="sect-Software_Collection_Lock_File_Support">
-    <title>&DSCL; Lock File Support</title>
-    <para>If you store your &DSCL;'s lock files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the applications or services that can be on the system.</para>
-    <para>If you want to prevent &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
-    <para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (when the &DSCL; version's resources will not conflict with the system version's resources), ensure that the applications or services write the lock to the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
-  </section>
-  <section id="sect-Software_Collection_Configuration_Files_Support">
-    <title>&DSCL; Configuration Files Support</title>
-    <para>If you store your &DSCL;'s configuration files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
-    <para>If you cannot store the configuration files within <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
-  </section>
-  <section id="sect-Software_Collection_Kernel_Module_Support">
-    <title>&DSCL; Kernel Module Support</title>
-    <para>Because Linux kernel modules are normally tied to a particular version of the Linux kernel, you must be careful when you package kernel modules into a &DSCL;. This is because the package management system on &MAJOROS; does not automatically update or install an updated version of the kernel module if an updated version of the Linux kernel is installed. To make packaging the kernel modules into the &DSCL; easier, see the following recommendations. Ensure that:</para>
-    <orderedlist>
-      <listitem>
-        <para>the name of your kernel module package includes the kernel version,</para>
-      </listitem>
-      <listitem>
-        <para>the tag <code>Requires</code>, which can be found in your kernel module spec file, includes the kernel version and revision (in the format <code>kernel-<replaceable>version</replaceable>-<replaceable>revision</replaceable></code>).</para>
-      </listitem>
-    </orderedlist>
-  </section>
-  <section id="sect-Software_Collection_SELinux_Support">
-    <title>&DSCL; SELinux Support</title>
-    <para>Because &DSCL;s are designed to install the &DSCL; packages in an alternate directory, set up the necessary SELinux labels so that SELinux is aware of the alternate directory.</para>
-    <para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
-    <para>For example, if the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels as follows:</para>
+  <section id="sect-Building_a_Software_Collection_Locally">
+    <title>Building a &DSCL;</title>
+    <para>To build a &DSCL; on your system, run the following command:</para>
     <synopsis>
-      <command>semanage fcontext -a -e /usr /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
+      <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
     </synopsis>
-    <synopsis>
-      <command>restorecon -R -v /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
-    </synopsis>
-    <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
-<!--    <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>-->
-    <important>
-    	<para>
-    		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
-    	</para>
-    </important>
-  </section>
-<!--TODO: BZ#968360  <section id="sect-Software_Collection_SELinux_Support">
-    <title>&DSCL; SELinux Support</title>
-    <para>Because &DSCL;s are designed to install the &DSCL; packages in an alternate directory, set up the necessary SELinux labels so that SELinux is aware of the alternate directory.</para>
-    <para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
-    <para>For example, if the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels as follows:</para>
-    <synopsis>
-      <command>semanage fcontext -a -e /usr /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
-    </synopsis>
-    <synopsis>
-      <command>restorecon -R -v /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
-    </synopsis>
-    <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
-    <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> section in the &DSCL; spec file.</para>
-    <section id="sect-Using_restorecon_on_Red_Hat_Enterprise_Linux_6">
-    <title>Using the restorecon command on Red Hat Enterprise Linux 6</title>
-    <para>
-    	Note that when using the <command>semanage fcontext</command> and <command>restorecon</command> commands in the &DSCL; spec file, RPM will not set up the desired SELinux labels correctly for certain files if the following conditions are met:
-    </para>
-    <itemizedlist>
-    <listitem>
-    <para>
-    	you also install other packages as dependencies of the  &DSCL; meta package, and
-    </para>
-    </listitem>
-    <listitem>
-    	<para>
-    	these dependencies include files that apply for the desired SELinux context.
-    	</para>
-    </listitem>
-    </itemizedlist>
-    <para>
-    	To set up the SELinux labels correctly for all files, make sure to run <command>restorecon</command> in the <code language="RPM Spec">%post</code> section of each dependency that include files applying for the desired SELinux context. For example, to run <command>restorecon</command> in the <code language="RPM Spec">%post</code> section of a <code>server</code> package in the <literal>mysql55</literal> &DSCL;, ensure that the &DSCL; spec file contains the following lines:
-    </para>
-    <programlisting language="RPM Spec">%post server
-restorecon -R %{_scl_root} >/dev/null 2>&amp;1 || :
-restorecon /etc/rc.d/init.d/%{scl_prefix}mysqld >/dev/null 2>&amp;1 || :</programlisting>
-<procedure>
-	<title>Setting up SELinux File Context Equivalency</title>
-	<step>
-		<para>
-			In the <code language="RPM Spec">%post</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
-		</para>
-		<programlisting language="RPM Spec">%post runtime
-if [ ! -f %{_sysconfdir}/selinux-equiv.created ]; then
-  /usr/sbin/semanage fcontext -a -e / %{_scl_root}
-  restorecon -R %{_scl_root}
-  touch %{_sysconfdir}/selinux-equiv.created
-fi
-		</programlisting>
-	</step>
-	<step>
-		<para>
-			In the <code language="RPM Spec">%preun</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
-		</para>
-		<programlisting language="RPM Spec">%preun runtime
-[ $1 = 0 ] &amp;&amp; rm -f %{_sysconfdir}/selinux-equiv.created || :
-		</programlisting>
-	</step>
-	<step>
-		<para>
-			In the <code language="RPM Spec">%postun</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
-		</para>
-		<programlisting language="RPM Spec">%postun runtime
-if [ $1 = 0 ]; then
-  /usr/sbin/semanage fcontext -d %{_scl_root}
-  restorecon -R %{_scl_root}
-fi
-		</programlisting>
-	</step>
-	<step>
-		<para>
-			Ensure that the <code language="RPM Spec">%files</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package contains the following lines:
-		</para>
-		<programlisting language="RPM Spec">%files runtime
-%defattr(-,root,root,-)
-%scl_files
-%attr(0644,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) %{_sysconfdir}/selinux-equiv.created
-		</programlisting>
-	</step>
-	<step>
-		<para>
-			Ensure that the <code language="RPM Spec">%package runtime</code> section of the &DSCL; meta package spec file contains the following lines:
-		</para>
-		<programlisting language="RPM Spec">%package runtime
-Requires(post): libselinux policycoreutils-python
-Requires(postun): libselinux policycoreutils-python
-Requires(preun): libselinux policycoreutils-python
-		</programlisting>
-	</step>
-</procedure>
-    </section>
-    <section id="sect-The_semanage_-e_command_and_Red_Hat_Enterprise_Linux_5">
-    	<title>The semanage -e command and Red Hat Enterprise Linux 5</title>
-    	<para>
-    		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
-    	</para>
-    </section>
-  </section>-->
-  <section id="sect-Packaging_Wrappers_for_Software_Collections">
-  	<title>Packaging Wrappers for &DSCL;s</title>
+    <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -ba <replaceable>package</replaceable>.spec</command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
+    <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file (<filename><replaceable>package</replaceable>.spec</filename>).</para>
+  <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
+  	<title>Rebuilding a &DSCL; without build subpackages</title>
   	<para>
-  		Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
-  	 <para>The following is an example of a wrapper from the <package>ruby193</package> &DSCL; that is installed as <filename>/usr/bin/ruby193-ruby</filename> and allows the user to run <command>ruby193-ruby <replaceable>command</replaceable></command> instead of <command>scl enable ruby193 'ruby <replaceable>command</replaceable>'</command>:
+  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; meta package. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; meta package with the <command>rpmbuild</command> command will fail.
   	</para>
-  	<programlisting language="Bash">#!/bin/bash
-
-COMMAND="ruby $@"
-scl enable ruby193 "$COMMAND"
-</programlisting>
-<para>
-	It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
-</para>
+  </section>
   </section>
 </chapter>
