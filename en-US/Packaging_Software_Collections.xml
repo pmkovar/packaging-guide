@@ -827,9 +827,27 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       <command>restorecon -R -v /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
     </synopsis>
     <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
+    <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>
+    <important>
+    	<para>
+    		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
+    	</para>
+    </important>
+  </section>
+<!--TODO: BZ#968360  <section id="sect-Software_Collection_SELinux_Support">
+    <title>&DSCL; SELinux Support</title>
+    <para>Because &DSCL;s are designed to install the &DSCL; packages in an alternate directory, set up the necessary SELinux labels so that SELinux is aware of the alternate directory.</para>
+    <para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
+    <para>For example, if the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory in your &DSCL; package imitates the <filename>/usr/</filename> directory of your conventional package, set up the SELinux labels as follows:</para>
+    <synopsis>
+      <command>semanage fcontext -a -e /usr /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
+    </synopsis>
+    <synopsis>
+      <command>restorecon -R -v /&OPT;/&RH;/software_collection_1/x86_64/root/usr</command>
+    </synopsis>
+    <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/x86_64/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
     <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> section in the &DSCL; spec file.</para>
     <section id="sect-Using_restorecon_on_Red_Hat_Enterprise_Linux_6">
-    <!--TODO: Not needed for F18+ -->
     <title>Using the restorecon command on Red Hat Enterprise Linux 6</title>
     <para>
     	Note that when using the <command>semanage fcontext</command> and <command>restorecon</command> commands in the &DSCL; spec file, RPM will not set up the desired SELinux labels correctly for certain files if the following conditions are met:
@@ -913,7 +931,7 @@ Requires(preun): libselinux policycoreutils-python
     		Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
     	</para>
     </section>
-  </section>
+  </section>-->
   <section id="sect-Packaging_Wrappers_for_Software_Collections">
   	<title>Packaging Wrappers for &DSCL;s</title>
   	<para>
