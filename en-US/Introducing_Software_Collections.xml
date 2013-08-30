@@ -131,7 +131,7 @@
     <section id="sect-The_Software_Collection_Root_Directory">
     	<title>The &DSCL; Root Directory</title>
     <para>You can change the location of the root directory by setting the <code>%_scl_prefix</code> macro in the spec file, as in the following example:</para>
-    <programlisting language="RPM Spec">%_scl_prefix /opt/provider</programlisting>
+    <programlisting language="RPM Spec">%_scl_prefix /opt/<replaceable>provider</replaceable></programlisting>
     <para>where <replaceable>provider</replaceable> is the provider (vendor) name registered, where applicable, with the Linux Foundation and the subordinated Linux Assigned Names and Numbers Authority (LANANA), in conformance with the Filesystem Hierarchy Standard.</para>
     <para>Each organization or project that builds and distributes &DSCL;s should use its own provider name, which conforms to the Filesystem Hierarchy Standard (FHS) and avoids possible conflicts between &DSCL;s and the base system installation.</para>
     <para>You are advised to make the file system hierarchy conform to the following layout:</para>
@@ -160,8 +160,8 @@
 		</listitem>
   	</itemizedlist>
   	<para>These two parts of the &DSCL; prefix are separated by an underscore (<literal>_</literal>), as in the following example:</para>
-	<programlisting>organization_ruby193</programlisting>
-	<para>In this example, <replaceable>organization</replaceable> is the provider name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
+	<programlisting>myorganization_ruby193</programlisting>
+	<para>In this example, <replaceable>myorganization</replaceable> is the provider name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
 	</para>
 	</section>
 	<section id="sect-Software_Collection_Package_Names">
@@ -182,8 +182,8 @@
 		</listitem>
   	</itemizedlist>
   	<para>These two parts of the &DSCL; package name are separated by a dash (<literal>-</literal>), as in the following example:</para>
-	<programlisting>organization_ruby193-foreman-1.1</programlisting>
-	<para>In this example, <replaceable>organization_ruby193</replaceable> is the prefix, and <replaceable>foreman-1.1</replaceable> is the name and version number of the application.</para>
+	<programlisting>myorganization_ruby193-foreman-1.1</programlisting>
+	<para>In this example, <replaceable>myorganization_ruby193</replaceable> is the prefix, and <replaceable>foreman-1.1</replaceable> is the name and version number of the application.</para>
     </section>
   <section id="sect-Software_Collection_Scriptlets">
     <title>&DSCL; Scriptlets</title>
@@ -203,32 +203,74 @@
           <term>The main package: %scl</term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
-            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the main package macro is expanded to:</para>
-            <programlisting>organization_ruby193</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the main package macro is expanded to:</para>
+            <programlisting>myorganization_ruby193</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
-            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
-            <programlisting>organization_ruby193-runtime</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
+            <programlisting>myorganization_ruby193-runtime</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The build subpackage: <replaceable>name</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
-            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the build subpackage macro is expanded to:</para>
-            <programlisting>organization_ruby193-build</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the build subpackage macro is expanded to:</para>
+            <programlisting>myorganization_ruby193-build</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>
+</section>
+<section id="sect-Creating_a_Meta_Package">
+<title>Creating a Meta Package</title>
+<itemizedlist>
+	<title>When creating a new meta package:</title>
+	<listitem>
+		<para>
+			You are advised to add <code language="RPM Spec">Requires: scl-utils-build</code> to the <package>build</package> subpackage.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			Add any macros you need to use to the <filename>macros.%{scl}-config</filename> file in the <package>build</package> subpackage.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			You are not required to use conditionals for &DSCL;-specific macros in the meta package.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			Consider specifying all packages in your &DSCL; that are essential for the &DSCL; run time as dependencies of the meta package. That way you can ensure that the packages are installed with the &DSCL; meta package.
+		</para>
+	</listitem>
+	<listitem>
+		<para> 
+			Include any path redefinition that the packages in your &DSCL; may require in the <filename>enable</filename> scriptlet.
+		</para>
+		<para>
+			For example, to run &DSCL; binary files, add <code language="RPM Spec">PATH=%{_bindir}\${PATH:+:\${PATH}}</code> to the <filename>enable</filename> scriptlet.
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+		 	Always make sure that the meta package spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the meta package will fail.
+		 	</para>
+		 	<para>
+		 		This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your meta package spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
+		 	</para>
+	</listitem>
+</itemizedlist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Meta Package</bridgehead>
 <para>To get an idea of what a typical &DSCL; meta package looks like, see the following example:</para>
-      <programlisting language="RPM Spec">%{!?scl:%global scl example}
+      <programlisting language="RPM Spec">%global scl software_collection
 %scl_package %scl
-%_scl_prefix /opt/organization
+%_scl_prefix /opt/myorganization
 
 Summary: Package that installs %scl
 Name: %scl_name
@@ -250,6 +292,7 @@ Package shipping essential scripts to work with %scl Software Collection.
 
 %package build
 Summary: Package shipping basic build configuration
+Requires: scl-utils-build
 
 %description build
 Package shipping essential configuration macros to build %scl Software Collection.
@@ -261,7 +304,7 @@ Package shipping essential configuration macros to build %scl Software Collectio
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_scl_scripts}/root
 cat &gt;&gt; %{buildroot}%{_scl_scripts}/enable &lt;&lt; EOF
-export PATH=%{_bindir}:\$PATH
+export PATH=%{_bindir}\${PATH:+:\${PATH}}
 EOF
 %scl_install
 
@@ -274,12 +317,9 @@ EOF
 %{_root_sysconfdir}/rpm/macros.%{scl}-config
 
 %changelog
-* Thu Jan 07 2012 John Doe &lt;jdoe@example.com&gt; 1-1
+* Fri Aug 30 2013 John Doe &lt;jdoe@example.com&gt; 1-1
 - Initial package
       </programlisting>
-      <para>
-      	Always make sure that your meta package spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the meta package will fail. This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your meta package spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
-      </para>
     </section>
 <!--    <section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
@@ -289,8 +329,8 @@ EOF
           <term>&DSCL; package: <replaceable>name</replaceable>-<replaceable>pkgname</replaceable></term>
           <listitem>
             <para>The &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL;'s file system hierarchy.</para>
-            <para>For example, if the name of the &DSCL; is <literal>organization_ruby193</literal>, then the &DSCL;'s package name for the <package>ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
-            <programlisting>organization_ruby193-ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the &DSCL;'s package name for the <package>ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <programlisting>myorganization_ruby193-ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
             <para></para>
           </listitem>
         </varlistentry>
