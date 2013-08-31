@@ -22,10 +22,10 @@
   	<variablelist>
   	<title>When creating a new &DSCL; for your application:</title>
   	<varlistentry>
-  		<term>Create a &DSCL; meta package</term>
+  		<term>Create a &DSCL; metapackage</term>
   		<listitem>
   			<para>
-  				Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. See <xref linkend="sect-Meta_Package" /> for more information on creating meta packages.
+  				Each &DSCL; includes a metapackage, which installs a minimal subset of essential packages. See <xref linkend="sect-Meta_Package" /> for more information on creating metapackages.
   			</para>
   		</listitem>
   	</varlistentry>
@@ -58,6 +58,14 @@
   		<listitem>
   			<para>
   				Ensure that all macros in your &DSCL; package spec files use conditionals. See <xref linkend="sect-Converting_a_Conventional_Spec_File" /> for more information on how to convert an existing package spec file.
+  			</para>
+  		</listitem>
+  	</varlistentry>
+  	<varlistentry>
+  		<term>Build your &DSCL;</term>
+  		<listitem>
+  			<para>
+  				After you create the &DSCL; metapackage and convert or create packages for your &DSCL;, you can build the &DSCL; with the <application>rpmbuild</application> utility. For more information, see <xref linkend="sect-Building_a_Software_Collection_Locally" />.
   			</para>
   		</listitem>
   	</varlistentry>
@@ -143,12 +151,12 @@
   </section>
   <section id="sect-Package_Layout">
     <title>Package Layout</title>
-    <para>Each &DSCL;'s layout consists of the meta package, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL; namespace.</para>
+    <para>Each &DSCL;'s layout consists of the metapackage, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL; namespace.</para>
     <section id="sect-Meta_Package">
-      <title>Meta Package</title>
-      <para>Each &DSCL; includes a meta package, which installs a minimal subset of essential packages. For example, the essential packages can provide the Perl language interpreter, but no Perl extension modules. The meta package contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
-      <para>The purpose of the meta package is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
-      <para>The meta package produces the following packages that are also part of the &DSCL;:</para>
+      <title>Metapackage</title>
+      <para>Each &DSCL; includes a metapackage, which installs a minimal subset of essential packages. For example, the essential packages can provide the Perl language interpreter, but no Perl extension modules. The metapackage contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
+      <para>The purpose of the metapackage is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
+      <para>The metapackage produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
         <varlistentry>
           <term>The main package: %scl</term>
@@ -177,9 +185,9 @@
       </variablelist>
 </section>
 <section id="sect-Creating_a_Meta_Package">
-<title>Creating a Meta Package</title>
+<title>Creating a Metapackage</title>
 <itemizedlist>
-	<title>When creating a new meta package:</title>
+	<title>When creating a new metapackage:</title>
 	<listitem>
 		<para>
 			You are advised to add <code language="RPM Spec">Requires: scl-utils-build</code> to the <package>build</package> subpackage.
@@ -192,12 +200,12 @@
 	</listitem>
 	<listitem>
 		<para>
-			You are not required to use conditionals for &DSCL;-specific macros in the meta package.
+			You are not required to use conditionals for &DSCL;-specific macros in the metapackage.
 		</para>
 	</listitem>
 	<listitem>
 		<para>
-			Consider specifying all packages in your &DSCL; that are essential for the &DSCL; run time as dependencies of the meta package. That way you can ensure that the packages are installed with the &DSCL; meta package.
+			Consider specifying all packages in your &DSCL; that are essential for the &DSCL; run time as dependencies of the metapackage. That way you can ensure that the packages are installed with the &DSCL; metapackage.
 		</para>
 	</listitem>
 	<listitem>
@@ -210,15 +218,15 @@
 	</listitem>
 	<listitem>
 		<para>
-		 	Always make sure that the meta package spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the meta package will fail.
+		 	Always make sure that the metapackage spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the metapackage will fail.
 		 	</para>
 		 	<para>
-		 		This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your meta package spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
+		 		This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your metapackage spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
 		 	</para>
 	</listitem>
 </itemizedlist>
-<bridgehead id="bh-Example_of_the_Meta_Package">Example of the Meta Package</bridgehead>
-<para>To get an idea of what a typical &DSCL; meta package looks like, see the following example:</para>
+<bridgehead id="bh-Example_of_the_Meta_Package">Example of the Metapackage</bridgehead>
+<para>To get an idea of what a typical &DSCL; metapackage looks like, see the following example:</para>
       <programlisting language="RPM Spec">%global scl software_collection
 %scl_package %scl
 %_scl_prefix /opt/myorganization
@@ -274,7 +282,7 @@ EOF
     </section>
 <!--    <section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
-      <para>Besides the minimal subset of packages installed by the meta package, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
+      <para>Besides the minimal subset of packages installed by the metapackage, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
       <variablelist>
         <varlistentry>
           <term>&DSCL; package: <replaceable>name</replaceable>-<replaceable>pkgname</replaceable></term>
@@ -291,7 +299,7 @@ EOF
   <section id="sect-Software_Collection_Macros">
     <title>&DSCL; Macros</title>
     <para>The &DSCL; packaging macro <code>scl</code> relocates the file structure, which is part of the &DSCL;, to a file system that is used exclusively by the &DSCL;.</para>
-    <para>The <code>scl</code> macro also defines files ownership for the &DSCL;'s meta package and provides additional packaging macros to use in the &DSCL; environment.
+    <para>The <code>scl</code> macro also defines files ownership for the &DSCL;'s metapackage and provides additional packaging macros to use in the &DSCL; environment.
 </para>
     <para>When using &DSCL; macros in the spec file, you must prefix them with <code>%{?scl:<replaceable>macro</replaceable>}</code>, as in the following example:</para>
     <programlisting language="RPM Spec">%{?scl:Requires:%scl_runtime}</programlisting>
@@ -678,7 +686,7 @@ EOF
                 <para> %<code>_root_libdir</code> </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>&DSCL;'s <code>%_libdir</code> macro, this macro does not work if &DSCL;'s meta package is platform-independent</para>
+                <para>&DSCL;'s <code>%_libdir</code> macro, this macro does not work if &DSCL;'s metapackage is platform-independent</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>no</para>
@@ -714,7 +722,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
           <programlisting language="RPM Spec">Name: %{?scl_prefix}<replaceable>package_name</replaceable></programlisting>
         </step>
         <step>
-          <para>To check that all essential &DSCL;'s packages are dependencies of the main meta package, add the following macro after the <code>BuildRequires</code> or <code>Requires</code> tags in the spec file:</para>
+          <para>To check that all essential &DSCL;'s packages are dependencies of the main metapackage, add the following macro after the <code>BuildRequires</code> or <code>Requires</code> tags in the spec file:</para>
           <programlisting language="RPM Spec">%{?scl:Requires: %scl_runtime}</programlisting>
         </step>
         <step>
@@ -822,7 +830,7 @@ Requires: %scl_require software_collection_2
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
   	<title>Rebuilding a &DSCL; without build subpackages</title>
   	<para>
-  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; meta package. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; meta package with the <command>rpmbuild</command> command will fail.
+  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; metapackage. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.
   	</para>
   </section>
   </section>

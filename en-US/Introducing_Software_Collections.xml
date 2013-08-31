@@ -114,12 +114,17 @@
 </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>
-    <para>To ensure that a &DSCL; is on your system, install the main meta package of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager. For example, to install a &DSCL; named <code>software_collection_1</code>, run the following command:</para>
+    <para>To ensure that a &DSCL; is on your system, install the so-called metapackage of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager.
+    </para>
+    <para>For example, to install a &DSCL; with the metapackage named <code>software_collection_1</code>, run the following command:</para>
     <synopsis>
       <command>yum install software_collection_1</command>
     </synopsis>
     <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
-<para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, refer to the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
+    <para>
+    	For detailed information on &DSCL; metapackages, see <xref linkend="sect-Meta_Package" />.
+    </para>
+<para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, see the <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
   </section>
   <section id="sect-Listing_Installed_Software_Collections">
     <title>Listing Installed &DSCL;s</title>

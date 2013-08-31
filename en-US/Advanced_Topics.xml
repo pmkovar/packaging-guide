@@ -270,7 +270,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <itemizedlist>
     <listitem>
     <para>
-    	you also install other packages as dependencies of the  &DSCL; meta package, and
+    	you also install other packages as dependencies of the  &DSCL; metapackage, and
     </para>
     </listitem>
     <listitem>
@@ -289,7 +289,7 @@ restorecon /etc/rc.d/init.d/%{scl_prefix}mysqld >/dev/null 2>&amp;1 || :</progra
 	<title>Setting up SELinux File Context Equivalency</title>
 	<step>
 		<para>
-			In the <code language="RPM Spec">%post</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
+			In the <code language="RPM Spec">%post</code> section for the <package>runtime</package> subpackage of the &DSCL; metapackage, add the following lines:
 		</para>
 		<programlisting language="RPM Spec">%post runtime
 if [ ! -f %{_sysconfdir}/selinux-equiv.created ]; then
@@ -301,7 +301,7 @@ fi
 	</step>
 	<step>
 		<para>
-			In the <code language="RPM Spec">%preun</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
+			In the <code language="RPM Spec">%preun</code> section for the <package>runtime</package> subpackage of the &DSCL; metapackage, add the following lines:
 		</para>
 		<programlisting language="RPM Spec">%preun runtime
 [ $1 = 0 ] &amp;&amp; rm -f %{_sysconfdir}/selinux-equiv.created || :
@@ -309,7 +309,7 @@ fi
 	</step>
 	<step>
 		<para>
-			In the <code language="RPM Spec">%postun</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package, add the following lines:
+			In the <code language="RPM Spec">%postun</code> section for the <package>runtime</package> subpackage of the &DSCL; metapackage, add the following lines:
 		</para>
 		<programlisting language="RPM Spec">%postun runtime
 if [ $1 = 0 ]; then
@@ -320,7 +320,7 @@ fi
 	</step>
 	<step>
 		<para>
-			Ensure that the <code language="RPM Spec">%files</code> section for the <package>runtime</package> subpackage of the &DSCL; meta package contains the following lines:
+			Ensure that the <code language="RPM Spec">%files</code> section for the <package>runtime</package> subpackage of the &DSCL; metapackage contains the following lines:
 		</para>
 		<programlisting language="RPM Spec">%files runtime
 %defattr(-,root,root,-)
@@ -330,7 +330,7 @@ fi
 	</step>
 	<step>
 		<para>
-			Ensure that the <code language="RPM Spec">%package runtime</code> section of the &DSCL; meta package spec file contains the following lines:
+			Ensure that the <code language="RPM Spec">%package runtime</code> section of the &DSCL; metapackage spec file contains the following lines:
 		</para>
 		<programlisting language="RPM Spec">%package runtime
 Requires(post): libselinux policycoreutils-python
