@@ -726,9 +726,33 @@ Software Collection macros simply relocate package to non-conflicting namespaced
           <programlisting language="RPM Spec">%{?scl:Requires: %scl_runtime}</programlisting>
         </step>
         <step>
+        	<para>
+        		Prefix the <code language="RPM Spec">Obsoletes</code>, <code language="RPM Spec">Conflicts</code> and <code language="RPM Spec">BuildConflicts</code> tags with <code language="RPM Spec">%{?scl_prefix}</code>. This is to ensure that the &DSCL; can be used to deploy new packages to older systems without having the packages specified, for example, by <code language="RPM Spec">Obsolete</code> removed from the base system installation. For example:
+        	</para>
+        	<programlisting language="RPM Spec">Obsoletes: %{?scl_prefix}lesspipe &lt; 1.0</programlisting>
+        </step>
+        <step>
+        	<para>
+        		Prefix the <code language="RPM Spec">Provides</code> tag with <code language="RPM Spec">%{?scl_prefix}</code>, as in the following example:
+        	</para>
+        	<programlisting language="RPM Spec">Provides: %{?scl_prefix}more</programlisting>
+        </step>
+        <step>
+        	<para>
+        		For any subpackages that define their name with the <option>-n</option> option, prefix their name with <code language="RPM Spec">%{?scl_prefix}</code>, as in the following example:
+        	</para>
+        	<programlisting language="RPM Spec">%package -n %{?scl_prefix}more</programlisting>
+        </step>
+        <step>
           <para>Edit the <code>%setup</code> macro in the <code>%prep</code> section of the spec file so that the macro can deal with a different package name in the &DSCL; environment:</para>
           <programlisting language="RPM Spec">%setup -q -n %{pkg_name}-%{version}</programlisting>
         </step>
+<!--        <step>
+        	<para>
+        		If you are using any of the <code language="RPM Spec">%_root_</code> macros to point to the system file system hierarchy, you must use conditionals for these macros so that you can then use the spec file for building both the conventional package and the &DSCL;. Edit the macros as in the following example:
+        	</para>
+        	<programlisting language="RPM Spec">mkdir -p %{?scl:%_root_sysconfdir}%{?!scl:%_sysconfdir}</programlisting>
+        </step>-->
               </procedure>
        <bridgehead id="bh-Example_of_the_Converted_Spec_File">Example of the Converted Spec File</bridgehead>
 <para>To see what the diff file comparing a conventional spec file with a converted spec file looks like, see the following example:</para>
@@ -754,6 +778,8 @@ Software Collection macros simply relocate package to non-conflicting namespaced
  Requires: groff
  BuildRequires: ncurses-devel
  BuildRequires: autoconf automake libtool
+-Obsoletes: lesspipe &lt; 1.0
++Obsoletes: %{?scl_prefix}lesspipe &lt; 1.0
 +%{?scl:Requires: %scl_runtime}
  
  %description
@@ -808,16 +834,21 @@ Software Collection macros simply relocate package to non-conflicting namespaced
 <para>To use a &DSCL; in your application, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in your application's spec file so that these tags properly define dependencies on &DSCL;s.</para>
 <para>For example, to define dependencies on two &DSCL;s named <application>software_collection_1</application> and <application>software_collection_2</application>, add the following three lines to your application's spec file:</para>
 <programlisting language="RPM Spec">BuildRequires: scl-utils-build
-Requires: %scl_require software_collection_1
-Requires: %scl_require software_collection_2
+Requires: %scl_require <replaceable>software_collection_1</replaceable>
+Requires: %scl_require <replaceable>software_collection_2</replaceable>
 </programlisting>
   <para>
   	Ensure that the spec file also contains the <code>%scl_package</code> macro in front of the spec file preamble, for example:
   </para>
-  <programlisting language="RPM Spec">%{?scl:%scl_package less}</programlisting>
+  <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>less</replaceable>}</programlisting>
   <para>
   	Note that the <code>%scl_package</code> macro must be included in every spec file of your &DSCL;.
   </para>
+  <para>
+  	You can also use the <code>%scl_require_package</code> macro to define dependencies on a particular package from a specific &DSCL;, as in the following example:
+  </para>
+  <programlisting language="RPM Spec">BuildRequires: scl-utils-build
+Requires: %scl_require_package <replaceable>software_collection_1</replaceable> <replaceable>package_name</replaceable></programlisting>
   </section>
   <section id="sect-Building_a_Software_Collection_Locally">
     <title>Building a &DSCL;</title>
