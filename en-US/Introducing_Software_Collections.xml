@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Introducing_Software_Collections">
-  <title>Getting Started with &DSCL;s</title>
+  <title>Introducing &DSCL;s</title>
   <para>This chapter introduces you to the concept and usage of &DSCL;s or &DSC;s for short.</para>
        <section id="sect-Why_to_Package_Software_with_RPM">
        <title>Why Package Software with RPM?</title>

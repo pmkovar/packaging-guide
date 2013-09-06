@@ -345,6 +345,21 @@ EOF
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
                 <para>
+                  <code>%scl_prefix</code>
+                </para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>name of the &DSCL; with a dash appended at the end</para>
+              </entry>
+              <entry colsep="1" rowsep="1">
+                <para>
+                  <code>software_collection_1-</code>
+                </para>
+              </entry>
+            </row>
+            <row rowsep="1">
+              <entry colsep="1" rowsep="1">
+                <para>
                   <code>%pkg_name</code>
                 </para>
               </entry>
