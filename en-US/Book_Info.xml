@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "en-US/Software_Collections_Guide.ent">
+<!ENTITY % BOOK_ENTITIES SYSTEM "Software_Collections_Guide.ent">
 %BOOK_ENTITIES;
 ]>
 <bookinfo id="book-Software_Collections_Guide-Software_Collections_Guide">
