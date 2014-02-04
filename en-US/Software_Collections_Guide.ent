@@ -1,7 +1,7 @@
 <!ENTITY PRODUCT "Red Hat Developer Toolset">
-<!ENTITY VERSIONNUM "2.0">
+<!ENTITY VERSIONNUM "2.1">
 <!ENTITY BOOKID "doc-Software_Collections_Guide">
-<!ENTITY YEAR "2013">
+<!ENTITY YEAR "2014">
 <!ENTITY HOLDER "Red Hat, Inc">
 <!ENTITY CAPITALOSORG 'Red Hat'>
 <!ENTITY MAJOROS 'Red Hat Enterprise Linux'>
