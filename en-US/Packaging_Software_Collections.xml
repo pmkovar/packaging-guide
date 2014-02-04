@@ -218,10 +218,10 @@
 	</listitem>
 	<listitem>
 		<para>
-		 	Always make sure that the metapackage spec file contains the <command>%setup -c -T</command> command in the <code language="RPM Spec">%prep</code> section, otherwise building the metapackage will fail.
+		 	Always make sure that the metapackage contains the <command>%setup</command> macro in the <code>%prep</code> section, otherwise building the &DSCL; will fail. If you do not need to use a particular option with the <code>%setup</code> macro, add the  <code language="RPM Spec">%setup -c -T</code> command to the <code>%prep</code> section.
 		 	</para>
 		 	<para>
-		 		This is because the <command>%setup</command> command defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your metapackage spec file, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
+		 		This is because the <command>%setup</command> macro defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your &DSCL; packages, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
 		 	</para>
 	</listitem>
 </itemizedlist>
@@ -759,8 +759,11 @@ Software Collection macros simply relocate package to non-conflicting namespaced
         	<programlisting language="RPM Spec">%package -n %{?scl_prefix}more</programlisting>
         </step>
         <step>
-          <para>Edit the <code>%setup</code> macro in the <code>%prep</code> section of the spec file so that the macro can deal with a different package name in the &DSCL; environment:</para>
+          <para>Add or edit the <code>%setup</code> macro in the <code>%prep</code> section of the spec file so that the macro can deal with a different package name in the &DSCL; environment:</para>
           <programlisting language="RPM Spec">%setup -q -n %{pkg_name}-%{version}</programlisting>
+          <para>
+            Note that the <code>%setup</code> macro is required and that you must always use the macro with the <option>-n</option> option to successfully build your &DSCL;.
+          </para>
         </step>
 <!--        <step>
         	<para>
@@ -874,7 +877,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -ba <replaceable>package</replaceable>.spec</command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
     <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file (<filename><replaceable>package</replaceable>.spec</filename>).</para>
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
-  	<title>Rebuilding a &DSCL; without build subpackages</title>
+  	<title>Rebuilding a &DSCL; without build Subpackages</title>
   	<para>
   		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; metapackage. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.
   	</para>
