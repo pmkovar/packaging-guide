@@ -350,7 +350,7 @@ Requires(preun): libselinux policycoreutils-python
   <section id="sect-Software_Collection_Macro_Files_Support">
   <title>&DSCL; Macro Files Support</title>
   <para>
-  	In some cases, you may need to ship macro files with your &DSCL; packages. They are located in the <code language="RPM Spec">%{?scl:%{_root_sysconfdir}}%{!?scl:%{_sysconfdir}}</code> directory, which corresponds to the <filename>/etc</filename> directory for conventional packages. When shipping macro files, ensure that:
+  	In some cases, you may need to ship macro files with your &DSCL; packages. They are located in the <code language="RPM Spec">%{?scl:%{_root_sysconfdir}}%{!?scl:%{_sysconfdir}}/rpm/</code> directory, which corresponds to the <filename>/etc/rpm/</filename> directory for conventional packages. When shipping macro files, ensure that:
   	  </para>
   	  <itemizedlist>
   	  	<listitem>
