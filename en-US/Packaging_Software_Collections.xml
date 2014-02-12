@@ -430,7 +430,7 @@ EOF
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>depend on a particular package from the &DSCL;</para>
+                <para>depend on a particular package from a specific &DSCL;</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>
