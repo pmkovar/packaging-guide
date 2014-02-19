@@ -74,18 +74,16 @@
   <section id="sect-The_File_System_Hierarchy">
     <title>The File System Hierarchy</title>
     <para>The root directory of &DSCL;s is normally located in the <filename>/&OPT;/</filename> directory to avoid possible conflicts between &DSCL;s and the base system installation. The use of the <filename>/&OPT;/</filename> directory is recommended by the Filesystem Hierarchy Standard (FHS).</para>
-    <para>Below is an example of the file system hierarchy layout with two &DSCL;s, <replaceable>&DSCL; 1</replaceable> and <replaceable>&DSCL; 2</replaceable>:</para>
-    <programlisting><replaceable>&OPT;</replaceable>
-`-- <replaceable>&RH;</replaceable>
-    |-- &DSCL; 1
-    |   |-- &DSCL; root directory
-    |   `-- &DSCL; scriptlet(s)
-    |
-    `-- &DSCL; 2
-        |-- &DSCL; root directory
-        `-- &DSCL; scriptlet(s)
-</programlisting>
-    <para>As you can see in the example above, each of the &DSCL;s directories contains the &DSCL; root directory, and one or more &DSCL; scriptlets. For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
+    <para>Below is an example of the file system hierarchy layout with two &DSCL;s, <replaceable>software_collection_1</replaceable> and <replaceable>software_collection_2</replaceable>:</para>
+    <figure float="0" id="fig-The_File_System_Hierarchy">
+      <title>The &DSCL; File System Hierarchy</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/scl-fs-hierarchy.png" format="PNG" />
+          </imageobject>
+      </mediaobject>
+    </figure>
+    <para>As you can see above, each of the &DSCL;s directories contains the &DSCL; root directory, and one or more &DSCL; scriptlets. For more information on the &DSCL; scriptlets, refer to <xref linkend="sect-Software_Collection_Scriptlets"/>.</para>
     </section>
     <section id="sect-The_Software_Collection_Root_Directory">
     	<title>The &DSCL; Root Directory</title>
