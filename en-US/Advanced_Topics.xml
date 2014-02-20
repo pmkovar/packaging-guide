@@ -131,7 +131,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
 export MANPATH=%{_mandir}:\${MANPATH}
 EOF]]></programlisting>
-    <para>This configures the <filename>enable</filename> scriptlet so that it updates the <envar>MANPATH</envar> environment variable and relocates the <code>%{_mandir}</code> macro to the &DSCL; path. By doing so, the manual pages associated with the &DSCL; are not visible as long as the &DSCL; is not enabled.</para>
+    <para>This configures the <filename>enable</filename> scriptlet to update the <envar>MANPATH</envar> environment variable. The manual pages associated with the &DSCL; are then not visible as long as the &DSCL; is not enabled.</para>
     <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
     <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
 <procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
