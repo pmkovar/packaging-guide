@@ -34,8 +34,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       <title>Using /etc/ld.so.conf.d/ for libraries in the &DSCL;</title>
       <step>
         <para>Create a file named <filename>libs.conf</filename> and adjust the spec file configuration accordingly:</para>
-        <programlisting language="RPM Spec">
-SOURCE2: %{?scl_prefix}libs.conf
+        <programlisting language="RPM Spec">SOURCE2: libs.conf
 </programlisting>
       </step>
       <step>
