@@ -64,8 +64,8 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   Below is an example of the MySQL client library with the <literal>mysql55-</literal> prefix:
 </para>
 <screen><computeroutput>$ </computeroutput><userinput>rpm -ql mysql55-mysql-libs | grep 'lib.*so'</userinput>
-/opt/rh/mysql55/root/usr/lib64/mysql/libmysqlclient.so.mysql55-18
-/opt/rh/mysql55/root/usr/lib64/mysql/libmysqlclient.so.mysql55-18.0.0</screen>
+/&OPT;/&RH;/mysql55/root/usr/lib64/mysql/libmysqlclient.so.mysql55-18
+/&OPT;/&RH;/mysql55/root/usr/lib64/mysql/libmysqlclient.so.mysql55-18.0.0</screen>
 <para>
 	On the same system, the system version of the MySQL client library is listed below:
 </para>
