@@ -284,7 +284,7 @@ EOF
 - Initial package
       </programlisting>
     </section>
-<!--    <section id="sect-Packages_in_the_Software_Collection_Namespace">
+    <!--<section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
       <para>Besides the minimal subset of packages installed by the metapackage, the &DSCL; also installs a number of packages that are part of the package collection itself.</para>
       <variablelist>
@@ -424,7 +424,7 @@ EOF
             <row rowsep="1">
               <entry colsep="1" rowsep="1">
                 <para>
-                  <code>%_scl_require_package</code>
+                  <code>%scl_require_package software_collection_1 package_2</code>
                 </para>
               </entry>
               <entry colsep="1" rowsep="1">
@@ -769,7 +769,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
             Note that the <code>%setup</code> macro is required and that you must always use the macro with the <option>-n</option> option to successfully build your &DSCL;.
           </para>
         </step>
-<!--        <step>
+        <!--<step>
         	<para>
         		If you are using any of the <code language="RPM Spec">%_root_</code> macros to point to the system file system hierarchy, you must use conditionals for these macros so that you can then use the spec file for building both the conventional package and the &DSCL;. Edit the macros as in the following example:
         	</para>
