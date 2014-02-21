@@ -33,18 +33,18 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <procedure>
       <title>Using /etc/ld.so.conf.d/ for libraries in the &DSCL;</title>
       <step>
-        <para>Create a file named <filename>libs.conf</filename> and adjust the spec file configuration accordingly:</para>
-        <programlisting language="RPM Spec">SOURCE2: libs.conf
+        <para>Create a file named <filename>%{?scl_prefix}libs.conf</filename> and adjust the spec file configuration accordingly:</para>
+        <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}libs.conf
 </programlisting>
       </step>
       <step>
-        <para>In the <filename>libs.conf</filename> file, include a list of directories where the versions of the libraries associated with the &DSCL; are located. For example:</para>
+        <para>In the <filename>%{?scl_prefix}libs.conf</filename> file, include a list of directories where the versions of the libraries associated with the &DSCL; are located. For example:</para>
         <programlisting>/&OPT;/&RH;/software_collection_1/root/usr/lib64/
 </programlisting>
         <para>In the example above, the <filename>/usr/lib64/</filename> directory that is part of the &DSCL; <application>software_collection_1</application> is included in the list.</para>
       </step>
       <step>
-        <para>Edit the <code>%install</code> section of the spec file, so the <filename>libs.conf</filename> file is installed as follows:</para>
+        <para>Edit the <code>%install</code> section of the spec file, so the <filename>%{?scl_prefix}libs.conf</filename> file is installed as follows:</para>
         <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/ld.so.conf.d/
 </programlisting>
