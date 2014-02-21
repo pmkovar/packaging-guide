@@ -61,13 +61,11 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 <para>To ensure that your application is not linked against an incorrect library even if the <envar>LD_LIBRARY_PATH</envar> environment variable has not been set properly, change the major soname of the library included in the &DSCL;. The recommended way to change the major soname is to prefix the major soname version number with the &DSCL; name.
 </para>
 <para>
-	Below is an example of the MySQL client library with the <literal>mysql55-</literal> prefix:
+  Below is an example of the MySQL client library with the <literal>mysql55-</literal> prefix:
 </para>
-<screen>
-$ <command>rpm -ql mysql55-mysql-libs | grep 'lib.*so'</command>
-/usr/lib64/mysql/libmysqlclient.so.mysql55-18
-/usr/lib64/mysql/libmysqlclient.so.mysql55-18.0.0
-</screen>
+<screen><computeroutput>$ </computeroutput><userinput>rpm -ql mysql55-mysql-libs | grep 'lib.*so'</userinput>
+/opt/rh/mysql55/root/usr/lib64/mysql/libmysqlclient.so.mysql55-18
+/opt/rh/mysql55/root/usr/lib64/mysql/libmysqlclient.so.mysql55-18.0.0</screen>
 <para>
 	On the same system, the system version of the MySQL client library is listed below:
 </para>
@@ -76,6 +74,13 @@ $ <command>rpm -ql mysql-libs | grep 'lib.*so'</command>
 /usr/lib64/mysql/libmysqlclient.so.18
 /usr/lib64/mysql/libmysqlclient.so.18.0.0
 </screen>
+<para>The <command>rpmbuild</command> utility generates automatic provides for packages that include a versioned shared library. In case of the <package>mysql</package> package, an example of the provide is <code>libmysqlclient.so.18()(64bit)</code>. With this provide, RPM can choose the incorrect RPM package, resulting in the application missing the requirement.</para>
+<para>
+  If you prefix the soname as described above, then an example of the generated provide in case of <package>mysql</package> is <code>libmysqlclient.so.mysql55-18()(64bit)</code>. With this provide, RPM chooses the correct RPM dependencies and the application's requirements are satisfied.
+</para>
+<para>
+  In general, unless absolutely necessary, &DSCL; packages should not provide any symbols that are already provided by packages from the base system installation. One exception to that rule is when you want to use the symbols in the packages from the base system installation.
+</para>
 </section>
   </section>
 <section id="sect-Software_Collection_pc_Files_Support">
