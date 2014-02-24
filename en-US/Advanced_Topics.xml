@@ -3,6 +3,132 @@
 <chapter id="chap-Advanced_Topics">
   <title>Advanced Topics</title>
   <para>This chapter discusses advanced topics on packaging &DSCL;s.</para>
+  <section id="sect-Software_Collection_Automatic_Provides_Requires_Filtering_Support">
+    <title>&DSCL; Automatic Provides and Requires and Filtering Support</title>
+    <!--para>
+      Because the scripts generating automatic <code>Provides</code> and <code>Requires</code> do not have specific support for &DSCL;s, you have to remove them and use manually specified <code>Provides</code> and <code>Requires</code> instead.
+    </para>
+    <section id="">
+      <title>Automatic Provides </title>
+      <para>
+        To remove the automatic <code>Provides</code>, add the following line to your &DSCL; spec file:
+      </para>
+    </section>
+    <section id="">
+      <title>Automatic Requires </title>
+    </section-->
+    <important>
+      <para>
+        The functionality described in this section is not available in Red Hat Enterprise Linux 5 and 6.
+      </para>
+    </important>
+    <para>
+      RPM in Red Hat Enterprise Linux 7 features support for automatic <code>Provides</code> and <code>Requires</code> and filtering. For example, for all Python libraries, RPM automatically adds the following <code>Requires</code>:
+    </para>
+    <programlisting language="RPM Spec">Requires: python(abi) = (version)</programlisting>
+    <para>
+      As explained in <xref linkend="sect-Converting_a_Conventional_Spec_File" />, you should prefix this <code>Requires</code> with <code language="RPM Spec">%{?scl_prefix}</code> when converting your conventional RPM package:
+    </para>
+    <programlisting language="RPM Spec">Requires: %{?scl_prefix}python(abi) = (version))</programlisting>
+    <para>
+      Keep in mind that the scripts searching for these dependencies must sometimes be rewritten for your &DSCL;, as the original RPM scripts are not extensible enough, and, in some cases, filtering is not usable. For example, to rewrite automatic Python <code>Provides</code> and <code>Requires</code>, add the following lines in the <filename>macros.%{scl}-config</filename> macro file:
+    </para>
+    <programlisting language="RPM Spec">%__python_provides /usr/lib/rpm/pythondeps-scl.sh --provides %{_scl_root} %{scl_prefix}
+%__python_requires /usr/lib/rpm/pythondeps-scl.sh --requires %{_scl_root} %{scl_prefix}</programlisting>
+    <para>
+      The <filename>/usr/lib/rpm/pythondeps-scl.sh</filename> file is based on a <filename>pythondeps.sh</filename> file from the conventional package and adjusts search paths.
+    </para>
+    <para>
+      If there are <code>Provides</code> or <code>Requires</code> that you need to adjust, for example, a <systemitem>pkg_config</systemitem> <code>Provides</code>, there are two ways to do it:
+    </para>
+    <orderedlist>
+      <listitem>
+        <para>
+          Add the following lines in the <filename>macros.%{scl}-config</filename> macro file so that it applies to all packages in the &DSCL;:
+        </para>
+        <programlisting language="RPM Spec">%_use_internal_dependency_generator 0
+%__deploop() while read FILE; do /usr/lib/rpm/rpmdeps -%{1} ${FILE}; done | /bin/sort -u
+%__find_provides /bin/sh -c "%{?__filter_prov_cmd} %{__deploop P} %{?__filter_from_prov}"
+%__find_requires /bin/sh -c "%{?__filter_req_cmd}  %{__deploop R} %{?__filter_from_req}"
+
+# Handle pkgconfig's virtual Provides and Requires
+%__filter_from_req | %{__sed} -e 's|pkgconfig|%{?scl_prefix}pkgconfig|g'
+%__filter_from_prov | %{__sed} -e 's|pkgconfig|%{?scl_prefix}pkgconfig|g'</programlisting>
+      </listitem>
+      <listitem>
+        <para>
+          Or, alternatively, add the following lines after tag definitions in every spec file for which you want to filter <code>Provides</code> or <code>Requires</code>: 
+        </para>
+        <programlisting language="RPM Spec">%{?scl:%filter_from_provides s|pkgconfig|%{?scl_prefix}pkgconfig|g}
+%{?scl:%filter_from_requires s|pkgconfig|%{?scl_prefix}pkgconfig|g}
+%{?scl:%filter_setup}</programlisting>
+      </listitem>
+    </orderedlist>
+    <important>
+      <para>
+        When using filters, you need to pay attention to the automatic dependencies you change. For example, if the conventional package contains <code language="RPM Spec">Requires: pkgconfig(package_1)</code> and <code language="RPM Spec">Requires: pkgconfig(package_2)</code>, and only <package>package_2</package> is included in the &DSCL;, ensure that you do not filter the <code>Requires</code> tag for <package>package_1</package>.
+      </para>
+    </important>
+  </section>
+  <section id="sect-Software_Collection_Macro_Files_Support">
+  <title>&DSCL; Macro Files Support</title>
+  <para>
+  	In some cases, you may need to ship macro files with your &DSCL; packages. They are located in the <code language="RPM Spec">%{?scl:%{_root_sysconfdir}}%{!?scl:%{_sysconfdir}}/rpm/</code> directory, which corresponds to the <filename>/etc/rpm/</filename> directory for conventional packages. When shipping macro files, ensure that:
+  	  </para>
+  	  <itemizedlist>
+  	  	<listitem>
+  	  		<para>
+  	  			You rename the macro files by appending <filename>.%{scl}</filename> to their names so that they do not conflict with the files from the base system installation.
+  	  		</para>
+  	  	</listitem>
+  	  	<listitem>
+  	  		<para>
+  	  			The macros in the macro files are either not expanded, or they are using conditionals, as in the following example:
+  	  		</para>
+  	  		<programlisting language="RPM Spec">%__python2 %{_bindir}/python
+%python2_sitelib %(%{?scl:scl enable %scl '}%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"%{?scl:'})</programlisting>
+  	  	</listitem>
+  	  </itemizedlist>
+  	  <para>
+  	  	As another example, there may be a situation where you need to create a &DSCL; <package>mypython</package> that depends on a &DSCL; <package>python26</package>. The <package>python26</package> &DSCL; defines the <code language="RPM Spec">%{__python2}</code> macro as in the above sample. This macro will evaluate to <filename>/&OPT;/&RH;/mypython/root/usr/bin/python2</filename>, but the <filename>python2</filename> binary is only available in the <package>python26</package> &DSCL; (<filename>/&OPT;/&RH;/python26/root/usr/bin/python2</filename>).
+  	  </para>
+  	  <para>
+  	  To be able to build software in the <package>mypython</package> &DSCL; environment, ensure that:
+  	  </para>
+  	  <itemizedlist>
+  	  	<listitem>
+  	  		<para>
+  	  			The <filename>macros.python.python26</filename> macro file, which is a part of the <package>python26-python-devel</package> package, contains the following line:
+  	  		</para>
+  	  		<programlisting language="RPM Spec">%__python26_python2 /&OPT;/&RH;/python26/root/usr/bin/python2</programlisting>
+  	  	</listitem>
+  	  	<listitem>
+  	  		<para>
+  	  			And the macro file in the python26-build subpackage, and also the <package>build</package> subpackage in any depending &DSCL;, contains the following line:
+  	  		</para>
+  	  		<programlisting language="RPM Spec">%scl_package_override() {%global __python2 %__python26_python2}
+</programlisting>
+  	  	</listitem>
+  	  </itemizedlist>
+  	  <para>
+  	  	This will redefine the <code language="RPM Spec">%{__python2}</code> macro only if the build subpackage from a corresponding &DSCL; is present, which usually means that you want to build software for that &DSCL;.
+  	  </para>
+  </section>
+  <section id="sect-Packaging_Wrappers_for_Software_Collections">
+  	<title>Packaging Wrappers for &DSCL;s</title>
+  	<para>
+  		Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
+  	 <para>The following is an example of a wrapper from the <package>ruby193</package> &DSCL; that is installed as <filename>/usr/bin/ruby193-ruby</filename> and allows the user to run <command>ruby193-ruby <replaceable>command</replaceable></command> instead of <command>scl enable ruby193 'ruby <replaceable>command</replaceable>'</command>:
+  	</para>
+  	<programlisting language="Bash">#!/bin/bash
+
+COMMAND="ruby $@"
+scl enable ruby193 "$COMMAND"
+</programlisting>
+<para>
+	It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
+</para>
+  </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>&DSCL; Initscript Support</title>
     <para>Ensure that users can directly manage any services provided by the &DSCL; or one of the associated applications with the system default tools, like <application>service</application> or <application>chkconfig</application>.</para>
@@ -361,63 +487,4 @@ Requires(preun): libselinux policycoreutils-python
     	</para>
     </section>
   </section>-->
-  <section id="sect-Software_Collection_Macro_Files_Support">
-  <title>&DSCL; Macro Files Support</title>
-  <para>
-  	In some cases, you may need to ship macro files with your &DSCL; packages. They are located in the <code language="RPM Spec">%{?scl:%{_root_sysconfdir}}%{!?scl:%{_sysconfdir}}/rpm/</code> directory, which corresponds to the <filename>/etc/rpm/</filename> directory for conventional packages. When shipping macro files, ensure that:
-  	  </para>
-  	  <itemizedlist>
-  	  	<listitem>
-  	  		<para>
-  	  			You rename the macro files by appending <filename>.%{scl}</filename> to their names so that they do not conflict with the files from the base system installation.
-  	  		</para>
-  	  	</listitem>
-  	  	<listitem>
-  	  		<para>
-  	  			The macros in the macro files are either not expanded, or they are using conditionals, as in the following example:
-  	  		</para>
-  	  		<programlisting language="RPM Spec">%__python2 %{_bindir}/python
-%python2_sitelib %(%{?scl:scl enable %scl '}%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"%{?scl:'})</programlisting>
-  	  	</listitem>
-  	  </itemizedlist>
-  	  <para>
-  	  	As another example, there may be a situation where you need to create a &DSCL; <package>mypython</package> that depends on a &DSCL; <package>python26</package>. The <package>python26</package> &DSCL; defines the <code language="RPM Spec">%{__python2}</code> macro as in the above sample. This macro will evaluate to <filename>/&OPT;/&RH;/mypython/root/usr/bin/python2</filename>, but the <filename>python2</filename> binary is only available in the <package>python26</package> &DSCL; (<filename>/&OPT;/&RH;/python26/root/usr/bin/python2</filename>).
-  	  </para>
-  	  <para>
-  	  To be able to build software in the <package>mypython</package> &DSCL; environment, ensure that:
-  	  </para>
-  	  <itemizedlist>
-  	  	<listitem>
-  	  		<para>
-  	  			The <filename>macros.python.python26</filename> macro file, which is a part of the <package>python26-python-devel</package> package, contains the following line:
-  	  		</para>
-  	  		<programlisting language="RPM Spec">%__python26_python2 /&OPT;/&RH;/python26/root/usr/bin/python2</programlisting>
-  	  	</listitem>
-  	  	<listitem>
-  	  		<para>
-  	  			And the macro file in the python26-build subpackage, and also the <package>build</package> subpackage in any depending &DSCL;, contains the following line:
-  	  		</para>
-  	  		<programlisting language="RPM Spec">%scl_package_override() {%global __python2 %__python26_python2}
-</programlisting>
-  	  	</listitem>
-  	  </itemizedlist>
-  	  <para>
-  	  	This will redefine the <code language="RPM Spec">%{__python2}</code> macro only if the build subpackage from a corresponding &DSCL; is present, which usually means that you want to build software for that &DSCL;.
-  	  </para>
-  </section>
-  <section id="sect-Packaging_Wrappers_for_Software_Collections">
-  	<title>Packaging Wrappers for &DSCL;s</title>
-  	<para>
-  		Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
-  	 <para>The following is an example of a wrapper from the <package>ruby193</package> &DSCL; that is installed as <filename>/usr/bin/ruby193-ruby</filename> and allows the user to run <command>ruby193-ruby <replaceable>command</replaceable></command> instead of <command>scl enable ruby193 'ruby <replaceable>command</replaceable>'</command>:
-  	</para>
-  	<programlisting language="Bash">#!/bin/bash
-
-COMMAND="ruby $@"
-scl enable ruby193 "$COMMAND"
-</programlisting>
-<para>
-	It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
-</para>
-  </section>
 </chapter>
