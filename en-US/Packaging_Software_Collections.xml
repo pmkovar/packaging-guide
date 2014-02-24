@@ -741,6 +741,15 @@ Software Collection macros simply relocate package to non-conflicting namespaced
           <programlisting language="RPM Spec">Name: %{?scl_prefix}<replaceable>package_name</replaceable></programlisting>
         </step>
         <step>
+          <para>
+            If you are building or linking with other &DSCL; packages, then prefix the names of those &DSCL; packages in the <code>Requires</code> and <code>BuildRequires</code> tags with <code language="RPM Spec">%{?scl_prefix}</code> as follows:
+          </para>
+          <programlisting language="RPM Spec">Requires: %{?scl_prefix}ifconfig</programlisting>
+          <para>
+            When depending on the system versions of packages, you should avoid using versioned <code>Requires</code> or <code>BuildRequires</code>. If you need to depend on a package that could be updated by the system, consider including that package in your &DSCL;, or remember to rebuild your &DSCL; when the system package updates.
+          </para>
+        </step>
+        <step>
           <para>To check that all essential &DSCL;'s packages are dependencies of the main metapackage, add the following macro after the <code>BuildRequires</code> or <code>Requires</code> tags in the spec file:</para>
           <programlisting language="RPM Spec">%{?scl:Requires: %scl_runtime}</programlisting>
         </step>
