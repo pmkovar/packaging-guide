@@ -397,7 +397,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <synopsis><command>restorecon -R -v /&OPT;/&RH;/software_collection_1/root/usr</command></synopsis>
     <synopsis><command>selinuxenabled &amp;&amp; load_policy || :</command></synopsis>
     <para>The last command ensures that the newly created SELinux policy is properly loaded, and that the files installed by a package in the &DSCL; are created with the correct SELinux context. By using this command in the metapackage, you do not need to include the <command>restorecon</command> command in all packages in the &DSCL;.</para>
-    <para>Note that the <command>semanage fcontext</command> command is provided by the <package>semanage</package> package, therefore it is important that you include <code>policycoreutils-python</code> in <code>Requires</code> for the &DSCL; metapackage.</para>
+    <para>Note that the <command>semanage fcontext</command> command is provided by the <package>policycoreutils-python</package> package, therefore it is important that you include <code>policycoreutils-python</code> in <code>Requires</code> for the &DSCL; metapackage.</para>
     </section>
     <section id="sect-Software_Collection_SELinux_Support-Red_Hat_Enterprise_Linux_5">
       <title>SELinux Support in Red Hat Enterprise Linux 5</title>
