@@ -479,7 +479,7 @@ fi
 		<para>
 			Ensure that the <code language="RPM Spec">%files</code> section for the <package>runtime</package> subpackage of the &DSCL; metapackage contains the following lines:
 		</para>
-		<programlisting language="RPM Spec">%files runtime
+		<programlisting language="RPM Spec">%files runtime -f filesystem
 %defattr(-,root,root,-)
 %scl_files
 %attr(0644,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) %{_sysconfdir}/selinux-equiv.created

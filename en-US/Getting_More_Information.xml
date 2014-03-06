@@ -46,6 +46,11 @@
        </listitem>
        <listitem>
          <para>
+           <ulink url="http://access.redhat.com/site/documentation/en-US/Red_Hat_Software_Collections/1-Beta/html/1.1_Release_Notes/index.html">Red Hat Software Collections 1.1 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 1.1 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
            <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>

@@ -273,7 +273,7 @@ EOF
 
 %files
 
-%files runtime
+%files runtime -f filesystem
 %scl_files
 
 %files build
@@ -281,8 +281,7 @@ EOF
 
 %changelog
 * Fri Aug 30 2013 John Doe &lt;jdoe@example.com&gt; 1-1
-- Initial package
-      </programlisting>
+- Initial package</programlisting>
     </section>
     <!--<section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
