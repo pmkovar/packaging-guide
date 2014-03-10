@@ -273,7 +273,7 @@ EOF
 
 %files
 
-%files runtime -f filesystem
+%files runtime<!--FIXME:BZ#1072319 -f filesystem-->
 %scl_files
 
 %files build
@@ -847,7 +847,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
  </programlisting>
   </section>
   <section id="sect-Uninstalling_all_Software_Collection_directories">
-    <title>Uninstalling all &DSCL; directories</title>
+    <title>Uninstalling All &DSCL; Directories</title>
     <para>
     	Keep in mind that the <command>yum remove</command> command does not uninstall directories provided by those &DSCL; packages and subpackages that are removed after the &DSCL; <package>runtime</package> subpackage is removed.
     </para>
