@@ -32,7 +32,7 @@
   <section id="sect-Online_Documentation">
     <title>Accessing Red Hat Documentation</title>
      <para>
-       The <emphasis role="strong">Red Hat Documentation</emphasis> portal located at <ulink url="https://access.redhat.com/site/documentation/" /> serves as a central source of all product documentation. It is translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
+       <emphasis role="strong">Red Hat Product Documentation</emphasis> located at <ulink url="https://access.redhat.com/site/documentation/" /> serves as a central source of information. It is currently translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
      </para>
      <para>
        The following is a brief list of documents that are directly or indirectly relevant to this book:
@@ -44,11 +44,11 @@
          <para condition="beta">
            <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Developer_Toolset/2-Beta/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
-       <!--listitem>
+       <listitem>
          <para>
            <ulink url="http://access.redhat.com/site/documentation/en-US/Red_Hat_Software_Collections/1-Beta/html/1.1_Release_Notes/index.html">Red Hat Software Collections 1.1 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 1.1 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
          </para>
-       </listitem-->
+       </listitem>
        <listitem>
          <para>
            <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.

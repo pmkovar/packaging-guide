@@ -12,8 +12,8 @@
       xmlns:xi="http://www.w3.org/2001/XInclude" />
     <xi:include href="Advanced_Topics.xml"
       xmlns:xi="http://www.w3.org/2001/XInclude" />
-    <!--xi:include href="Extending_Red_Hat_Software_Collections.xml"
-      xmlns:xi="http://www.w3.org/2001/XInclude" /-->
+    <xi:include href="Extending_Red_Hat_Software_Collections.xml"
+      xmlns:xi="http://www.w3.org/2001/XInclude" />
     <xi:include href="Getting_More_Information.xml"
       xmlns:xi="http://www.w3.org/2001/XInclude" />
     <xi:include href="Revision_History.xml"

@@ -157,7 +157,7 @@ EOF
 
 %files
 
-%files runtime -f filesystem
+%files runtime]]><!--FIXME:BZ#1072319 -f filesystem--><![CDATA[
 %scl_files
 %vt191_sitelib
 
