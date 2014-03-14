@@ -30,18 +30,18 @@
   		</listitem>
   	</varlistentry>
   	<varlistentry>
-  		<term>Specify the location of the &DSCL; root directory</term>
+  		<term>Consider specifying the location of the &DSCL; root directory</term>
   		<listitem>
   			<para>
-  				Ensure that the location of the &DSCL; root directory is specified by setting the <code>%_scl_prefix</code> macro in the &DSCL; spec file. For more information, see <xref linkend="sect-The_Software_Collection_Root_Directory" />.
+  				You are advised to specify the location of the &DSCL; root directory by setting the <code>%_scl_prefix</code> macro in the &DSCL; spec file. For more information, see <xref linkend="sect-The_Software_Collection_Root_Directory" />.
   			</para>
   		</listitem>
   	</varlistentry>
   	<varlistentry>
-  		<term>Prefix the name of your &DSCL; packages</term>
+  		<term>Consider prefixing the name of your &DSCL; packages</term>
   		<listitem>
   			<para>
-  				Ensure that the name of your &DSCL; packages is prefixed with the vendor and &DSCL;'s name. For more information, see <xref linkend="sect-The_Software_Collections_Prefix" />.
+  				You are advised to prefix the name of your &DSCL; packages with the vendor and &DSCL;'s name. For more information, see <xref linkend="sect-The_Software_Collections_Prefix" />.
   			</para>
   		</listitem>
   	</varlistentry>
@@ -99,7 +99,7 @@
   <section id="sect-The_Software_Collections_Prefix">
   	<title>The &DSCL; Prefix</title>
   	<para>
-  		When naming your &DSCL;, it is important to prefix the name of your &DSCL; as described below in order to avoid possible name conflicts with the system versions of the packages that are part of your &DSCL;.
+  		When naming your &DSCL;, you are advised to prefix the name of your &DSCL; as described below in order to avoid possible name conflicts with the system versions of the packages that are part of your &DSCL;.
   	</para>
   	<para>
   		The &DSCL; prefix consists of two parts: 
@@ -301,15 +301,15 @@ EOF
   </section>
   <section id="sect-Software_Collection_Macros">
     <title>&DSCL; Macros</title>
-    <para>The &DSCL; packaging macro <code>scl</code> relocates the file structure, which is part of the &DSCL;, to a file system that is used exclusively by the &DSCL;.</para>
-    <para>The <code>scl</code> macro also defines files ownership for the &DSCL;'s metapackage and provides additional packaging macros to use in the &DSCL; environment.
+    <para>The &DSCL; packaging macro <code>scl</code> defines where to relocate the &DSCL;'s file structure. The relocated file structure is a file system used exclusively by the &DSCL;.</para>
+    <para>The <code>%scl_package</code> macro defines files ownership for the &DSCL;'s metapackage and provides additional packaging macros to use in the &DSCL; environment.
 </para>
-    <para>When using &DSCL; macros in the spec file, you must prefix them with <code>%{?scl:<replaceable>macro</replaceable>}</code>, as in the following example:</para>
+    <para>To be able to build a conventional package and a &DSCL; package with a single spec file, prefix the &DSCL; macros with <code>%{?scl:<replaceable>macro</replaceable>}</code>, as in the following example:</para>
     <programlisting language="RPM Spec">%{?scl:Requires:%scl_runtime}</programlisting>
     <para>In the example above, the <code>%scl_runtime</code> macro is the value of the <code>Requires</code> tag. Both the macro and the tag use the <code>%{?scl:</code> prefix.</para>
     <section id="sect-Macros_Specific_to_a_Software_Collection">
       <title>Macros Specific to a &DSCL;</title>
-      <para>The table below shows a list of all macros specific to a particular &DSCL;.</para>
+      <para>The table below shows a list of all macros specific to a particular &DSCL;. All the macros have default values that you will not need to change in most cases.</para>
       <table>
         <title>&DSCL; Specific Macros</title>
         <tgroup cols="3">
@@ -442,6 +442,7 @@ EOF
     <section id="sect-Macros_Not_Specific_to_a_Software_Collection">
       <title>Macros Not Specific to a &DSCL;</title>
       <para>The table below shows a list of macros that are not specific to a particular &DSCL;. Because these macros are not relocated and do not point to the &DSCL; file system, they allow you to point to the system root file system. These macros use <code>_root</code> as a prefix.</para>
+      <para>All the macros have default values that you will not need to change in most cases.</para>
       <table>
         <title>&DSCL; Non-Specific Macros</title>
         <tgroup cols="4">
@@ -725,7 +726,7 @@ EOF
         <para>The following steps show how to convert a conventional spec file into a &DSCL; spec file so that the &DSCL; spec file that you can use in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
 Software Collection macros simply relocate package to non-conflicting namespaced path by redefining essential build macros such as %_bindir, %_sysconfdir, etc. and adding Software Collection specific virtual provides. With this concept the Software Collection specific actions in spec file need to be put into the %{?scl: <something> } constructs. --></para>
       <procedure>
-        <title>Converting a Conventional Spec File into a &DSCL; Spec File</title>
+        <title>Converting a conventional spec file into a &DSCL; spec file</title>
         <step>
           <para>Add the <code>%scl_package</code> macro to the spec file. Place the macro in front of the spec file preamble as follows:</para>
           <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>package_name</replaceable>}</programlisting>
@@ -843,8 +844,7 @@ Software Collection macros simply relocate package to non-conflicting namespaced
 -/etc/profile.d/*
 +%{_sysconfdir}/profile.d/*
  %{_bindir}/*
- %{_mandir}/man1/*
- </programlisting>
+ %{_mandir}/man1/*</programlisting>
   </section>
   <section id="sect-Uninstalling_all_Software_Collection_directories">
     <title>Uninstalling All &DSCL; Directories</title>
@@ -888,6 +888,9 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     </synopsis>
     <para>The difference between the command shown above and the standard command to build conventional packages (<command>rpmbuild -ba <replaceable>package</replaceable>.spec</command>) is that you have to append the <option>--define</option> option to the <command>rpmbuild</command> command when building a &DSCL;. </para>
     <para>The <option>--define</option> option defines the <code>scl</code> macro, which uses the &DSCL; configured in the &DSCL; spec file (<filename><replaceable>package</replaceable>.spec</filename>).</para>
+    <para>Alternatively, to be able to use the standard command <command>rpmbuild -ba <replaceable>package</replaceable>.spec</command> to build the &DSCL;, specify the following in the <filename>package.spec</filename> file:</para>
+    <programlisting language="RPM Spec">BuildRequires: <replaceable>software_collection</replaceable>-build</programlisting>
+    <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;.</para>
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
   	<title>Rebuilding a &DSCL; without build Subpackages</title>
   	<para>

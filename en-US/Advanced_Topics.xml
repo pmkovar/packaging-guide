@@ -297,17 +297,18 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_cronjob_Support">
     <title>&DSCL; cronjob Support</title>
-    <para>With your &DSCL;, you can run regular tasks on the system either with a dedicated service or with cronjobs. If you intend to use a dedicated service, refer to <xref linkend="sect-Software_Collection_Initscript_Support"/> on how to work with initscripts in the &DSCL; environment.</para>
+    <para>With your &DSCL;, you can run periodic tasks on the system either with a dedicated service or with cronjobs. If you intend to use a dedicated service, refer to <xref linkend="sect-Software_Collection_Initscript_Support"/> on how to work with initscripts in the &DSCL; environment.</para>
     <procedure>
-      <title>Running regular tasks with cronjobs</title>
+      <title>Running periodic tasks with cronjobs</title>
       <step>
-        <para>To use cronjobs for running regular tasks, place a <filename>crontab</filename> file for your &DSCL; in the <filename>/etc/cron.d/</filename> directory with the &DSCL;'s name.</para>
+        <para>To use cronjobs for running periodic tasks, place a <filename>crontab</filename> file for your &DSCL; in the <filename>/etc/cron.d/</filename> directory with the &DSCL;'s name.</para>
         <para>For example, create the following file:</para>
         <screen>%{?scl_prefix}crontab</screen>
       </step>
       <step>
         <para>Ensure that the contents of the <filename>crontab</filename> file follow the standard <filename>crontab</filename> file format, as in the following example:</para>
-        <screen>0 1 * * Sun root <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/usr/bin/<replaceable>cron_job_name</replaceable></filename></screen>
+        <screen>0 1 * * Sun root scl enable <replaceable>software_collection</replaceable> '<filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/usr/bin/<replaceable>cron_job_name</replaceable></filename>'</screen>
+        <para>where <replaceable>software_collection</replaceable> is the name of your &DSCL;, and <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/usr/bin/<replaceable>cron_job_name</replaceable></filename> is the command you want to periodically run.</para>
       </step>
       <step>
         <para>Add the file to your spec file of the &DSCL; package:</para>
