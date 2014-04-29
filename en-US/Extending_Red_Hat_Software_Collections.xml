@@ -275,7 +275,9 @@ Smart replacement for plain tuple used in __version__
           Run the following command:
         </para>
         <screen><computeroutput>$ </computeroutput><userinput>scl enable vt191 "python -c 'import versiontools; print(versiontools.__file__)'"</userinput></screen>
-        <para>The output should contain the following line:</para>
+      </step>
+      <step>
+        <para>Verify that the output contains the following line:</para>
         <screen>/opt/rh/vt191/root/usr/lib/python2.7/site-packages/versiontools/__init__.pyc</screen>
         <para>
           Note that the provider <filename>rh</filename> in the path may vary depending on your redefinition of the <code>%_scl_prefix</code> macro. See <xref linkend="sect-The_Software_Collection_Root_Directory" /> for more information.
@@ -547,10 +549,274 @@ popd
       <step>
         <para>Run the following command:</para>
         <screen><computeroutput>$ </computeroutput><userinput>scl enable ror40 -- ruby -r bcrypt -e "puts BCrypt::Password.create('my password')"</userinput></screen>
-        <para>The output should contain the following line:</para>
+      </step>
+      <step>
+        <para>Verify that the output contains the following line:</para>
         <screen>$2a$10$s./ReniLY.wXPHVBQ9npoeyZf5KzywfpvI5lhjG6Ams3u0hKqwVbW</screen>
       </step>
     </procedure>
   </section>
+  </section>
+  <section id="sect-Extending_the_perl516_Software_Collection">
+    <title>Extending the perl516 &DSCL;</title>
+    <para>This section describes extending the perl516 &DSCL; by building your own dependent &DSCL;.</para>
+    <important>
+      <para>Examples described in this section only work as expected when extending the perl516 &DSCL; with packages that:</para>
+      <itemizedlist>
+        <listitem>
+          <para>do not provide any Perl modules, and</para>
+        </listitem>
+        <listitem>
+          <para>only depend on Perl modules provided by the perl516 &DSCL;.</para>
+        </listitem>
+      </itemizedlist>
+    </important>
+    <section id="sect-The_h2m144_Software_Collection">
+      <title>The h2m144 &DSCL;</title>
+      <para>This section contains a commented example of a dependent &DSCL;'s metapackage. The dependent &DSCL; is named h2m144 and contains the <package>help2man</package> Perl package version 1.44.1. The h2m144 &DSCL; depends on the perl516 &DSCL;.</para>
+      <para>Note the following in the h2m144 &DSCL; spec file:</para>
+      <itemizedlist>
+        <listitem>
+          <para>The h2m144 &DSCL; spec file has the following build dependency set:</para>
+          <programlisting language="RPM Spec">BuildRequires: %{scl_prefix_perl}scldevel</programlisting>
+          <para>This expands to <code>perl516-scldevel</code>.</para>
+          <para>The <package>perl516-scldevel</package> package contains two important macros, <code>%scl_perl</code> and <code>%scl_prefix_perl</code>, and also provides Perl dependency generators. Note that the macros are defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the h2m144 &DSCL; has been designed to be built on top of the perl516 &DSCL;. They also serve as a fallback value.</para>
+        </listitem>
+        <listitem>
+          <para>The <package>h2m144-build</package> subpackage has the following dependency set:</para>
+          <programlisting language="RPM Spec">Requires: %{scl_prefix_perl}scldevel</programlisting>
+          <para>This expands to <package>perl516-scldevel</package>. The purpose of this dependency is to ensure that the macros and dependency generators are always present when building packages for the h2m144 &DSCL;.</para>
+        </listitem>
+        <listitem>
+          <para>The <filename>enable</filename> scriptlet for the h2m144 &DSCL; contains the following line:</para>
+          <programlisting language="RPM Spec">. scl_source enable %{scl_perl}</programlisting>
+          <para>This makes the Perl &DSCL; start implicitly when the h2m144 &DSCL; is started so that the user can only type <command>scl enable h2m144 <replaceable>command</replaceable></command> instead of <command>scl enable perl516 h2m144 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
+        </listitem>
+        <listitem>
+          <para>The macro file <filename>macros.h2m144-config</filename> calls the Perl dependency generators, and certain Perl-specific macros used in other packages' spec files.</para>
+        </listitem>
+      </itemizedlist>
+      <programlisting language="RPM Spec"><![CDATA[%global scl h2m144
+%scl_package %scl
+
+# Default values for the perl516 Software Collection. These
+# will be used when perl516-scldevel is not in the build root.
+%{!?scl_perl:%global scl_perl perl516}
+%{!?scl_prefix_perl516:%global scl_prefix_perl %{scl_perl}-}
+
+# Only for this build, override __perl_requires for the automatic dependency
+# generator.
+%global __perl_requires /usr/lib/rpm/perl.req.stack
+
+Summary: Package that installs %scl
+Name:    %scl_name
+Version: 1
+Release: 1%{?dist}
+License: GPLv2+
+BuildRequires: scl-utils-build
+# Always make sure that there is the perl516-scldevel
+# package in the build root.
+BuildRequires: %{scl_prefix_perl}scldevel
+# Require perl516-perl-macros; you will need macros from that package.
+BuildRequires: %{scl_prefix_perl}perl-macros
+Requires: %{scl_prefix}help2man
+
+%description
+This is the main package for %scl Software Collection.
+
+%package runtime
+Summary: Package that handles %scl Software Collection.
+Requires: scl-utils
+Requires: %{scl_prefix_perl}runtime
+
+%description runtime
+Package shipping essential scripts to work with %scl Software Collection.
+
+%package build
+Summary: Package shipping basic build configuration
+Requires: scl-utils-build
+# Require perl516-scldevel so that there is always access to the %%scl_perl
+# and %%scl_prefix_perl macros in builds for this Software Collection.
+Requires: %{scl_prefix_perl}scldevel
+
+%description build
+Package shipping essential configuration macros to build %scl Software Collection.
+
+%prep
+%setup -c -T
+
+%build
+
+%install
+%scl_install
+
+# Create the enable scriptlet that:
+# - Adds an additional load path for the Perl interpreter.
+# - Runs scl_source so that you can run:
+#     scl enable h2m144 'bash'
+#   instead of:
+#     scl enable perl516 h2m144 'bash'
+
+cat >> %{buildroot}%{_scl_scripts}/enable << EOF
+. scl_source enable %{scl_perl}
+export PATH=%{_bindir}\${PATH:+:\${PATH}}
+export MANPATH=%{_mandir}:\${MANPATH}
+EOF
+
+cat >> %{buildroot}%{_root_sysconfdir}/rpm/macros.%{scl}-config << EOF
+%%scl_package_override() %%{expand:%%global __perl_requires /usr/lib/rpm/perl.req.stack
+%%global __perl_provides /usr/lib/rpm/perl.prov.stack
+%%global __perl %{_scl_prefix}/%{scl_perl}/root/usr/bin/perl
+}
+EOF
+
+%files
+
+%files runtime
+%scl_files
+
+%files build
+%{_root_sysconfdir}/rpm/macros.%{scl}-config
+
+%changelog
+* Tue Apr 22 2014 John Doe <jdoe@example.com> - 1-1
+- Initial package.]]></programlisting>
+    </section>
+    <section id="sect-The_help2man_Package">
+    <title>The help2man Package</title>
+    <para>Below is a commented example of the <package>help2man</package> package spec file. Note the following in the spec file:</para>
+    <itemizedlist>
+      <listitem>
+        <para>The <code>BuildRequires</code> tags are prefixed with <code>%{?scl_prefix_perl}</code> instead of <code>%{scl_prefix}</code>.</para>
+      </listitem>
+    </itemizedlist>
+    <programlisting language="RPM Spec"><![CDATA[%{?scl:%scl_package help2man}
+%{!?scl:%global pkg_name %{name}}
+
+# Supported build option:
+#
+# --with nls ... build this package with --enable-nls 
+%bcond_with nls
+
+Name:           %{?scl_prefix}help2man
+Summary:        Create simple man pages from --help output
+Version:        1.44.1
+Release:        1%{?dist}
+Group:          Development/Tools
+License:        GPLv3+
+URL:            http://www.gnu.org/software/help2man
+Source:         ftp://ftp.gnu.org/gnu/help2man/help2man-%{version}.tar.xz
+%{!?with_nls:BuildArch: noarch}
+
+BuildRequires:  %{?scl_prefix_perl}perl(Getopt::Long)
+BuildRequires:  %{?scl_prefix_perl}perl(POSIX)
+BuildRequires:  %{?scl_prefix_perl}perl(Text::ParseWords)
+BuildRequires:  %{?scl_prefix_perl}perl(Text::Tabs)
+BuildRequires:  %{?scl_prefix_perl}perl(strict)
+%{?with_nls:BuildRequires: %{?scl_prefix_perl}perl(Locale::gettext) /usr/bin/msgfmt}
+%{?with_nls:BuildRequires: %{?scl_prefix_perl}perl(Encode)}
+%{?with_nls:BuildRequires: %{?scl_prefix_perl}perl(I18N::Langinfo)}
+Requires:   %{?scl_prefix_perl}perl(:MODULE_COMPAT_%(%{?scl:scl enable %{scl_perl} '}eval "`perl -V:version`"; echo $version%{?scl:'}))
+
+Requires(post): /sbin/install-info
+Requires(preun): /sbin/install-info
+
+%description
+help2man is a script to create simple man pages from the --help and
+--version output of programs.
+
+Since most GNU documentation is now in info format, this provides a
+way to generate a placeholder man page pointing to that resource while
+still providing some useful information.
+
+%prep
+%setup -q -n help2man-%{version}
+
+%build
+%configure --%{!?with_nls:disable}%{?with_nls:enable}-nls --libdir=%{_libdir}/help2man
+%{?scl:scl enable %{scl} "}
+make %{?_smp_mflags}
+%{?scl:"}
+
+%install
+%{?scl:scl enable %{scl} "}
+make install_l10n DESTDIR=$RPM_BUILD_ROOT
+%{?scl:"}
+%{?scl:scl enable %{scl} "}
+make install DESTDIR=$RPM_BUILD_ROOT
+%{?scl:"}
+%find_lang %pkg_name --with-man
+
+%post
+/sbin/install-info %{_infodir}/help2man.info %{_infodir}/dir 2>/dev/null || :
+
+%preun
+if [ $1 -eq 0 ]; then
+  /sbin/install-info --delete %{_infodir}/help2man.info \
+    %{_infodir}/dir 2>/dev/null || :
+fi
+
+%files -f %pkg_name.lang
+%doc README NEWS THANKS COPYING
+%{_bindir}/help2man
+%{_infodir}/*
+%{_mandir}/man1/*
+
+%if %{with nls}
+%{_libdir}/help2man
+%endif
+
+%changelog
+* Tue Apr 22 2014 John Doe <jdoe@example.com> - 1.44.1-1
+- Built for h2m144 SCL.]]></programlisting>
+    </section>
+    <section id="sect-Building_the_h2m144_Software_Collection">
+    <title>Building the h2m144 Software Collection</title>
+    <para>To build the h2m144 &DSCL;:</para>
+    <procedure>
+      <step>
+        <para>Install the <package>perl516-scldevel</package> and <package>perl516-perl-macros</package> packages that are part of Red Hat Software Collections.</para>
+      </step>
+      <step>
+        <para>Build <package>h2m144.spec</package> and install the <package>h2m144-runtime</package> and <package>h2m144-build</package> packages.</para>
+      </step>
+      <step>
+        <para>Install the <package>perl516-perl</package>, <package>perl516-perl-Text-ParseWords</package> and <package>perl516-perl-Getopt-Long</package> packages, which are all build requirements for <package>help2man</package>.</para>
+      </step>
+      <step>
+        <para>Build <filename>help2man.spec</filename>.</para>
+      </step>
+    </procedure>
+    </section>
+    <section id="sect-Testing_the_h2m144_Software_Collection">
+    <title>Testing the h2m144 Software Collection</title>
+    <para>To test the h2m144 &DSCL;:</para>
+    <procedure>
+      <step>
+        <para>Install the <package>h2m144-help2man</package> package.</para>
+      </step>
+      <step>
+        <para>Run the following command:</para>
+        <screen><computeroutput>$ </computeroutput><userinput>scl enable h2m144 'help2man bash'</userinput></screen>
+      </step>
+      <step>
+        <para>Verify that the output is similar to the following lines:</para>
+        <screen>.\" DO NOT MODIFY THIS FILE!  It was generated by help2man 1.44.1.
+.TH BASH, "1" "April 2014" "bash, version 4.1.2(1)-release (x86_64-redhat-linux-gnu)" "User Commands"
+.SH NAME
+bash, \- manual page for bash, version 4.1.2(1)-release (x86_64-redhat-linux-gnu)
+.SH SYNOPSIS
+.B bash
+[\fIGNU long option\fR] [\fIoption\fR] ...
+.SH DESCRIPTION
+GNU bash, version 4.1.2(1)\-release\-(x86_64\-redhat\-linux\-gnu)
+.IP
+bash [GNU long option] [option] script\-file ...
+.SS "GNU long options:"
+.HP
+\fB\-\-debug\fR</screen>
+      </step>
+    </procedure>
+    </section>
   </section>
 </chapter>
