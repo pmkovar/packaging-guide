@@ -6,7 +6,21 @@
 	<simpara>
 		<revhistory>
 			<revision>
-				<revnumber>2.1-19</revnumber>
+				<revnumber>2.1-23</revnumber>
+				<date>Wed May 07 2014</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red Hat Software Collections 1.1 release of the Software Collections Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>2.1-21</revnumber>
 				<date>Thu Mar 20 2014</date>
 				<author>
 					<firstname>Petr</firstname>
