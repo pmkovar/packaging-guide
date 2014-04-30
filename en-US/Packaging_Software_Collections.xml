@@ -723,7 +723,7 @@ EOF
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
     <title>Converting a Conventional Spec File</title>
-        <para>The following steps show how to convert a conventional spec file into a &DSCL; spec file so that the &DSCL; spec file that you can use in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
+        <para>The following steps show how to convert a conventional spec file into a &DSCL; spec file so that the &DSCL; spec file can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
 Software Collection macros simply relocate package to non-conflicting namespaced path by redefining essential build macros such as %_bindir, %_sysconfdir, etc. and adding Software Collection specific virtual provides. With this concept the Software Collection specific actions in spec file need to be put into the %{?scl: <something> } constructs. --></para>
       <procedure>
         <title>Converting a conventional spec file into a &DSCL; spec file</title>

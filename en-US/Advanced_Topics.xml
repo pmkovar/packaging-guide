@@ -41,7 +41,7 @@
     <para>
       If there are <code>Provides</code> or <code>Requires</code> that you need to adjust, for example, a <systemitem>pkg_config</systemitem> <code>Provides</code>, there are two ways to do it:
     </para>
-    <orderedlist>
+    <itemizedlist>
       <listitem>
         <para>
           Add the following lines in the <filename>macros.%{scl}-config</filename> macro file so that it applies to all packages in the &DSCL;:
@@ -63,7 +63,7 @@
 %{?scl:%filter_from_requires s|pkgconfig|%{?scl_prefix}pkgconfig|g}
 %{?scl:%filter_setup}</programlisting>
       </listitem>
-    </orderedlist>
+    </itemizedlist>
     <important>
       <para>
         When using filters, you need to pay attention to the automatic dependencies you change. For example, if the conventional package contains <code language="RPM Spec">Requires: pkgconfig(package_1)</code> and <code language="RPM Spec">Requires: pkgconfig(package_2)</code>, and only <package>package_2</package> is included in the &DSCL;, ensure that you do not filter the <code>Requires</code> tag for <package>package_1</package>.

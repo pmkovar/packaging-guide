@@ -1,15 +1,69 @@
 <?xml version="1.0"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Extending_Red_Hat_Software_Collections">
-  <title>Extending Red Hat Software Collections 1.1 Beta</title>
+  <title>Extending Red Hat Software Collections 1.1</title>
   <section id="sect-Extending_the_python27_and_python33_Software_Collections">
     <title>Extending the python27 and python33 &DSCL;s</title>
     <para>
-      In Red Hat Software Collections 1.1 Beta, the <application>scl</application> tool has been extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
+      In Red Hat Software Collections 1.1, the <application>scl</application> tool has been extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
     </para>
     <para>
-      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 1.1 Beta, there are specifics that depend on the &DSCL; you are extending.
+      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 1.1, there are specifics that depend on the &DSCL; you are extending.
     </para>
+  <!--section id="sect-Providing_an_scldevel_Subpackage">
+    <title>Providing an scldevel Subpackage</title>
+    <para>Providing an <package>scldevel</package> subpackage in your &DSCL;'s metapackage can make it easier for users to create dependent &DSCL;. This section describes creating an <package>scldevel</package> subpackage, for examples of extending &DSCL; shipped with the Red Hat Software Collections offering, see <xref linkend="chap-Extending_Red_Hat_Software_Collections" />.</para>
+    <procedure>
+      <step>
+        <para>Add the <package>scldevel</package> subpackage by defining its name, summary, and description:</para>
+        <programlisting language="RPM Spec">%package scldevel
+Summary: Package shipping development files for %scl
+# You might need to BR this virtual provide in package, which has soft dependency,
+# e.g. rubygem-uglifier uses rubygem-therubyracer, which in turn depends on v8 collection.
+# This provide might be versioned, not sure about the usecases or proc/cons though.
+Provides: scldevel(%{scl_name_base})
+
+%description scldevel
+Package shipping development files, especially useful for development of
+packages depending on %scl Software Collection.</programlisting>
+      </step>
+      <step>
+        <para>In the <code>%install</code> section of your &DSCL;'s metapackage, create the macros.%{scl_name_base}-scldevel file that is part of the <package>scldevel</package> subpackage and contains:</para>
+        <programlisting language="RPM Spec"><![CDATA[cat >> %{buildroot}%{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel << EOF
+%%scl_%{scl_name_base} %{scl}
+%%scl_prefix_%{scl_name_base} %{scl_prefix}
+EOF]]></programlisting>
+      </step>
+    </procedure>
+    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the %{scl_name_base} &DSCL;s. For example, in Red Hat Software Collections, the <package>ruby193-scldevel</package> package cannot be installed when there is the <package>ruby200-scldevel</package> package installed.</para>
+
+- Using the scldevel Subpackage in Dependent &DSCL;
+
+Everything bellow belongs into metapackage of dependent collection
+
+# This is optional. Can be replaced by %{?scl_prefix_ruby}. It is just hint, that the collection
+# was designed with ruby200 in mind. If buildroot has no special settings (i.e. there is
+# explicitely not available different -scldevel package), the BuildRequires pulls in
+# ruby200-scldevel.
+%{!?scl_ruby:%global scl_ruby ruby200}
+%{!?scl_prefix_ruby:%global scl_prefix_ruby %{scl_ruby}-}
+
+# Always BR -scldevel package. That way you ensure that -scldevel package is in buildroot and
+# the default values are actually not in use. When this package would be omitted, it might
+# result in broken requires, which could be discoverred just by build of subsequent packages.
+BuildRequires: %{scl_prefix_ruby}scldevel
+
+%package runtime
+Summary: Package that handles %scl Software Collection.
+Requires: scl-utils
+Requires: %{scl_prefix_ruby}runtime
+
+%package build
+Summary: Package shipping basic build configuration
+# This ensures availability of macros in every package of collection.
+Requires: %{scl_prefix_ruby}scldevel
+
+  </section>-->
     <section id="The_vt191_Software_Collection">
     <title>The vt191 &DSCL;</title>
     <para>
@@ -57,7 +111,7 @@
         </para>
         <programlisting language="RPM Spec">. scl_source enable %{scl_python}</programlisting>
         <para>
-          This makes the Python &DSCL; start implicitly when the vt191 &DSCL; is started so that the user can only type <command>scl enable vt191 <replaceable>command</replaceable></command> instead of <command>scl enable python27 vt191 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.
+          Note the dot at the beginning of the line. This line makes the Python &DSCL; start implicitly when the vt191 &DSCL; is started so that the user can only type <command>scl enable vt191 <replaceable>command</replaceable></command> instead of <command>scl enable python27 vt191 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.
         </para>
       </listitem>
       <listitem>
@@ -288,8 +342,8 @@ Smart replacement for plain tuple used in __version__
   </section>
   <section id="sect-Extending_the_ruby193_and_ruby200_Software_Collections">
     <title>Extending the ruby193 and ruby200 &DSCL;s</title>
-    <para>In Red Hat Software Collection 1.1, it is possible to extend the ruby193 and ruby200 &DSCL;s by adding dependent packages. The Ruby on Rails 4.0 (ror40) &DSCL;, which is built on top of Ruby 2.0.0 provided by the ruby200 &DSCL;, is one example of such an extension.</para>
-    <para>This section provides detailed information about the <package>ror40</package> metapackage and the <package>ror40-rubygem-bcrypt-ruby</package> package, which are both part of the ruby200 &DSCL;.</para>
+    <para>In Red Hat Software Collections 1.1, it is possible to extend the ruby193 and ruby200 &DSCL;s by adding dependent packages. The Ruby on Rails 4.0 (ror40) &DSCL;, which is built on top of Ruby 2.0.0 provided by the ruby200 &DSCL;, is one example of such an extension.</para>
+    <para>This section provides detailed information about the <package>ror40</package> metapackage and the <package>ror40-rubygem-bcrypt-ruby</package> package, which are both part of the ror40 &DSCL;.</para>
     <section id="sect-The_ror40_Software_Collection">
       <title>The ror40 Software Collection</title>
     <para>This section contains a commented example of the Ruby on Rails 4.0 metapackage for the ror40 &DSCL;. The ror40 &DSCL; depends on the ror200 &DSCL;.</para>
@@ -318,7 +372,7 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
     <listitem>
       <para>The <filename>enable</filename> scriptlet for the ror40 &DSCL; contains the following line:</para>
       <programlisting language="RPM Spec">. scl_source enable %{scl_ruby}</programlisting>
-      <para>This makes the Ruby &DSCL; start implicitly when the ror40 &DSCL; is started so that the user can only type <command>scl enable ror40 <replaceable>command</replaceable></command> instead of <command>scl enable ruby200 ror40 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
+      <para>Note the dot at the beginning of the line. This line makes the Ruby &DSCL; start implicitly when the ror40 &DSCL; is started so that the user can only type <command>scl enable ror40 <replaceable>command</replaceable></command> instead of <command>scl enable ruby200 ror40 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
       </listitem>
       <listitem>
         <para>The <package>ror40-scldevel</package> package is provided so that it is available in case you need it to build a &DSCL; which extends the ror40 &DSCL;. The package provides the <code>%{scl_ror}</code> and <code>%{scl_prefix_ror}</code> macros, which can be used to extend the ror40 &DSCL;.</para>
@@ -326,8 +380,6 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
       <listitem>
         <para>Because the ror40 &DSCL;'s gems are installed in a separate root directory structure, you need to ensure that the correct ownership for the rubygems directories is set. This is done by using a snippet to generate a file list <package>rubygems_filesystem.list</package>.
 </para>
-      </listitem>
-      <listitem>
         <para>You are advised to set the <package>runtime</package> package to own all directories which would, if located in the root file system, be owned by another package. One example of such directories in the case of the ror40 &DSCL; is the Rubygem directory structure<!--, but it might be pkgconfig directories, etc-->.</para>
       </listitem>
     </itemizedlist>
@@ -435,7 +487,7 @@ EOF
   </section>
   <section id="sect-The_ror40-rubygem-bcrypt-ruby_Package">
     <title>The ror40-rubygem-bcrypt-ruby Package</title>
-    <para>Below is a commented example of the <package>ror40-rubygem-bcrypt-ruby</package> package spec file. This package provides the bcryp-ruby gem. For more information on bcryp-ruby, see the following website:</para>
+    <para>Below is a commented example of the <package>ror40-rubygem-bcrypt-ruby</package> package spec file. This package provides the bcrypt-ruby gem. For more information on bcrypt-ruby, see the following website:</para>
     <itemizedlist>
       <listitem>
         <para><ulink url="http://rubygems.org/gems/bcrypt-ruby">http://rubygems.org/gems/bcrypt-ruby</ulink></para>
@@ -539,12 +591,12 @@ popd
       </step>
     </procedure>
   </section>
-  <section id="sect-Testing_the_vt191_Software_Collection">
-    <title>Testing the vt191 &DSCL;</title>
+  <section id="sect-Testing_the_ror40_Software_Collection">
+    <title>Testing the ror40 &DSCL;</title>
     <para>To test the ror40 &DSCL;:</para>
     <procedure>
       <step>
-        <para>Install the <package>ror40-rubygem-bcryp-ruby</package> package.</para>
+        <para>Install the <package>ror40-rubygem-bcrypt-ruby</package> package.</para>
       </step>
       <step>
         <para>Run the following command:</para>
@@ -590,7 +642,7 @@ popd
         <listitem>
           <para>The <filename>enable</filename> scriptlet for the h2m144 &DSCL; contains the following line:</para>
           <programlisting language="RPM Spec">. scl_source enable %{scl_perl}</programlisting>
-          <para>This makes the Perl &DSCL; start implicitly when the h2m144 &DSCL; is started so that the user can only type <command>scl enable h2m144 <replaceable>command</replaceable></command> instead of <command>scl enable perl516 h2m144 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
+          <para>Note the dot at the beginning of the line. This line makes the Perl &DSCL; start implicitly when the h2m144 &DSCL; is started so that the user can only type <command>scl enable h2m144 <replaceable>command</replaceable></command> instead of <command>scl enable perl516 h2m144 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
         </listitem>
         <listitem>
           <para>The macro file <filename>macros.h2m144-config</filename> calls the Perl dependency generators, and certain Perl-specific macros used in other packages' spec files.</para>
