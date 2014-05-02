@@ -118,12 +118,12 @@
   	<title>Packaging Wrappers for &DSCL;s</title>
   	<para>
   		Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
-  	 <para>The following is an example of a wrapper from the <package>ruby193</package> &DSCL; that is installed as <filename>/usr/bin/ruby193-ruby</filename> and allows the user to run <command>ruby193-ruby <replaceable>command</replaceable></command> instead of <command>scl enable ruby193 'ruby <replaceable>command</replaceable>'</command>:
+  	 <para>The following is an example of a wrapper from a Ruby-based &DSCL; named <package>rubyscl</package> that is installed as <filename>/usr/bin/rubyscl-ruby</filename> and allows the user to run <command>rubyscl-ruby <replaceable>command</replaceable></command> instead of <command>scl enable rubyscl 'ruby <replaceable>command</replaceable>'</command>:
   	</para>
   	<programlisting language="Bash">#!/bin/bash
 
 COMMAND="ruby $@"
-scl enable ruby193 "$COMMAND"
+scl enable rubyscl "$COMMAND"
 </programlisting>
 <para>
 	It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
