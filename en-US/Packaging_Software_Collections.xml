@@ -107,7 +107,7 @@
   	<itemizedlist>
   		<listitem>
   			<para>
-  				the <replaceable>provider</replaceable> part, which defines the provider name, and
+  				the <replaceable>provider</replaceable> part, which defines the provider's name, and
 			</para>
 		</listitem>
 		<listitem>
@@ -118,8 +118,9 @@
   	</itemizedlist>
   	<para>These two parts of the &DSCL; prefix are separated by an underscore (<literal>_</literal>), as in the following example:</para>
 	<programlisting>myorganization_ruby193</programlisting>
-	<para>In this example, <replaceable>myorganization</replaceable> is the provider name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
+	<para>In this example, <replaceable>myorganization</replaceable> is the provider's name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
 	</para>
+	<para>While it is ultimately a vendor's or distributor's decision whether to specify the provider's name in the prefix or not, specifying it is highly recommended. A notable exception are &DSCL;s provided by Red Hat, they do not specify the provider's name in their prefixes.</para>
 	</section>
 	<section id="sect-Software_Collection_Package_Names">
 		<title>&DSCL; Package Names</title>
