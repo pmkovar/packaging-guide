@@ -114,13 +114,15 @@
 </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>
-    <para>To ensure that a &DSCL; is on your system, install the so-called metapackage of the &DSCL;. You can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task because &DSCL;s are fully compatible with the RPM Package Manager.
+    <para>To ensure that a &DSCL; is on your system, install the so-called metapackage of the &DSCL;. Thanks to &DSCL;s being fully compatible with the RPM Package Manager, you can use conventional tools like <application>Yum</application> or <application>PackageKit</application> for this task.
     </para>
     <para>For example, to install a &DSCL; with the metapackage named <code>software_collection_1</code>, run the following command:</para>
     <synopsis>
       <command>yum install software_collection_1</command>
     </synopsis>
-    <para>This command will automatically install all the packages that are part of the &DSCL;. Also, if you install an application that depends on a &DSCL;, the &DSCL; will be installed along with the rest of the application's dependencies.</para>
+    <para>This command will automatically install all the packages in the &DSCL; that are essential for the user to perform most common tasks with the &DSCL;.</para>
+    <para>&DSCL;s allow you to only install a subset of packages you intend to use. For example, to use the Ruby interpreter from the ruby193 &DSCL;, you only need to install a package <package>ruby193-ruby</package> from that &DSCL;.</para>
+    <para>If you install an application that depends on a &DSCL;, that &DSCL; will be installed along with the rest of the application's dependencies.</para>
     <para>
     	For detailed information on &DSCL; metapackages, see <xref linkend="sect-Meta_Package" />.
     </para>

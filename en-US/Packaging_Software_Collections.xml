@@ -25,7 +25,7 @@
   		<term>Create a &DSCL; metapackage</term>
   		<listitem>
   			<para>
-  				Each &DSCL; includes a metapackage, which installs a minimal subset of essential packages. See <xref linkend="sect-Meta_Package" /> for more information on creating metapackages.
+  				Each &DSCL; includes a metapackage, which installs a subset of the &DSCL;'s packages that are essential for the user to perform most common tasks with the &DSCL;. See <xref linkend="sect-Meta_Package" /> for more information on creating metapackages.
   			</para>
   		</listitem>
   	</varlistentry>
@@ -159,7 +159,7 @@
     <para>Each &DSCL;'s layout consists of the metapackage, which installs a subset of other packages, and a number of the &DSCL;'s packages, which are installed within the &DSCL; namespace.</para>
     <section id="sect-Meta_Package">
       <title>Metapackage</title>
-      <para>Each &DSCL; includes a metapackage, which installs a minimal subset of essential packages. For example, the essential packages can provide the Perl language interpreter, but no Perl extension modules. The metapackage contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
+      <para>Each &DSCL; includes a metapackage, which installs a subset of the &DSCL;'s packages that are essential for the user to perform most common tasks with the &DSCL;. For example, the essential packages can provide the Perl language interpreter, but no Perl extension modules. The metapackage contains a basic file system hierarchy and delivers a number of the &DSCL;'s scriptlets.</para>
       <para>The purpose of the metapackage is to make sure that all essential packages in the &DSCL; are properly installed and that it is possible to enable the &DSCL;.</para>
       <para>The metapackage produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
