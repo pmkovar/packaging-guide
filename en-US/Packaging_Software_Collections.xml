@@ -167,6 +167,8 @@
           <term>The main package: %scl</term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
+            <para>When specifying dependencies for your &DSCL;'s packages, ensure that no other package in your &DSCL; depends on the main package. The purpose of the main package is to install only those packages that are essential for the user to perform most common tasks with the &DSCL;.</para>
+            <para>Normally, the main package does not specify any build time dependencies (for instance, packages that are only build time dependencies of another &DSCL;'s packages).</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the main package macro is expanded to:</para>
             <programlisting>myorganization_ruby193</programlisting>
           </listitem>
