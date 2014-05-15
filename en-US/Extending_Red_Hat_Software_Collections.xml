@@ -2,30 +2,21 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Extending_Red_Hat_Software_Collections">
   <title>Extending Red Hat Software Collections 1.1</title>
-  <section id="sect-Extending_the_python27_and_python33_Software_Collections">
-    <title>Extending the python27 and python33 &DSCL;s</title>
-    <para>
-      In Red Hat Software Collections 1.1, the <application>scl</application> tool has been extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
-    </para>
-    <para>
-      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 1.1, there are specifics that depend on the &DSCL; you are extending.
-    </para>
-  <!--section id="sect-Providing_an_scldevel_Subpackage">
+  <section id="sect-Providing_an_scldevel_Subpackage">
     <title>Providing an scldevel Subpackage</title>
     <para>Providing an <package>scldevel</package> subpackage in your &DSCL;'s metapackage can make it easier for users to create dependent &DSCL;. This section describes creating an <package>scldevel</package> subpackage, for examples of extending &DSCL; shipped with the Red Hat Software Collections offering, see <xref linkend="chap-Extending_Red_Hat_Software_Collections" />.</para>
     <procedure>
+    <title>Providing your own scldevel subpackage</title>
       <step>
         <para>Add the <package>scldevel</package> subpackage by defining its name, summary, and description:</para>
         <programlisting language="RPM Spec">%package scldevel
 Summary: Package shipping development files for %scl
-# You might need to BR this virtual provide in package, which has soft dependency,
-# e.g. rubygem-uglifier uses rubygem-therubyracer, which in turn depends on v8 collection.
-# This provide might be versioned, not sure about the usecases or proc/cons though.
 Provides: scldevel(%{scl_name_base})
 
 %description scldevel
 Package shipping development files, especially useful for development of
 packages depending on %scl Software Collection.</programlisting>
+      <para>You may need to specify the <code>Provides: scldevel(%{scl_name_base})</code> virtual provide as a build requirement for packages with soft dependencies. For example, the <package>rubygem-uglifier</package> package makes use of the <package>rubygem-therubyracer</package> package, which in turn depends on the v8 &DSCL;.</para>
       </step>
       <step>
         <para>In the <code>%install</code> section of your &DSCL;'s metapackage, create the macros.%{scl_name_base}-scldevel file that is part of the <package>scldevel</package> subpackage and contains:</para>
@@ -33,37 +24,53 @@ packages depending on %scl Software Collection.</programlisting>
 %%scl_%{scl_name_base} %{scl}
 %%scl_prefix_%{scl_name_base} %{scl_prefix}
 EOF]]></programlisting>
+    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the %{scl_name_base} &DSCL;s. For example, in Red Hat Software Collections, the <package>ruby193-scldevel</package> subpackage cannot be installed when there is the <package>ruby200-scldevel</package> subpackage installed.</para>
       </step>
     </procedure>
-    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the %{scl_name_base} &DSCL;s. For example, in Red Hat Software Collections, the <package>ruby193-scldevel</package> package cannot be installed when there is the <package>ruby200-scldevel</package> package installed.</para>
-
-- Using the scldevel Subpackage in Dependent &DSCL;
-
-Everything bellow belongs into metapackage of dependent collection
-
-# This is optional. Can be replaced by %{?scl_prefix_ruby}. It is just hint, that the collection
-# was designed with ruby200 in mind. If buildroot has no special settings (i.e. there is
-# explicitely not available different -scldevel package), the BuildRequires pulls in
-# ruby200-scldevel.
-%{!?scl_ruby:%global scl_ruby ruby200}
-%{!?scl_prefix_ruby:%global scl_prefix_ruby %{scl_ruby}-}
-
-# Always BR -scldevel package. That way you ensure that -scldevel package is in buildroot and
-# the default values are actually not in use. When this package would be omitted, it might
-# result in broken requires, which could be discoverred just by build of subsequent packages.
-BuildRequires: %{scl_prefix_ruby}scldevel
-
-%package runtime
+    <section id="sect-Using_an_scldevel_Subpackage_in_a_Dependent_Software_Collection">
+    <title>Using an scldevel Subpackage in a Dependent &DSCL;</title>
+    <para>To use your <package>scldevel</package> subpackage in a &DSCL; that depends on a &DSCL; ruby200, update the metapackage of the dependent &DSCL; as described below.</para>
+    <procedure>
+    <title>Using your own scldevel subpackage in a dependent &DSCL;</title>
+    <step>
+    <para>Consider adding the following at the beginning of the metapackage's spec file:</para>
+    <programlisting language="RPM Spec">%{!?scl_ruby:%global scl_ruby ruby200}
+%{!?scl_prefix_ruby:%global scl_prefix_ruby %{scl_ruby}-}</programlisting>
+    <para>These two lines are optional. They are only meant as a visual hint that the dependent &DSCL; has been designed to depend on the ruby200 &DSCL;. If there is no other <package>scldevel</package> subpackage available in the  build root, then the <package>ruby200-scldevel</package> subpackage is used as a build requirement.</para>
+    <para>You can substitute these lines by the following line:</para>
+   <programlisting language="RPM Spec">%{?scl_prefix_ruby}</programlisting>
+    </step>
+    <step>
+   <para>Add the following build requirement to the metapackage:</para>
+   <programlisting language="RPM Spec">BuildRequires: %{scl_prefix_ruby}scldevel</programlisting>
+   <para>By specifying this build requirement, you ensure that the <package>scldevel</package> subpackage is in the build root and that the default values are not in use. Omitting this package could result in broken requires at the subsequent packages' build time.</para>
+    </step>
+    <step>
+   <para>Ensure that the <code>%package runtime</code> part of the metapackage's spec files includes the following lines:</para>
+   <programlisting language="RPM Spec">%package runtime
 Summary: Package that handles %scl Software Collection.
 Requires: scl-utils
-Requires: %{scl_prefix_ruby}runtime
-
-%package build
+Requires: %{scl_prefix_ruby}runtime</programlisting>
+    </step>
+    <step>
+   <para>Ensure that the <code>%package build</code> part of the metapackage's spec files includes the following lines:</para>
+   <programlisting language="RPM Spec">%package build
 Summary: Package shipping basic build configuration
-# This ensures availability of macros in every package of collection.
-Requires: %{scl_prefix_ruby}scldevel
-
-  </section>-->
+Requires: %{scl_prefix_ruby}scldevel</programlisting>
+    <para>Specifying <code>Requires: %{scl_prefix_ruby}scldevel</code> ensures that macros are available in all packages of the &DSCL;.</para>
+    </step>
+    </procedure>
+    </section>
+  </section>
+  <section id="sect-Extending_the_python27_and_python33_Software_Collections">
+    <title>Extending the python27 and python33 &DSCL;s</title>
+    <para>This section describes extending the python27 and python33 &DSCL;s by creating a dependent &DSCL;.</para>
+    <para>
+      In Red Hat Software Collections 1.1, the <application>scl</application> tool has been extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
+    </para>
+    <!--para>
+      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 1.1, there are specifics that depend on the &DSCL; you are extending.
+    </para-->
     <section id="The_vt191_Software_Collection">
     <title>The vt191 &DSCL;</title>
     <para>
@@ -82,7 +89,7 @@ Requires: %{scl_prefix_ruby}scldevel
           This expands to, for example, <package>python27-scldevel</package>.
         </para>
         <para>
-          The <package>python27-scldevel</package> package ships two important macros, <code>%scl_python</code> and <code>%scl_prefix_python</code>. Note that these macros are defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the vt191 &DSCL; has been designed to be built on top of the python27 &DSCL;. They also serve as a fallback value.
+          The <package>python27-scldevel</package> subpackage ships two important macros, <code>%scl_python</code> and <code>%scl_prefix_python</code>. Note that these macros are defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the vt191 &DSCL; has been designed to be built on top of the python27 &DSCL;. They also serve as a fallback value.
         </para>
       </listitem>
       <listitem>
@@ -126,7 +133,7 @@ Requires: %{scl_prefix_ruby}scldevel
 
 # Defaults for the values for the python27/python33 Software Collection. These
 # will be used when python27-scldevel (or python33-scldevel) is not in the
-# buildroot
+# build root
 %{!?scl_python:%global scl_python python27}
 %{!?scl_prefix_python:%global scl_prefix_python %{scl_python}-}
 
@@ -147,7 +154,7 @@ Release: 1%{?dist}
 License: GPLv2+
 BuildRequires: scl-utils-build
 # Always make sure that there is the python27-sclbuild (or python33-sclbuild)
-# package in the buildroot
+# package in the build root
 BuildRequires: %{scl_prefix_python}scldevel
 # Require python27-python-devel, you will need macros from that package
 BuildRequires: %{scl_prefix_python}python-devel
@@ -293,7 +300,7 @@ Smart replacement for plain tuple used in __version__
     <procedure>
       <step>
         <para>
-          Install the <package>python27-scldevel</package> and <package>python27-python-devel</package> packages that are part of Red Hat Software Collections.
+          Install the <package>python27-scldevel</package> and <package>python27-python-devel</package> subpackages that are part of Red Hat Software Collections.
         </para>
       </step>
       <step>
@@ -354,7 +361,7 @@ Smart replacement for plain tuple used in __version__
         <programlisting language="RPM Spec">BuildRequires: %{scl_prefix_ruby}scldevel
 BuildRequires: %{scl_prefix_ruby}rubygems-devel</programlisting>
     <para>This expands to, for example, <package>ruby200-scldevel</package> and <package>ruby200-rubygems-devel</package>.</para>
-    <para>The <package>ruby200-scldevel</package> package contains two important macros, <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code>. The <package>ruby200-scldevel</package> package should be available in the build root. It specifies which of the available Ruby &DSCL;s you want to use. You can also replace it with the <package>ruby193-scldevel</package> package.</para>
+    <para>The <package>ruby200-scldevel</package> subpackage contains two important macros, <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code>. The <package>ruby200-scldevel</package> subpackage should be available in the build root. It specifies which of the available Ruby &DSCL;s you want to use. You can also replace it with the <package>ruby193-scldevel</package> subpackage.</para>
     <para>Note that the <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code> macros are also defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the ror40 &DSCL; has been designed to be built on top of the ruby200 &DSCL;. They also serve as a fallback value.</para>
     </listitem>
     <listitem>
@@ -375,7 +382,7 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
       <para>Note the dot at the beginning of the line. This line makes the Ruby &DSCL; start implicitly when the ror40 &DSCL; is started so that the user can only type <command>scl enable ror40 <replaceable>command</replaceable></command> instead of <command>scl enable ruby200 ror40 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
       </listitem>
       <listitem>
-        <para>The <package>ror40-scldevel</package> package is provided so that it is available in case you need it to build a &DSCL; which extends the ror40 &DSCL;. The package provides the <code>%{scl_ror}</code> and <code>%{scl_prefix_ror}</code> macros, which can be used to extend the ror40 &DSCL;.</para>
+        <para>The <package>ror40-scldevel</package> subpackage is provided so that it is available in case you need it to build a &DSCL; which extends the ror40 &DSCL;. The package provides the <code>%{scl_ror}</code> and <code>%{scl_prefix_ror}</code> macros, which can be used to extend the ror40 &DSCL;.</para>
       </listitem>
       <listitem>
         <para>Because the ror40 &DSCL;'s gems are installed in a separate root directory structure, you need to ensure that the correct ownership for the rubygems directories is set. This is done by using a snippet to generate a file list <package>rubygems_filesystem.list</package>.
@@ -581,7 +588,7 @@ popd
     <para>To build the ror40 &DSCL;:</para>
     <procedure>
       <step>
-        <para>Install the <package>ruby200-scldevel</package> package which is a part of Red Hat Software Collections.</para>
+        <para>Install the <package>ruby200-scldevel</package> subpackage which is a part of Red Hat Software Collections.</para>
       </step>
       <step>
         <para>Build <filename>ror40.spec</filename> and install the <package>ror40-runtime</package> and <package>ror40-build</package> packages.</para>
@@ -632,7 +639,7 @@ popd
           <para>The h2m144 &DSCL; spec file has the following build dependency set:</para>
           <programlisting language="RPM Spec">BuildRequires: %{scl_prefix_perl}scldevel</programlisting>
           <para>This expands to <code>perl516-scldevel</code>.</para>
-          <para>The <package>perl516-scldevel</package> package contains two important macros, <code>%scl_perl</code> and <code>%scl_prefix_perl</code>, and also provides Perl dependency generators. Note that the macros are defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the h2m144 &DSCL; has been designed to be built on top of the perl516 &DSCL;. They also serve as a fallback value.</para>
+          <para>The <package>perl516-scldevel</package> subpackage contains two important macros, <code>%scl_perl</code> and <code>%scl_prefix_perl</code>, and also provides Perl dependency generators. Note that the macros are defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the h2m144 &DSCL; has been designed to be built on top of the perl516 &DSCL;. They also serve as a fallback value.</para>
         </listitem>
         <listitem>
           <para>The <package>h2m144-build</package> subpackage has the following dependency set:</para>
