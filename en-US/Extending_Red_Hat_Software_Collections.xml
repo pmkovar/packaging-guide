@@ -4,11 +4,11 @@
   <title>Extending Red Hat Software Collections 1.1</title>
   <section id="sect-Providing_an_scldevel_Subpackage">
     <title>Providing an scldevel Subpackage</title>
-    <para>Providing an <package>scldevel</package> subpackage in your &DSCL;'s metapackage can make it easier for users to create dependent &DSCL;. This section describes creating an <package>scldevel</package> subpackage, for examples of extending &DSCL; shipped with the Red Hat Software Collections offering, see <xref linkend="chap-Extending_Red_Hat_Software_Collections" />.</para>
+    <para>Providing an <package>scldevel</package> subpackage in your &DSCL;'s metapackage can make it easier for users to create a dependent &DSCL;. This section describes creating an <package>scldevel</package> subpackage for Ruby-based &DSCL;s, ruby193 and ruby200.</para>
     <procedure>
     <title>Providing your own scldevel subpackage</title>
       <step>
-        <para>Add the <package>scldevel</package> subpackage by defining its name, summary, and description:</para>
+        <para>In your &DSCL;'s metapackage, add the <package>scldevel</package> subpackage by defining its name, summary, and description:</para>
         <programlisting language="RPM Spec">%package scldevel
 Summary: Package shipping development files for %scl
 Provides: scldevel(%{scl_name_base})
@@ -16,10 +16,10 @@ Provides: scldevel(%{scl_name_base})
 %description scldevel
 Package shipping development files, especially useful for development of
 packages depending on %scl Software Collection.</programlisting>
-      <para>You may need to specify the <code>Provides: scldevel(%{scl_name_base})</code> virtual provide as a build requirement for packages with soft dependencies. For example, the <package>rubygem-uglifier</package> package makes use of the <package>rubygem-therubyracer</package> package, which in turn depends on the v8 &DSCL;.</para>
+      <para>You may need to specify the <code>Provides: scldevel(%{scl_name_base})</code> virtual provide as a build requirement for packages with soft dependencies. For example, the <package>rubygem-uglifier</package> package depends at build time on the <package>rubygem-therubyracer</package> package, which in turn depends on the v8 &DSCL;.</para>
       </step>
       <step>
-        <para>In the <code>%install</code> section of your &DSCL;'s metapackage, create the macros.%{scl_name_base}-scldevel file that is part of the <package>scldevel</package> subpackage and contains:</para>
+        <para>In the <code>%install</code> section of your &DSCL;'s metapackage, create the <filename>macros.%{scl_name_base}-scldevel</filename> file that is part of the <package>scldevel</package> subpackage and contains:</para>
         <programlisting language="RPM Spec"><![CDATA[cat >> %{buildroot}%{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel << EOF
 %%scl_%{scl_name_base} %{scl}
 %%scl_prefix_%{scl_name_base} %{scl_prefix}
@@ -46,14 +46,14 @@ EOF]]></programlisting>
    <para>By specifying this build requirement, you ensure that the <package>scldevel</package> subpackage is in the build root and that the default values are not in use. Omitting this package could result in broken requires at the subsequent packages' build time.</para>
     </step>
     <step>
-   <para>Ensure that the <code>%package runtime</code> part of the metapackage's spec files includes the following lines:</para>
+   <para>Ensure that the <code>%package runtime</code> part of the metapackage's spec file includes the following lines:</para>
    <programlisting language="RPM Spec">%package runtime
 Summary: Package that handles %scl Software Collection.
 Requires: scl-utils
 Requires: %{scl_prefix_ruby}runtime</programlisting>
     </step>
     <step>
-   <para>Ensure that the <code>%package build</code> part of the metapackage's spec files includes the following lines:</para>
+   <para>Ensure that the <code>%package build</code> part of the metapackage's spec file includes the following lines:</para>
    <programlisting language="RPM Spec">%package build
 Summary: Package shipping basic build configuration
 Requires: %{scl_prefix_ruby}scldevel</programlisting>
