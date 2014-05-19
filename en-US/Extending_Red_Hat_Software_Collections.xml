@@ -16,7 +16,7 @@ Provides: scldevel(%{scl_name_base})
 %description scldevel
 Package shipping development files, especially useful for development of
 packages depending on %scl Software Collection.</programlisting>
-      <para>You may need to specify the <code>Provides: scldevel(%{scl_name_base})</code> virtual provide as a build requirement for packages with soft dependencies. For example, the <package>rubygem-uglifier</package> package depends at build time on the <package>rubygem-therubyracer</package> package, which in turn depends on the v8 &DSCL;.</para>
+      <para>You are advised to use the <code>scldevel(%{scl_name_base})</code> virtual provide during the build of packages of dependent &DSCL;s. This will ensure availability of a version of the <code>%{scl_name_base}</code> &DSCL; and its macros, as specified in the following step.</para>
       </step>
       <step>
         <para>In the <code>%install</code> section of your &DSCL;'s metapackage, create the <filename>macros.%{scl_name_base}-scldevel</filename> file that is part of the <package>scldevel</package> subpackage and contains:</para>
@@ -24,7 +24,7 @@ packages depending on %scl Software Collection.</programlisting>
 %%scl_%{scl_name_base} %{scl}
 %%scl_prefix_%{scl_name_base} %{scl_prefix}
 EOF]]></programlisting>
-    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the %{scl_name_base} &DSCL;s. For example, in Red Hat Software Collections, the <package>ruby193-scldevel</package> subpackage cannot be installed when there is the <package>ruby200-scldevel</package> subpackage installed.</para>
+    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the <code>%{scl_name_base}</code> &DSCL;s. For example, in Red Hat Software Collections, the <package>ruby193-scldevel</package> subpackage cannot be installed when there is the <package>ruby200-scldevel</package> subpackage installed.</para>
       </step>
     </procedure>
     <section id="sect-Using_an_scldevel_Subpackage_in_a_Dependent_Software_Collection">
