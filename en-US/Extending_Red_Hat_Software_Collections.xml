@@ -2,6 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Extending_Red_Hat_Software_Collections">
   <title>Extending Red Hat Software Collections 1.1</title>
+  <para>This chapter describes extending &DSCL;s that are part of the Red Hat Software Collections 1.1 offering.</para>
   <section id="sect-Providing_an_scldevel_Subpackage">
     <title>Providing an scldevel Subpackage</title>
     <para>Providing an <package>scldevel</package> subpackage in your &DSCL;'s metapackage can make it easier for users to create a dependent &DSCL;. This section describes creating an <package>scldevel</package> subpackage for Ruby-based &DSCL;s, ruby193 and ruby200.</para>

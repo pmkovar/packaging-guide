@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="chap-Troubleshooting_Software_Collections">
+  <title>Troubleshooting &DSCL;s</title>
+  <para>This chapter helps you troubleshoot some of the common issues you can encounter when building your &DSCL;s.</para>
+  <section id="sect-Error_line_XX_Unknown_tag">
+    <title>Error: line <replaceable>XX</replaceable>: Unknown tag: %scl_package <replaceable>software_collection_name</replaceable></title>
+    <para>You can encounter this error message when building  a &DSCL; package. It is usually caused by a missing package <package>scl-utils-build</package>. To install the <package>scl-utils-build</package> package, run the following command:</para>
+    <screen><computeroutput># </computeroutput><userinput>yum install scl-utils-build</userinput></screen>
+    <para>For more information, see <xref linkend="sect-Enabling_Support_for_Software_Collections" />.</para>
+  </section>
+  <section id="sect-scl_command_does_not_exist">
+    <title>scl command does not exist</title>
+    <para>This error message is usually caused by a missing package <package>scl-utils</package>. To install the <package>scl-utils</package> package, run the following command:</para>
+    <screen><computeroutput># </computeroutput><userinput>yum install scl-utils</userinput></screen>
+    <para>For more information, see <xref linkend="sect-Enabling_Support_for_Software_Collections" />.</para>
+  </section>
+  <section id="sect-Unable_to_open_etc_scl_prefixes_software_collection_name">
+    <title>Unable to open /etc/scl/prefixes/<replaceable>software_collection_name</replaceable></title>
+    <para>This error message can be caused by using incorrect arguments with the <command>scl</command> command you are calling. Check the <command>scl</command> command is correct and that you have not mistyped any of the used arguments.</para>
+    <para>The same error message can be also caused by a missing &DSCL;. Ensure that the <replaceable>software_collection_name</replaceable> &DSCL; is properly installed on the system. For more information, see <xref linkend="sect-Listing_Installed_Software_Collections" />.</para>
+  </section>
+  <section id="sect-scl_source_command_not_found">
+    <title>scl_source: command not found</title>
+    <para>This error message is usually caused by having an old version of the <package>scl-utils</package> package installed. To update the <package>scl-utils</package> package, run the following command:</para>
+    <screen><computeroutput># </computeroutput><userinput>yum update scl-utils</userinput></screen>
+  </section>
+</chapter>
