@@ -189,6 +189,15 @@
             <programlisting>myorganization_ruby193-build</programlisting>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term>The scldevel subpackage: <replaceable>name</replaceable>-scldevel</term>
+          <listitem>
+            <para>The scldevel subpackage in the %scl &DSCL; contains development files, which are useful when developing packages of another &DSCL; that depends on the %scl &DSCL;. The scldevel subpackage is optional and can be excluded from the %scl &DSCL;.</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the scldevel subpackage macro is expanded to:</para>
+            <programlisting>myorganization_ruby193-scldevel</programlisting>
+            <para>For more information about the scldevel subpackage, see <xref linkend="sect-Providing_an_scldevel_Subpackage" />.</para>
+          </listitem>
+        </varlistentry>
       </variablelist>
 </section>
 <section id="sect-Creating_a_Meta_Package">
@@ -234,7 +243,7 @@
 </itemizedlist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Metapackage</bridgehead>
 <para>To get an idea of what a typical &DSCL; metapackage looks like, see the following example:</para>
-      <programlisting language="RPM Spec">%global scl software_collection
+      <programlisting language="RPM Spec"><![CDATA[%global scl software_collection
 %scl_package %scl
 %global _scl_prefix /opt/myorganization
 
@@ -263,24 +272,45 @@ Requires: scl-utils-build
 %description build
 Package shipping essential configuration macros to build %scl Software Collection.
 
+%package scldevel
+Summary: Package shipping development files for %scl
+
+%description scldevel
+Package shipping development files, especially useful for development of
+packages depending on %scl Software Collection.
+
 %prep
 %setup -c -T
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_scl_scripts}/root
-cat &gt;&gt; %{buildroot}%{_scl_scripts}/enable &lt;&lt; EOF
-export PATH=%{_bindir}\${PATH:+:\${PATH}}
-EOF
 %scl_install
+
+cat >> %{buildroot}%{_scl_scripts}/enable << EOF
+export PATH=%{_bindir}\${PATH:+:\${PATH}}
+export LD_LIBRARY_PATH=%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}
+export MANPATH=%{_mandir}:\$MANPATH
+export PKG_CONFIG_PATH=%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}
+EOF
+
+cat >> %{buildroot}%{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel << EOF
+%%scl_%{scl_name_base} %{scl}
+%%scl_prefix_%{scl_name_base} %{scl_prefix}
+EOF
+
+# Install the generated man page
+mkdir -p %{buildroot}%{_mandir}/man7/
+install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
 
 %files
 
-%files runtime<!--FIXME:BZ#1072319 -f filesystem-->
+%files runtime]]><!--FIXME:BZ#1072319 -f filesystem-->
 %scl_files
 
 %files build
 %{_root_sysconfdir}/rpm/macros.%{scl}-config
+
+%files scldevel
+%{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
 * Fri Aug 30 2013 John Doe &lt;jdoe@example.com&gt; 1-1
