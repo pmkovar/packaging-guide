@@ -17,8 +17,8 @@
   </section>
   <section id="sect-Unable_to_open_etc_scl_prefixes_software_collection_name">
     <title>Unable to open /etc/scl/prefixes/<replaceable>software_collection_name</replaceable></title>
-    <para>This error message can be caused by using incorrect arguments with the <command>scl</command> command you are calling. Check the <command>scl</command> command is correct and that you have not mistyped any of the used arguments.</para>
-    <para>The same error message can be also caused by a missing &DSCL;. Ensure that the <replaceable>software_collection_name</replaceable> &DSCL; is properly installed on the system. For more information, see <xref linkend="sect-Listing_Installed_Software_Collections" />.</para>
+    <para>This error message can be caused by using incorrect arguments with the <command>scl</command> command you are calling. Check the <command>scl</command> command is correct and that you have not mistyped any of the arguments.</para>
+    <para>The same error message can also be caused by a missing &DSCL;. Ensure that the <replaceable>software_collection_name</replaceable> &DSCL; is properly installed on the system. For more information, see <xref linkend="sect-Listing_Installed_Software_Collections" />.</para>
   </section>
   <section id="sect-scl_source_command_not_found">
     <title>scl_source: command not found</title>

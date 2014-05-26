@@ -17,7 +17,7 @@ Provides: scldevel(%{scl_name_base})
 %description scldevel
 Package shipping development files, especially useful for development of
 packages depending on %scl Software Collection.</programlisting>
-      <para>You are advised to use the <code>scldevel(%{scl_name_base})</code> virtual provide during the build of packages of dependent &DSCL;s. This will ensure availability of a version of the <code>%{scl_name_base}</code> &DSCL; and its macros, as specified in the following step.</para>
+      <para>You are advised to use the virtual <code>Provides: scldevel(%{scl_name_base})</code> during the build of packages of dependent &DSCL;s. This will ensure availability of a version of the <code>%{scl_name_base}</code> &DSCL; and its macros, as specified in the following step.</para>
       </step>
       <step>
         <para>In the <code>%install</code> section of your &DSCL;'s metapackage, create the <filename>macros.%{scl_name_base}-scldevel</filename> file that is part of the <package>scldevel</package> subpackage and contains:</para>
@@ -38,7 +38,7 @@ EOF]]></programlisting>
     <programlisting language="RPM Spec">%{!?scl_ruby:%global scl_ruby ruby200}
 %{!?scl_prefix_ruby:%global scl_prefix_ruby %{scl_ruby}-}</programlisting>
     <para>These two lines are optional. They are only meant as a visual hint that the dependent &DSCL; has been designed to depend on the ruby200 &DSCL;. If there is no other <package>scldevel</package> subpackage available in the  build root, then the <package>ruby200-scldevel</package> subpackage is used as a build requirement.</para>
-    <para>You can substitute these lines by the following line:</para>
+    <para>You can substitute these lines with the following line:</para>
    <programlisting language="RPM Spec">%{?scl_prefix_ruby}</programlisting>
     </step>
     <step>
