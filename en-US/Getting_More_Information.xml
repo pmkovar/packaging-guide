@@ -3,12 +3,15 @@
 <chapter id="chap-Getting_More_Information">
   <title>Getting More Information</title>
   <!--Hic sunt leones.-->
-  <para> For more information on &DSCL; packaging, Red Hat Enterprise Linux Developer Program, Red Hat Developer Toolset,<!-- Red Hat Software Collections,--> and Red Hat Enterprise Linux, refer to the resources listed below.</para>
+  <para>For more information on &DSCL; packaging, Red Hat Enterprise Linux Developer Program, Red Hat Developer Toolset,<!-- Red Hat Software Collections,--> and Red Hat Enterprise Linux, see the resources listed below.</para>
   <section id="sect-Red_Hat_Enterprise_Linux_Developer_Program">
     <title>Red Hat Enterprise Linux Developer Program</title>
   <itemizedlist>
   <listitem>
   <para><ulink url="https://access.redhat.com/products/Red_Hat_Enterprise_Linux/Developer/">Red Hat Enterprise Linux Developer Program</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program</citetitle> delivers industry-leading developer tools, instructional resources, and an ecosystem of experts to help programmers maximize productivity in building Linux applications.</para>
+  </listitem>
+  <listitem>
+    <para><ulink url="http://developerblog.redhat.com/">Red Hat Developer Blog</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Developer Blog</citetitle> contains up-to-date information, best practices, opinion, product and program announcements as well as pointers to sample code and other resources for those who are designing and developing applications based on Red Hat technologies.</para>
   </listitem>
   <!--listitem>
   <para><ulink url="https://access.redhat.com/groups/red-hat-enterprise-linux-developer-program">Red Hat Enterprise Linux Developer Program Group</ulink> (requires Red Hat Login) &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program Group</citetitle> contains developer-related information for the development tools available for Red Hat Enterprise Linux. In addition, users can find there developer-related papers and videos on topics that are of interest to developers, for example RPM building, threaded programming, performance tuning, debugging, and so on.</para>
@@ -32,46 +35,49 @@
   <section id="sect-Online_Documentation">
     <title>Accessing Red Hat Documentation</title>
      <para>
-       <emphasis role="strong">Red Hat Product Documentation</emphasis> located at <ulink url="https://access.redhat.com/site/documentation/" /> serves as a central source of information. It is currently translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
+       <emphasis role="strong">Red Hat Product Documentation</emphasis> located at <ulink url="https://access.redhat.com/documentation/" /> serves as a central source of information. It is currently translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
      </para>
      <para>
        The following is a brief list of documents that are directly or indirectly relevant to this book:
      </para>
   <itemizedlist>
-    <listitem>
+       <listitem>
+         <para  condition="ga">
+           <ulink url="http://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/1/html/1.2_Release_Notes/index.html">Red Hat Software Collections 1.2 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 1.2 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         </para>
+         <para  condition="beta">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/1-Beta/html/1.2_Release_Notes/index.html">Red Hat Software Collections 1.2 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 1.2 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         </para>
+       </listitem>
+       <listitem>
          <para condition="ga">
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Developer_Toolset/2/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/3/html/User_Guide/index.html">Red Hat Developer Toolset 3.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 3.0 contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
          <para condition="beta">
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Developer_Toolset/2-Beta/html/User_Guide/index.html">Red Hat Developer Toolset &VERSIONNUM; Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &VERSIONNUM; Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/3-Beta/html/User_Guide/index.html">Red Hat Developer Toolset 3.0 Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 3.0 Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="http://access.redhat.com/site/documentation/en-US/Red_Hat_Software_Collections/1/html/1.1_Release_Notes/index.html">Red Hat Software Collections 1.1 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 1.1 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Developer_Guide/index.html">Red Hat Enterprise Linux 7 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 7 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as information on the Eclipse IDE, libraries and runtime support, compiling and building, debugging, and profiling.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/index.html">Red Hat Enterprise Linux 6 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 6 provides more details on getting, installing, and updating the system.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Red Hat Enterprise Linux 7 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 7.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Installation_Guide/index.html">Red Hat Enterprise Linux 5 Installation Guide</ulink> &ndash; The <citetitle pubwork="book">Installation Guide</citetitle> for Red Hat Enterprise Linux 5 provides more details on getting, installing, and updating the system.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 6 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 6.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 6 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 6.
-         </para>
-       </listitem>
-       <listitem>
-         <para>
-           <ulink url="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
          </para>
        </listitem>
   </itemizedlist>

@@ -6,8 +6,8 @@
 	<simpara>
 		<revhistory>
 			<revision>
-				<revnumber>3.0-0</revnumber>
-				<date>Thu Jul 17 2014</date>
+				<revnumber>2.2-0</revnumber>
+				<date>Tue Sep 09 2014</date>
 				<author>
 					<firstname>Petr</firstname>
 					<surname>Kovář</surname>
@@ -16,7 +16,7 @@
 				<revdescription>
 					<simplelist>
 						<member>The Software Collections Guide renamed to Packaging Guide.</member>
-						<member>Red Hat Software Collections 1.2 release of the Packaging Guide.</member>
+						<member>Red Hat Software Collections 1.2 Beta release of the Packaging Guide.</member>
 					</simplelist>
 				</revdescription>
 			</revision>
