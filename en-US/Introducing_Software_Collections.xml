@@ -33,9 +33,7 @@
       <listitem><para>Using a GPG signing key, you can digitally sign your package so that users are able to verify the authenticity of the package.</para></listitem>
       </varlistentry>
     </variablelist>
-    <para>
-    	For in-depth information on what is RPM and how to use it, see the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>, the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink>, or the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink>.
-    </para>
+    <para>For in-depth information on what is RPM and how to use it, see the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink>, the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>, or the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink>.</para>
     </section>
   <section id="sect-What_Are_Software_Collections">
     <title>What Are &DSCL;s?</title>
@@ -126,7 +124,7 @@
     <para>
     	For detailed information on &DSCL; metapackages, see <xref linkend="sect-Meta_Package" />.
     </para>
-<para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, see the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>, or the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink>.</para>
+<para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, see the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink>, or the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
   </section>
   <section id="sect-Listing_Installed_Software_Collections">
     <title>Listing Installed &DSCL;s</title>
@@ -204,6 +202,6 @@
     <para>
     	You can also use the <command>yum remove</command> command to remove the <application>scl</application> utility.
     </para>
-    <para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, see the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>, or the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink>.</para>
+    <para>For detailed information on <application>Yum</application> and <application>PackageKit</application> usage, see the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink>, or the <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink>.</para>
   </section>
 </chapter>
