@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="chap-Introducing_Software_Collections">
   <title>Introducing &DSCL;s</title>
-  <para>This chapter introduces you to the concept and usage of &DSCL;s or &DSC;s for short.</para>
+  <para>This chapter introduces you to the concept and usage of &DSCL;s or SCLs for short.</para>
        <section id="sect-Why_to_Package_Software_with_RPM">
        <title>Why Package Software with RPM?</title>
    <para>The RPM Package Manager (RPM) is a package management system that runs on Red Hat Enterprise Linux. RPM makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>

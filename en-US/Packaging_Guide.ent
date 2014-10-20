@@ -3,13 +3,9 @@
 <!ENTITY BOOKID "doc-Packaging_Guide">
 <!ENTITY YEAR "2014">
 <!ENTITY HOLDER "Red Hat, Inc">
-<!ENTITY CAPITALOSORG 'Red Hat'>
 <!ENTITY MAJOROS 'Red Hat Enterprise Linux'>
-<!ENTITY MAJOROSVER 'Red Hat Enterprise Linux 6'>
-<!ENTITY OSORG 'Red Hat'>
 <!ENTITY PKGOS "el6">
 <!ENTITY DSCL 'Software Collection'>
-<!ENTITY DSC 'SCL'>
 <!ENTITY OPT 'opt'>
 <!ENTITY RH 'provider'>
 
