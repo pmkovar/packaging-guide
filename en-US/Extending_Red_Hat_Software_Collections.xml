@@ -183,6 +183,9 @@ Requires: %{scl_prefix_python}scldevel
 %description build
 Package shipping essential configuration macros to build %scl Software Collection.
 
+%prep
+%setup -c -T
+
 %install
 %scl_install
 
@@ -442,7 +445,7 @@ Package shipping development files, especially usefull for development of
 packages depending on %scl Software Collection.
 
 %prep
-%setup -T -c
+%setup -c -T
 
 %install
 %scl_install
