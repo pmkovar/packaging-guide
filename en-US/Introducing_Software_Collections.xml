@@ -128,9 +128,13 @@
   </section>
   <section id="sect-Listing_Installed_Software_Collections">
     <title>Listing Installed &DSCL;s</title>
-    <para>To get a list of &DSCL;s that are currently installed on the system, run the following command:</para>
+    <para>To get a list of &DSCL;s that are installed on the system, run the following command:</para>
     <synopsis>
       <command>scl --list</command>
+    </synopsis>
+    <para>To get a list of installed packages contained within a specified &DSCL;, run the following command:</para>
+    <synopsis>
+      <command>scl --list <replaceable>software_collection_1</replaceable></command>
     </synopsis>
     </section>
   <section id="sect-Enabling_the_Software_Collection">
@@ -144,18 +148,46 @@
       <replaceable>software_collection_2</replaceable>
       <replaceable>command</replaceable>
     </synopsis>
+      <para>If you are running a <command><replaceable>command</replaceable></command> with multiple arguments, remember to enclose the command and its arguments in quotes:</para>
+    <synopsis>
+      <command>scl</command>
+      <replaceable>action</replaceable>
+      <replaceable>software_collection_1</replaceable>
+      <replaceable>software_collection_2</replaceable>
+      <replaceable>'command</replaceable> <replaceable>--argument'</replaceable>
+    </synopsis>
+    <para>Alternatively, use a <command>--</command> command separator to run a <command><replaceable>command</replaceable></command> with multiple arguments:</para>
+    <synopsis>
+      <command>scl</command>
+      <replaceable>action</replaceable>
+      <replaceable>software_collection_1</replaceable>
+      <replaceable>software_collection_2</replaceable>
+      --
+      <replaceable>command</replaceable> <replaceable>--argument</replaceable>
+    </synopsis>
+    <itemizedlist>
+      <title>Remember that:</title>
+      <listitem>
       <para>
-        When executing the command, the <application>scl</application> tool creates a child process (subshell) of the current shell. Running the command again then creates a subshell of the subshell.
+        When you run the <application>scl</application> tool, it creates a child process (subshell) of the current shell. Running the command again then creates a subshell of the subshell.
       </para>
+      </listitem>
+      <listitem>
       <para>
-        See <xref linkend="sect-Listing_Enabled_Software_Collections" /> for information on how to list enabled &DSCL;s for the current subshell.
+        You can list enabled &DSCL;s for the current subshell. See <xref linkend="sect-Listing_Enabled_Software_Collections" /> for more information.
       </para>
+      </listitem>
+      <listitem>
       <para>
-        Note that you have to disable an enabled &DSCL; first to be able to enable it again. To disable the &DSCL;, exit the subshell created when enabling the &DSCL;s.
+        You have to disable an enabled &DSCL; first to be able to enable it again. To disable the &DSCL;, exit the subshell created when enabling the &DSCL;s.
       </para>
+      </listitem>
+      <listitem>
       <para>
         When using the <application>scl</application> tool to enable a &DSCL;, you can only perform one action with the enabled &DSCL; at a time. The enabled &DSCL; must be disabled first before performing another action.
       </para>
+      </listitem>
+    </itemizedlist>
     <section id="sect-Running_an_Application_Directly">
       <title>Running an Application Directly</title>
       <para>For example, to directly run <application>Perl</application> with the <option>--version</option> option in the &DSCL; named <application>software_collection_1</application>, execute the following command:</para>
