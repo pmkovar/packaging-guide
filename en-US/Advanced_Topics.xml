@@ -129,6 +129,30 @@ scl enable rubyscl "$COMMAND"
 	It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
 </para>
   </section>
+  <section id="sect-Converting_Software_Collection_Scriptlets_into_Environment_Modules">
+    <title>Converting &DSCL; Scriptlets into Environment Modules</title>
+    <important>
+      <para>The functionality described in this section is not available in Red Hat Enterprise Linux 5.</para>
+    </important>
+    <para>Environment modules allow you to manage, for example, different versions of applications by dynamically modifying your shell environment. To use your &DSCL; with the environment module system, convert the &DSCL;'s <filename>enable</filename> scriptlet into an environment module with a script <filename>/usr/share/Modules/bin/createmodule.sh</filename>.</para>
+    <procedure>
+      <title>Converting an enable scriptlet into an environment module</title>
+      <step>
+        <para>Ensure that an <package>environment-modules</package> package is installed on your system:</para>
+        <screen><computeroutput># </computeroutput><userinput>yum install environment-modules</userinput></screen>
+      </step>
+      <step>
+        <para>Run the <filename>/usr/share/Modules/bin/createmodule.sh</filename> script to convert your &DSCL;'s <filename>enable</filename> scriptlet into an environment module:</para>
+        <screen><command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command></screen>
+        <para>Replace <replaceable>/path/to/enable/scriptlet</replaceable> with the file path of the <filename>enable</filename> scriptlet you want to convert.</para>
+      </step>
+      <step>
+        <para>Add the same command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code> %pre</code> section of your &DSCL; metapackage, below the code generating your <filename>enable</filename> scriptlet.</para>
+        <para>In case you have the <filename>enable</filename> scriptlet packaged as a file in one of your &DSCL; packages, add the command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code>%post</code> section.</para>
+      </step>
+    </procedure>
+    <para>See the <emphasis role="bold">module</emphasis>(1) manual page for more information about environment modules.</para>
+  </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>&DSCL; Initscript Support</title>
     <para>Ensure that users can directly manage any services provided by the &DSCL; or one of the associated applications with the system default tools, like <application>service</application> or <application>chkconfig</application>.</para>
