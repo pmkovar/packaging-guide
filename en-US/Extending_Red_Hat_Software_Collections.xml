@@ -5,7 +5,8 @@
   <para>This chapter describes extending &DSCL;s that are part of the Red Hat Software Collections offering.</para>
   <section id="sect-Providing_an_scldevel_Subpackage">
     <title>Providing an scldevel Subpackage</title>
-    <para>Providing an <package>scldevel</package> subpackage in your &DSCL;'s metapackage can make it easier for users to create a dependent &DSCL;. This section describes creating an <package>scldevel</package> subpackage for Ruby-based &DSCL;s, ruby193 and ruby200.</para>
+    <para>The purpose of an <package>scldevel</package> subpackage is to make the process of creating dependent &DSCL;s easier by providing a number of generic macro files. Packagers then use these macro files when they are extending existing &DSCL;s. <package>scldevel</package> is provided as a subpackage of your &DSCL;'s metapackage.</para>
+    <para>The following section describes creating an <package>scldevel</package> subpackage for Ruby-based &DSCL;s, ruby193 and ruby200.</para>
     <procedure>
     <title>Providing your own scldevel subpackage</title>
       <step>
