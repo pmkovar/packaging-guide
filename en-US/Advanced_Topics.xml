@@ -155,14 +155,46 @@ scl enable rubyscl "$COMMAND"
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>&DSCL; Initscript Support</title>
-    <para>Ensure that users can directly manage any services provided by the &DSCL; or one of the associated applications with the system default tools, like <application>service</application> or <application>chkconfig</application>.</para>
-    <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows:</para>
+    <para>When packaging your &DSCL;, ensure that users can directly manage any services provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 5 and 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
+    <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows (on Red Hat Enterprise Linux 5 and 6):</para>
     <programlisting language="RPM Spec">
 %install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable>
 </programlisting>
     <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
     <screen>%{?scl_prefix}<replaceable>service_name</replaceable></screen>
+    <para>Keep in mind that no environment variables are propagated from the user's environment to a SysV init script (or a systemd service file on Red Hat Enterprise Linux 7). This is expected and ensures that services are always started in a clean environment. However, this requires you to properly set up a &DSCL; environment for processes that are to be run by the SysV init scripts (or systemd service files).</para>
+    <para></para>
+    <procedure>
+      <title>Configuring an environment for services run on Red Hat Enterprise Linux 5 and 6</title>
+      <step>
+        <para>It is recommended to make the Software Collection you want to enable for the services configurable. To achieve that, create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
+        <programlisting>[<replaceable>SCLNAME</replaceable>]_SCLS_ENABLED="<replaceable>software_collection</replaceable>"</programlisting>
+        <para>Replace <replaceable>SCLNAME</replaceable> with a unique identifier for your &DSCL;, for instance, your &DSCL;'s name written in capital letters.</para>
+        <para>Replace <replaceable>software_collection</replaceable> with the name of your &DSCL; as defined by the <code>
+%scl_name</code> macro.</para>
+      </step>
+      <step>
+        <para>Add the following line at the beginning of the SysV init script:</para>
+        <programlisting>source /&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</programlisting>
+      </step>
+      <step>
+        <para>In the SysV init script, determine commands that run binaries located in the <filename>/&OPT;/&RH;/</filename> file system hierarchy. Prefix these commands with <command>scl enable $[SCLNAME]_SCLS_ENABLED</command>, similarly to when you run a command in the &DSCL; environment.</para>
+        <para>For example, replace the following line:</para>
+        <programlisting>/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
+        <para>with:</para>
+        <programlisting>scl enable $[SCLNAME]_SCLS_ENABLED -- /usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
+      </step>
+      <step>
+        <para>Some commands, like <command>su</command> or <command>runuser</command>, also clear environment variables. Thus, if these commands are used in the SysV init script, enable your &DSCL; again after running these commands.</para>
+        <para>For instance, replace the following line:</para>
+        <programlisting>su - user_name -c '/usr/bin/daemon_binary --argument-1 --argument-2'</programlisting>
+        <para>with:</para>
+        <programlisting>su - user_name -c '\
+  source /&OPT;/&RH;/software_collection/service-environment \
+  scl enable $SCLNAME_SCLS_ENABLED -- /usr/bin/daemon_binary --argument-1 --argument-2'</programlisting>
+      </step>
+    </procedure>
   </section>
   <section id="sect-Software_Collection_Library_Support">
     <title>&DSCL; Library Support</title>
