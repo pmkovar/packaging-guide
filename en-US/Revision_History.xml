@@ -6,6 +6,20 @@
 	<simpara>
 		<revhistory>
 			<revision>
+				<revnumber>2.2-2</revnumber>
+				<date>Thu Oct 30 2014</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red Hat Software Collections 1.2 release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
 				<revnumber>2.2-1</revnumber>
 				<date>Tue Oct 07 2014</date>
 				<author>
