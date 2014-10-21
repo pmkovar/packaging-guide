@@ -925,10 +925,10 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     <programlisting language="RPM Spec">BuildRequires: <replaceable>software_collection</replaceable>-build</programlisting>
     <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;.</para>
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
-  	<title>Rebuilding a &DSCL; without build Subpackages</title>
-  	<para>
-  		If you wish to rebuild a &DSCL; that is distributed without build subpackages (<package>software_collection-build</package>) and you do not want or cannot use the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command to build the &DSCL;, you can have the build subpackages created by rebuilding the &DSCL; metapackage. Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.
-  	</para>
+    <title>Rebuilding a &DSCL; without build Subpackages</title>
+    <para>When you want to rebuild a &DSCL; that comes with no build subpackages (<package>software_collection-build</package>), you can create the build subpackages by rebuilding the &DSCL; metapackage, and thus avoid using the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command.</para>
+    <para>Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.</para>
+    <para>For more information about the <package>scl-utils-build</package> package, see <xref linkend="sect-Enabling_Support_for_Software_Collections" />.</para>
   </section>
   </section>
 </chapter>
