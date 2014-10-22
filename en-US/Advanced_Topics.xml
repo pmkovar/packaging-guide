@@ -154,21 +154,25 @@ scl enable rubyscl "$COMMAND"
     <para>See the <emphasis role="bold">module</emphasis>(1) manual page for more information about environment modules.</para>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
-    <title>&DSCL; Initscript Support</title>
-    <para>When packaging your &DSCL;, ensure that users can directly manage any services provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 5 and 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
-    <para>To avoid possible name conflicts with the system versions of the services that are part of the &DSCL;, make sure to adjust the <code>%install</code> section of the spec file as follows (on Red Hat Enterprise Linux 5 and 6):</para>
-    <programlisting language="RPM Spec">
-%install
-install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable>
-</programlisting>
+    <title>Managing Services in &DSCL;s</title>
+    <para>When packaging your &DSCL;, ensure that users can directly manage any services (daemons) provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 5 and 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
+    <para>For Red Hat Enterprise Linux 5 and 6 &DSCL;s, make sure to adjust the <code>%install</code> section of the spec file as follows to avoid possible name conflicts with the system versions of the services that are part of the &DSCL;:</para>
+    <programlisting language="RPM Spec">%install
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable></programlisting>
+    <para>Replace <replaceable>service_name</replaceable> with the actual name of the service.</para>
+    <para>For Red Hat Enterprise Linux 7 &DSCL;s, adjust the <code>%install</code> section of the spec file as follows:</para>
+    <programlisting language="RPM Spec">%install
+install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replaceable>service_name</replaceable>.service</programlisting>
     <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
     <screen>%{?scl_prefix}<replaceable>service_name</replaceable></screen>
     <para>Keep in mind that no environment variables are propagated from the user's environment to a SysV init script (or a systemd service file on Red Hat Enterprise Linux 7). This is expected and ensures that services are always started in a clean environment. However, this requires you to properly set up a &DSCL; environment for processes that are to be run by the SysV init scripts (or systemd service files).</para>
-    <para></para>
+    <section id="sect-Configuring_an_Environment_for_Services">
+    <title>Configuring an Environment for Services</title>
+    <para>It is recommended to make the &DSCL; you want to enable for services configurable. The directions in this section show how to make a &DSCL; named <replaceable>software_collection</replaceable> configurable.</para>
     <procedure>
-      <title>Configuring an environment for services run on Red Hat Enterprise Linux 5 and 6</title>
+      <title>Configuring an environment for services on Red Hat Enterprise Linux 5 and 6</title>
       <step>
-        <para>It is recommended to make the Software Collection you want to enable for the services configurable. To achieve that, create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
+        <para>Create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
         <programlisting>[<replaceable>SCLNAME</replaceable>]_SCLS_ENABLED="<replaceable>software_collection</replaceable>"</programlisting>
         <para>Replace <replaceable>SCLNAME</replaceable> with a unique identifier for your &DSCL;, for instance, your &DSCL;'s name written in capital letters.</para>
         <para>Replace <replaceable>software_collection</replaceable> with the name of your &DSCL; as defined by the <code>
@@ -195,6 +199,26 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   scl enable $SCLNAME_SCLS_ENABLED -- /usr/bin/daemon_binary --argument-1 --argument-2'</programlisting>
       </step>
     </procedure>
+    <procedure>
+      <title>Configuring an environment for services on Red Hat Enterprise Linux 7</title>
+      <step>
+        <para>Create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
+        <programlisting>[<replaceable>SCLNAME</replaceable>]_SCLS_ENABLED="<replaceable>software_collection</replaceable>"</programlisting>
+        <para>Replace <replaceable>SCLNAME</replaceable> with a unique identifier for your &DSCL;, for instance, your &DSCL;'s name written in capital letters.</para>
+        <para>Replace <replaceable>software_collection</replaceable> with the name of your &DSCL; as defined by the <code>
+%scl_name</code> macro.</para>
+      </step>
+      <step>
+        <para>Add the following line in the systemd service file to load the configuration file:</para>
+        <programlisting>EnvironmentFile=/&OPT;/&RH;/software_collection/service-environment</programlisting>
+      </step>
+      <step>
+        <para>In the systemd service file, prefix all commands specified in <option>ExecStartPre</option>, <option>ExecStart</option>, and similar directives with <command>scl enable $[SCLNAME]_SCLS_ENABLED</command>, similarly to when you run a command in the &DSCL; environment:</para>
+        <programlisting>ExecStartPre=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_collection/root/usr/bin/daemon_helper_binary --argument-1 --argument-2
+ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /opt/provider/software_collection/root/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
+      </step>
+    </procedure>
+  </section>
   </section>
   <section id="sect-Software_Collection_Library_Support">
     <title>&DSCL; Library Support</title>
