@@ -176,7 +176,7 @@
         <varlistentry>
           <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
           <listitem>
-            <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets.</para>
+            <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets. This package needs to be installed for the user to be able to use the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
             <programlisting>myorganization_ruby193-runtime</programlisting>
           </listitem>
@@ -184,9 +184,12 @@
         <varlistentry>
           <term>The build subpackage: <replaceable>name</replaceable>-build</term>
           <listitem>
-            <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. The build subpackage is optional and can be excluded from the &DSCL;.</para>
+            <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. It contains RPM macros needed for building packages into the &DSCL;. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the build subpackage macro is expanded to:</para>
             <programlisting>myorganization_ruby193-build</programlisting>
+          <para>The contents of the <literal>myorganization_ruby193-build</literal> subpackage are shown below:</para>
+          <screen><computeroutput>$ </computeroutput><userinput>cat /etc/rpm/macros.ruby193-config</userinput>
+%scl myorganization_ruby193</screen>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -242,8 +245,11 @@
 	</listitem>
 </itemizedlist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Metapackage</bridgehead>
-<para>To get an idea of what a typical &DSCL; metapackage looks like, see the following example:</para>
-      <programlisting language="RPM Spec"><![CDATA[%global scl software_collection
+<para>To get an idea of what a typical metapackage for a &DSCL; named <replaceable>ruby193</replaceable> looks like, see the following example:</para>
+      <programlisting language="RPM Spec"><![CDATA[%global scl_name_base ruby
+%global scl_name_version 193
+
+%global scl %{scl_name_base}%{scl_name_version}
 %scl_package %scl
 %global _scl_prefix /opt/myorganization
 
