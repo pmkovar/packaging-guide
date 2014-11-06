@@ -5,21 +5,12 @@
 ]>
 <bookinfo id="book-Software_Collections_Guide-Software_Collections_Guide">
 	<title>Packaging Guide</title>
-	<subtitle>A guide to packaging &DSCL;s for &MAJOROS;</subtitle>
-	<productname>Red Hat Software Collections</productname>
-	<productnumber condition="ga">1.2</productnumber>
-	<productnumber condition="beta">1.2 Beta</productnumber>
+	<subtitle>A guide to packaging &DSCL;s</subtitle>
+	<productname>Software Collections</productname>
+	<productnumber></productnumber>
 	<abstract>
 		<para>The Packaging Guide provides an explanation of &DSCL;s and details how to build and package them. Developers and system administrators who have a basic understanding of software packaging with RPM packages, but who are new to the concept of &DSCL;s, can use this Guide to get started with &DSCL;s.</para>
-		<para condition="beta"><emphasis role="strong">Note:</emphasis> This document is under development, is subject to substantial change, and is provided only as a preview. The included information and instructions should not be considered complete, and should be used with caution.</para>
 	</abstract>
-	<corpauthor>
-		<inlinemediaobject>
-			<imageobject>
-				<imagedata fileref="Common_Content/images/title_logo.svg" format="SVG" />
-			</imageobject>
-		</inlinemediaobject>
-	</corpauthor>
-	<xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="Author_Group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 </bookinfo>

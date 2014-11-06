@@ -1,9 +1,9 @@
-<!ENTITY PRODUCT "Red Hat Software Collections">
-<!ENTITY VERSIONNUM "1.2">
+<!ENTITY PRODUCT "Software Collections">
+<!ENTITY VERSIONNUM "1">
 <!ENTITY BOOKID "doc-Packaging_Guide">
 <!ENTITY YEAR "2014">
 <!ENTITY HOLDER "Red Hat, Inc">
-<!ENTITY MAJOROS 'Red Hat Enterprise Linux'>
+<!ENTITY MAJOROS 'Enterprise Linux'>
 <!ENTITY PKGOS "el6">
 <!ENTITY DSCL 'Software Collection'>
 <!ENTITY OPT 'opt'>

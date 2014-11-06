@@ -5,7 +5,7 @@
   <para>This chapter introduces you to the concept and usage of &DSCL;s or SCLs for short.</para>
        <section id="sect-Why_to_Package_Software_with_RPM">
        <title>Why Package Software with RPM?</title>
-   <para>The RPM Package Manager (RPM) is a package management system that runs on Red Hat Enterprise Linux. RPM makes it easier for you to distribute, manage, and update software that you create for Red Hat Enterprise Linux. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
+   <para>The RPM Package Manager (RPM) is a package management system that runs on Enterprise Linux and Fedora. RPM makes it easier for you to distribute, manage, and update software that you create for Enterprise Linux and Fedora. Many software vendors distribute their software via a conventional archive file (such as a tarball). However, there are several advantages in packaging software into RPM packages. These advantages are outlined below.</para>
     <variablelist>
     <title>With RPM, you can:</title>
     <varlistentry>
@@ -109,9 +109,6 @@
 <screen><computeroutput># </computeroutput><userinput>yum install scl-utils scl-utils-build</userinput></screen>
 <para>The <package>scl-utils</package> package provides the <application>scl</application> tool that lets you enable &DSCL;s on your system. For more information on enabling &DSCL;s, see <xref linkend="sect-Enabling_the_Software_Collection"/>.</para>
 <para>The <package>scl-utils-build</package> package provides macros that are essential for building &DSCL;s. For more information on building &DSCL;s, see <xref linkend="sect-Building_a_Software_Collection_Locally"/>.</para>
-<important>
-  <para>Depending on the subscriptions available to your Red Hat Enterprise Linux system, you may need to enable the <literal>Optional</literal> channel to install the <package>scl-utils-build</package> package.</para>
-</important>
 </section>
   <section id="sect-Installing_a_Software_Collection">
     <title>Installing a &DSCL;</title>

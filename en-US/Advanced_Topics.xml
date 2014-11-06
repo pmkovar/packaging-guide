@@ -19,11 +19,11 @@
     </section-->
     <important>
       <para>
-        The functionality described in this section is not available in Red Hat Enterprise Linux 5 and 6.
+        The functionality described in this section is not available in Enterprise Linux 5 and 6.
       </para>
     </important>
     <para>
-      RPM in Red Hat Enterprise Linux 7 features support for automatic <code>Provides</code> and <code>Requires</code> and filtering. For example, for all Python libraries, RPM automatically adds the following <code>Requires</code>:
+      RPM in Enterprise Linux 7 features support for automatic <code>Provides</code> and <code>Requires</code> and filtering. For example, for all Python libraries, RPM automatically adds the following <code>Requires</code>:
     </para>
     <programlisting language="RPM Spec">Requires: python(abi) = (version)</programlisting>
     <para>
@@ -132,7 +132,7 @@ scl enable rubyscl "$COMMAND"
   <section id="sect-Converting_Software_Collection_Scriptlets_into_Environment_Modules">
     <title>Converting &DSCL; Scriptlets into Environment Modules</title>
     <important>
-      <para>The functionality described in this section is not available in Red Hat Enterprise Linux 5.</para>
+      <para>The functionality described in this section is not available in Enterprise Linux 5.</para>
     </important>
     <para>Environment modules allow you to manage, for example, different versions of applications by dynamically modifying your shell environment. To use your &DSCL; with the environment module system, convert the &DSCL;'s <filename>enable</filename> scriptlet into an environment module with a script <filename>/usr/share/Modules/bin/createmodule.sh</filename>.</para>
     <procedure>
@@ -155,22 +155,22 @@ scl enable rubyscl "$COMMAND"
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>Managing Services in &DSCL;s</title>
-    <para>When packaging your &DSCL;, ensure that users can directly manage any services (daemons) provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 5 and 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
-    <para>For Red Hat Enterprise Linux 5 and 6 &DSCL;s, make sure to adjust the <code>%install</code> section of the spec file as follows to avoid possible name conflicts with the system versions of the services that are part of the &DSCL;:</para>
+    <para>When packaging your &DSCL;, ensure that users can directly manage any services (daemons) provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Enterprise Linux 5 and 6, or <command>systemctl</command> on Enterprise Linux 7.</para>
+    <para>For Enterprise Linux 5 and 6 &DSCL;s, make sure to adjust the <code>%install</code> section of the spec file as follows to avoid possible name conflicts with the system versions of the services that are part of the &DSCL;:</para>
     <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable></programlisting>
     <para>Replace <replaceable>service_name</replaceable> with the actual name of the service.</para>
-    <para>For Red Hat Enterprise Linux 7 &DSCL;s, adjust the <code>%install</code> section of the spec file as follows:</para>
+    <para>For Enterprise Linux 7 &DSCL;s, adjust the <code>%install</code> section of the spec file as follows:</para>
     <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replaceable>service_name</replaceable>.service</programlisting>
     <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
     <screen>%{?scl_prefix}<replaceable>service_name</replaceable></screen>
-    <para>Keep in mind that no environment variables are propagated from the user's environment to a SysV init script (or a systemd service file on Red Hat Enterprise Linux 7). This is expected and ensures that services are always started in a clean environment. However, this requires you to properly set up a &DSCL; environment for processes that are to be run by the SysV init scripts (or systemd service files).</para>
+    <para>Keep in mind that no environment variables are propagated from the user's environment to a SysV init script (or a systemd service file on Enterprise Linux 7). This is expected and ensures that services are always started in a clean environment. However, this requires you to properly set up a &DSCL; environment for processes that are to be run by the SysV init scripts (or systemd service files).</para>
     <section id="sect-Configuring_an_Environment_for_Services">
     <title>Configuring an Environment for Services</title>
     <para>It is recommended to make the &DSCL; you want to enable for services configurable. The directions in this section show how to make a &DSCL; named <replaceable>software_collection</replaceable> configurable.</para>
     <procedure>
-      <title>Configuring an environment for services on Red Hat Enterprise Linux 5 and 6</title>
+      <title>Configuring an environment for services on Enterprise Linux 5 and 6</title>
       <step>
         <para>Create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
         <programlisting>[<replaceable>SCLNAME</replaceable>]_SCLS_ENABLED="<replaceable>software_collection</replaceable>"</programlisting>
@@ -200,7 +200,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replac
       </step>
     </procedure>
     <procedure>
-      <title>Configuring an environment for services on Red Hat Enterprise Linux 7</title>
+      <title>Configuring an environment for services on Enterprise Linux 7</title>
       <step>
         <para>Create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
         <programlisting>[<replaceable>SCLNAME</replaceable>]_SCLS_ENABLED="<replaceable>software_collection</replaceable>"</programlisting>
@@ -289,9 +289,9 @@ $ <command>rpm -ql mysql-libs | grep 'lib.*so'</command>
 </para>
 </section>
 <section id="sect-Software_Collection_Library_Support_in_Red_Hat_Enterprise_Linux_7">
-  <title>&DSCL; Library Support in Red Hat Enterprise Linux 7</title>
+  <title>&DSCL; Library Support in Enterprise Linux 7</title>
   <para>
-    When building your &DSCL; for Red Hat Enterprise Linux 7, use the <systemitem>%__provides_exclude_from</systemitem> macro to prevent scanning certain files for automatically generated RPM symbols.
+    When building your &DSCL; for Enterprise Linux 7, use the <systemitem>%__provides_exclude_from</systemitem> macro to prevent scanning certain files for automatically generated RPM symbols.
   </para>
   <para>For example, to prevent scanning <filename>.so</filename> files in the <systemitem>%{_libdir}</systemitem> directory, add the following lines before the <code>BuildRequires</code> or <code>Requires</code> tags in your &DSCL; spec file:
   </para>
@@ -472,8 +472,8 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
     <!--TODO: BZ#968360 <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>-->
     <section id="sect-Software_Collection_SELinux_Support-Red_Hat_Enterprise_Linux_7">
-    <title>SELinux Support in Red Hat Enterprise Linux 7</title>
-    <para>When packaging a &DSCL; for Red Hat Enterprise Linux 7, add the following commands to the <code>%post</code> section in the &DSCL; metapackage to set up the SELinux labels:</para>
+    <title>SELinux Support in Enterprise Linux 7</title>
+    <para>When packaging a &DSCL; for Enterprise Linux 7, add the following commands to the <code>%post</code> section in the &DSCL; metapackage to set up the SELinux labels:</para>
     <synopsis><command>semanage fcontext -a -e /usr /&OPT;/&RH;/software_collection_1/root/usr</command></synopsis>
     <synopsis><command>restorecon -R -v /&OPT;/&RH;/software_collection_1/root/usr</command></synopsis>
     <synopsis><command>selinuxenabled &amp;&amp; load_policy || :</command></synopsis>
@@ -481,9 +481,9 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>Note that the <command>semanage fcontext</command> command is provided by the <package>policycoreutils-python</package> package, therefore it is important that you include <code>policycoreutils-python</code> in <code>Requires</code> for the &DSCL; metapackage.</para>
     </section>
     <section id="sect-Software_Collection_SELinux_Support-Red_Hat_Enterprise_Linux_5">
-      <title>SELinux Support in Red Hat Enterprise Linux 5</title>
+      <title>SELinux Support in Enterprise Linux 5</title>
       <para>
-        Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
+        Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Enterprise Linux 5.
       </para>
     </section>
   </section>
