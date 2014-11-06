@@ -411,8 +411,8 @@ Name: %scl_name
 Version: 1.1
 Release: 3%{?dist}
 License: GPLv2+
-]]><!--# TODO: This should be removed as soon as scl-utils automatically generates
-# dependencies on scl -runtime (rhbz#1054711).--><![CDATA[
+]]><!--# TODO: BZ#1054711 This should be removed as soon as scl-utils automatically generates
+# dependencies on scl -runtime.--><![CDATA[
 BuildRequires: help2man
 BuildRequires: scl-utils-build
 BuildRequires: %{scl_prefix_ruby}scldevel

@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="chap-Getting_More_Information">
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<appendix id="chap-Getting_More_Information">
   <title>Getting More Information</title>
   <!--Hic sunt leones.-->
-  <para>For more information on &DSCL; packaging, Red Hat Enterprise Linux Developer Program, Red Hat Developer Toolset,<!-- Red Hat Software Collections,--> and Red Hat Enterprise Linux, see the resources listed below.</para>
+  <para>For more information on &DSCL; packaging, Red Hat Enterprise Linux Developer Program, the Red Hat Software Collections and Red Hat Developer Toolset offerings, and Red Hat Enterprise Linux, see the resources listed below.</para>
   <section id="sect-Red_Hat_Enterprise_Linux_Developer_Program">
     <title>Red Hat Enterprise Linux Developer Program</title>
   <itemizedlist>
@@ -13,9 +13,6 @@
   <listitem>
     <para><ulink url="http://developerblog.redhat.com/">Red Hat Developer Blog</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Developer Blog</citetitle> contains up-to-date information, best practices, opinion, product and program announcements as well as pointers to sample code and other resources for those who are designing and developing applications based on Red Hat technologies.</para>
   </listitem>
-  <!--listitem>
-  <para><ulink url="https://access.redhat.com/groups/red-hat-enterprise-linux-developer-program">Red Hat Enterprise Linux Developer Program Group</ulink> (requires Red Hat Login) &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program Group</citetitle> contains developer-related information for the development tools available for Red Hat Enterprise Linux. In addition, users can find there developer-related papers and videos on topics that are of interest to developers, for example RPM building, threaded programming, performance tuning, debugging, and so on.</para>
-  </listitem-->
   </itemizedlist>
   </section>
   <section id="sect-Installed_Documentation">
@@ -82,4 +79,4 @@
        </listitem>
   </itemizedlist>
   </section>
-</chapter>
+</appendix>

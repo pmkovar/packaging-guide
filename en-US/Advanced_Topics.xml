@@ -470,7 +470,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <synopsis><command>semanage fcontext -a -e /usr /&OPT;/&RH;/software_collection_1/root/usr</command></synopsis>
     <synopsis><command>restorecon -R -v /&OPT;/&RH;/software_collection_1/root/usr</command></synopsis>
     <para>The commands above ensure that all directories and files in the <filename>/&OPT;/&RH;/software_collection_1/root/usr/</filename> directory are labeled by SELinux as if they were located in the <filename>/usr/</filename> directory.</para>
-    <!--<para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>-->
+    <!--TODO: BZ#968360 <para>To use the <command>semanage fcontext</command> and <command>restorecon</command> commands in your &DSCL;, add the commands to the <code>%post</code> post-installation scriptlet in the &DSCL; spec file.</para>-->
     <section id="sect-Software_Collection_SELinux_Support-Red_Hat_Enterprise_Linux_7">
     <title>SELinux Support in Red Hat Enterprise Linux 7</title>
     <para>When packaging a &DSCL; for Red Hat Enterprise Linux 7, add the following commands to the <code>%post</code> section in the &DSCL; metapackage to set up the SELinux labels:</para>
@@ -487,7 +487,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       </para>
     </section>
   </section>
-  <!--TODO: BZ#968360  <section id="sect-Software_Collection_SELinux_Support">
+  <!--TODO: BZ#968360 <section id="sect-Software_Collection_SELinux_Support">
     <title>&DSCL; SELinux Support</title>
     <para>Because &DSCL;s are designed to install the &DSCL; packages in an alternate directory, set up the necessary SELinux labels so that SELinux is aware of the alternate directory.</para>
     <para>If the file system hierarchy of your &DSCL; package imitates the file system hierarchy of the corresponding conventional package, you can run the <command>semanage fcontext</command> and <command>restorecon</command> commands to set up the SELinux labels.</para>
