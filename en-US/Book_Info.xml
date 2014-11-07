@@ -11,6 +11,6 @@
 	<abstract>
 		<para>The Packaging Guide provides an explanation of &DSCL;s and details how to build and package them. Developers and system administrators who have a basic understanding of software packaging with RPM packages, but who are new to the concept of &DSCL;s, can use this Guide to get started with &DSCL;s.</para>
 	</abstract>
-	<xi:include href="Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<!--<xi:include href="Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />-->
 	<xi:include href="Author_Group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 </bookinfo>
