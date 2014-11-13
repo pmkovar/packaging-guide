@@ -156,12 +156,12 @@ scl enable rubyscl "$COMMAND"
   <section id="sect-Using_Software_Collections_over_NFS">
     <title>Using &DSCL;s over NFS</title>
     <para>In some environments, the requirement is often to have a centralized model for how applications and tools are distributed rather than allowing users to install the application or tool version they prefer. In this way, NFS is the common method of mounting centrally managed software.</para>
-    <para>To use a &DSCL; over NFS, you need to use a &DSCL; macro <code>nfsmountable</code>. If you define the macro when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
+    <para>To use a &DSCL; over NFS, you need to define a &DSCL; macro <code>nfsmountable</code>. If you define the macro when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
     <para>To build a &DSCL; with the <code>nfsmountable</code> macro defined, run the following command:</para>
     <synopsis>
-      <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>' --define 'nfsmountable 1'</command>
+      <command>rpmbuild -ba <replaceable>software_collection</replaceable>.spec --define 'scl <replaceable>software_collection</replaceable>' --define 'nfsmountable 1'</command>
     </synopsis>
-    <para>where <replaceable>name</replaceable> is the name of the &DSCL;. Defining the macro changes the values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code> and <code>_localstatedir</code> macros. The changed values are detailed in the following table.</para>
+    <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;. Defining the macro changes the values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros. The changed values are detailed in the following table.</para>
         <table>
         <title>Changed Values for &DSCL; Macros</title>
         <tgroup cols="5">
@@ -253,20 +253,59 @@ scl enable rubyscl "$COMMAND"
       <screen><computeroutput>$ </computeroutput><userinput>rpmbuild -ba software_collection.spec --define 'scl software_collection' --define 'nfsmountable 1'</userinput>
 ...
 <computeroutput>$ </computeroutput><userinput>rpm -qlp software_collection-runtime-1-1.&PKGOS;.x86_64</userinput>
-/etc/opt/rh/scls/colname
-/etc/opt/rh/scls/colname/X11
-/etc/opt/rh/scls/colname/X11/applnk
-/etc/opt/rh/scls/colname/X11/fontpath.d
+/etc/&OPT;/&RH;/scls/software_collection
+/etc/&OPT;/&RH;/scls/software_collection/X11
+/etc/&OPT;/&RH;/scls/software_collection/X11/applnk
+/etc/&OPT;/&RH;/scls/software_collection/X11/fontpath.d
 ...
-/opt/rh/colname/root/usr/src
-/opt/rh/colname/root/usr/src/debug
-/opt/rh/colname/root/usr/src/kernels
-/opt/rh/colname/root/usr/tmp
-/var/opt/rh/scls/colname
-/var/opt/rh/scls/colname/cache
-/var/opt/rh/scls/colname/db
-/var/opt/rh/scls/colname/empty
+/&OPT;/&RH;/software_collection/root/usr/src
+/&OPT;/&RH;/software_collection/root/usr/src/debug
+/&OPT;/&RH;/software_collection/root/usr/src/kernels
+/&OPT;/&RH;/software_collection/root/usr/tmp
+/var/&OPT;/&RH;/scls/software_collection
+/var/&OPT;/&RH;/scls/software_collection/cache
+/var/&OPT;/&RH;/scls/software_collection/db
+/var/&OPT;/&RH;/scls/software_collection/empty
 ...</screen>
+      </section>
+      <section id="sect-Registering_and_Deregistering_Software_Collections">
+        <title>Registering and Deregistering &DSCL;s</title>
+        <para>In case a &DSCL; is shared over NFS but not locally installed on your system, you need to make the <application>scl</application> tool aware of it by registering that &DSCL;.</para>
+        <para>Registering a &DSCL; is done by calling a <literal>register</literal> scriptet when running the <command>scl</command> command:</para>
+        <screen><computeroutput>$ </computeroutput>scl register <replaceable>/&OPT;/&RH;/software_collection</replaceable></screen>
+        <para>where <replaceable>/&OPT;/&RH;/software_collection</replaceable> is the absolute path to the file system hierarchy of the &DSCL; you want to register. The path's directory must contain the <filename>enable</filename> scriptlet and the <filename>root/</filename> directory to be considered a valid &DSCL; file system hierarchy.</para>
+        <para>Deregistering a &DSCL; is a reverse operation that you perform when you no longer want the <application>scl</application> tool to be aware of a registered &DSCL;.</para>
+                <para>Deregistering a &DSCL; is done by calling a <literal>deregister</literal> scriptet when running the <command>scl</command> command:</para>
+        <screen><computeroutput>$ </computeroutput>scl deregister <replaceable>software_collection</replaceable></screen>
+        <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL; you want to deregister.</para>
+        <section id="sect-Using_deregister_Scriptlets_in_a_Software_Collection_Metapackage">
+          <title>Using (de)register Scriptlets in a &DSCL; Metapackage</title>
+          <para>You can specify (de)register scriptlets in a &DSCL; metapackage similarly to how enable scriptlets are specified. When specifying the scriptets, remember to explicitly include them in the <code>%file</code> section of the metapackage spec file.</para>
+          <para>See the following sample code for an example of specifying (de)register scriptets:</para>
+          <programlisting language="RPM Spec"><![CDATA[%install
+%scl_install
+
+cat >> %{buildroot}%{_scl_scripts}/enable << EOF
+# Contents of the enable scriptlet goes here
+...
+EOF
+
+cat >> %{buildroot}%{_scl_scripts}/register << EOF
+# Contents of the register scriptlet goes here
+...
+EOF
+
+cat >> %{buildroot}%{_scl_scripts}/deregister << EOF
+# Contents of the deregister scriptlet goes here
+...
+EOF
+...
+%files runtime
+%scl_files
+%{_scl_scripts}/register
+%{_scl_scripts}/deregister]]></programlisting>
+          <para>In the register scriptlet, you can optionally specify the commands you want to run when registering the &DSCL;, for example, commands to create files in <filename>/etc/opt/</filename> or <filename>/var/opt/</filename>.</para>
+        </section>
       </section>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
