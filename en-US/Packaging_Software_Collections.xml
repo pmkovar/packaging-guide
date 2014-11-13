@@ -761,6 +761,10 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
         </tgroup>
       </table>
     </section>
+    <section id="sect-The_nfsmountable_Macro">
+      <title>The nfsmountable Macro</title>
+      <para>Using a &DSCL; macro <code>nfsmountable</code> allows you to change values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros so that your &DSCL; can have its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This is useful when using your &DSCL; over NFS. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+    </section>
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
     <title>Converting a Conventional Spec File</title>
