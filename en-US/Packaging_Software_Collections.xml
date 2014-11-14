@@ -116,8 +116,8 @@
 			</para>
 		</listitem>
   	</itemizedlist>
-  	<para>These two parts of the &DSCL; prefix are separated by an underscore (<literal>_</literal>), as in the following example:</para>
-	<programlisting>myorganization_ruby193</programlisting>
+  	<para>These two parts of the &DSCL; prefix are separated by a dash (<literal>-</literal>), as in the following example:</para>
+	<programlisting>myorganization-ruby193</programlisting>
 	<para>In this example, <replaceable>myorganization</replaceable> is the provider's name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
 	</para>
 	<para>While it is ultimately a vendor's or distributor's decision whether to specify the provider's name in the prefix or not, specifying it is highly recommended. A notable exception are &DSCL;s provided by Red Hat, they do not specify the provider's name in their prefixes.</para>
@@ -140,8 +140,8 @@
 		</listitem>
   	</itemizedlist>
   	<para>These two parts of the &DSCL; package name are separated by a dash (<literal>-</literal>), as in the following example:</para>
-	<programlisting>myorganization_ruby193-foreman-1.1</programlisting>
-	<para>In this example, <replaceable>myorganization_ruby193</replaceable> is the prefix, and <replaceable>foreman-1.1</replaceable> is the name and version number of the application.</para>
+	<programlisting>myorganization-ruby193-foreman-1.1</programlisting>
+	<para>In this example, <replaceable>myorganization-ruby193</replaceable> is the prefix, and <replaceable>foreman-1.1</replaceable> is the name and version number of the application.</para>
     </section>
   <section id="sect-Software_Collection_Scriptlets">
     <title>&DSCL; Scriptlets</title>
@@ -169,35 +169,35 @@
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
             <para>When specifying dependencies for your &DSCL;'s packages, ensure that no other package in your &DSCL; depends on the main package. The purpose of the main package is to install only those packages that are essential for the user to perform most common tasks with the &DSCL;.</para>
             <para>Normally, the main package does not specify any build time dependencies (for instance, packages that are only build time dependencies of another &DSCL;'s packages).</para>
-            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the main package macro is expanded to:</para>
-            <programlisting>myorganization_ruby193</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the main package macro is expanded to:</para>
+            <programlisting>myorganization-ruby193</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets. This package needs to be installed for the user to be able to use the &DSCL;.</para>
-            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
-            <programlisting>myorganization_ruby193-runtime</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
+            <programlisting>myorganization-ruby193-runtime</programlisting>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The build subpackage: <replaceable>name</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. It contains RPM macros needed for building packages into the &DSCL;. The build subpackage is optional and can be excluded from the &DSCL;.</para>
-            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the build subpackage macro is expanded to:</para>
-            <programlisting>myorganization_ruby193-build</programlisting>
-          <para>The contents of the <literal>myorganization_ruby193-build</literal> subpackage are shown below:</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the build subpackage macro is expanded to:</para>
+            <programlisting>myorganization-ruby193-build</programlisting>
+          <para>The contents of the <literal>myorganization-ruby193-build</literal> subpackage are shown below:</para>
           <screen><computeroutput>$ </computeroutput><userinput>cat /etc/rpm/macros.ruby193-config</userinput>
-%scl myorganization_ruby193</screen>
+%scl myorganization-ruby193</screen>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>The scldevel subpackage: <replaceable>name</replaceable>-scldevel</term>
           <listitem>
             <para>The scldevel subpackage in the %scl &DSCL; contains development files, which are useful when developing packages of another &DSCL; that depends on the %scl &DSCL;. The scldevel subpackage is optional and can be excluded from the %scl &DSCL;.</para>
-            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the scldevel subpackage macro is expanded to:</para>
-            <programlisting>myorganization_ruby193-scldevel</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the scldevel subpackage macro is expanded to:</para>
+            <programlisting>myorganization-ruby193-scldevel</programlisting>
             <para>For more information about the scldevel subpackage, see <xref linkend="sect-Providing_an_scldevel_Subpackage" />.</para>
           </listitem>
         </varlistentry>
@@ -332,8 +332,8 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
           <term>&DSCL; package: <replaceable>name</replaceable>-<replaceable>pkgname</replaceable></term>
           <listitem>
             <para>The &DSCL; can contain a number of packages, which are included in the &DSCL; namespace and relocated to the &DSCL;'s file system hierarchy.</para>
-            <para>For example, if the name of the &DSCL; is <literal>myorganization_ruby193</literal>, then the &DSCL;'s package name for the <package>ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
-            <programlisting>myorganization_ruby193-ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the &DSCL;'s package name for the <package>ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</package> package is:</para>
+            <programlisting>myorganization-ruby193-ruby-1.9.3.352-2.1.&PKGOS;.x86_64.rpm</programlisting>
             <para></para>
           </listitem>
         </varlistentry>
