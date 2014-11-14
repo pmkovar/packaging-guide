@@ -559,9 +559,8 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Log_File_Support">
     <title>&DSCL; Log File Support</title>
-    <para>
-      By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory. Consider creating the log files outside of the &DSCL; file system hierarchy, that is in the <filename>/var/log/</filename> system directory. When using the system directory, all log files are stored in the same location, which makes it easier for users to locate and manage them.
-    </para>
+    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory. To make the log files more accessible and easier to manage, consider creating the log files outside of the &DSCL;'s file system hierarchy.</para>
+    <para>By using a &DSCL; macro <code>nfsmountable</code>, you can configure the &DSCL; to create the log files underneath the <filename>/var/opt/</filename> directory. For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
     <title>&DSCL; logrotate Support</title>
