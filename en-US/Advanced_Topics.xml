@@ -217,7 +217,7 @@ scl enable rubyscl "$COMMAND"
                 <para>/&OPT;/&RH;/%{scl}/root/var/lib</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_scl_root}/var/lib</para>
+                <para>%{_root_localstatedir}%{_scl_prefix}/scls/%{scl}/lib</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>/var/&OPT;/&RH;/scls/%{scl}/lib</para>
@@ -236,7 +236,7 @@ scl enable rubyscl "$COMMAND"
                 <para>/&OPT;/&RH;/%{scl}/root/var</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_scl_root}/var</para>
+                <para>%{_root_localstatedir}%{_scl_prefix}/scls/%{scl}</para>
               </entry>
               <entry colsep="1" rowsep="1">
                 <para>/var/&OPT;/&RH;/scls/%{scl}</para>
@@ -271,7 +271,7 @@ scl enable rubyscl "$COMMAND"
       <section id="sect-Registering_and_Deregistering_Software_Collections">
         <title>Registering and Deregistering &DSCL;s</title>
         <para>In case a &DSCL; is shared over NFS but not locally installed on your system, you need to make the <application>scl</application> tool aware of it by registering that &DSCL;.</para>
-        <para>Registering a &DSCL; is done by calling a <literal>register</literal> scriptet when running the <command>scl</command> command:</para>
+        <para>Registering a &DSCL; is done by running the <command>scl register</command> command:</para>
         <screen><computeroutput>$ </computeroutput>scl register <replaceable>/&OPT;/&RH;/software_collection</replaceable></screen>
         <para>where <replaceable>/&OPT;/&RH;/software_collection</replaceable> is the absolute path to the file system hierarchy of the &DSCL; you want to register. The path's directory must contain the <filename>enable</filename> scriptlet and the <filename>root/</filename> directory to be considered a valid &DSCL; file system hierarchy.</para>
         <para>Deregistering a &DSCL; is a reverse operation that you perform when you no longer want the <application>scl</application> tool to be aware of a registered &DSCL;.</para>
