@@ -68,10 +68,10 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
     <title>Extending the python27 and python33 &DSCL;s</title>
     <para>This section describes extending the python27 and python33 &DSCL;s by creating a dependent &DSCL;.</para>
     <para>
-      In Red Hat Software Collections 1.2 Beta, the <application>scl</application> tool is extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
+      In Red Hat Software Collections &VERSIONNUM;, the <application>scl</application> tool is extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
     </para>
     <!--para>
-      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 1.2, there are specifics that depend on the &DSCL; you are extending.
+      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 2.0, there are specifics that depend on the &DSCL; you are extending.
     </para-->
     <section id="The_vt191_Software_Collection">
     <title>The vt191 &DSCL;</title>
@@ -354,7 +354,7 @@ Smart replacement for plain tuple used in __version__
   </section>
   <section id="sect-Extending_the_ruby193_and_ruby200_Software_Collections">
     <title>Extending the ruby193 and ruby200 &DSCL;s</title>
-    <para>In Red Hat Software Collections 1.2 Beta, it is possible to extend the ruby193 and ruby200 &DSCL;s by adding dependent packages. The Ruby on Rails 4.0 (ror40) &DSCL;, which is built on top of Ruby 2.0.0 provided by the ruby200 &DSCL;, is one example of such an extension.</para>
+    <para>In Red Hat Software Collections &VERSIONNUM;, it is possible to extend the ruby193 and ruby200 &DSCL;s by adding dependent packages. The Ruby on Rails 4.0 (ror40) &DSCL;, which is built on top of Ruby 2.0.0 provided by the ruby200 &DSCL;, is one example of such an extension.</para>
     <para>This section provides detailed information about the <package>ror40</package> metapackage and the <package>ror40-rubygem-bcrypt-ruby</package> package, which are both part of the ror40 &DSCL;.</para>
     <section id="sect-The_ror40_Software_Collection">
       <title>The ror40 Software Collection</title>
