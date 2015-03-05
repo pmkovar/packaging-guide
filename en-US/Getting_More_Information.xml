@@ -58,12 +58,7 @@
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
-         </para>
-       </listitem>
-       <listitem>
-         <para>
-           <ulink url="http://docs.fedoraproject.org/en-US/Fedora/18/html/System_Administrators_Guide/index.html">Fedora 18 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Fedora 18 documents relevant information regarding the deployment, configuration, and administration of Fedora.
+           <ulink url="http://docs.fedoraproject.org/en-US/Fedora/21/html/System_Administrators_Guide/index.html">Fedora 21 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Fedora 21 documents relevant information regarding the deployment, configuration, and administration of Fedora.
          </para>
        </listitem>
   </itemizedlist>
