@@ -19,7 +19,7 @@
     </section-->
     <important>
       <para>
-        The functionality described in this section is not available in Red Hat Enterprise Linux 5 and 6.
+        The functionality described in this section is not available in Red Hat Enterprise Linux 6.
       </para>
     </important>
     <para>
@@ -131,9 +131,6 @@ scl enable rubyscl "$COMMAND"
   </section>
   <section id="sect-Converting_Software_Collection_Scriptlets_into_Environment_Modules">
     <title>Converting &DSCL; Scriptlets into Environment Modules</title>
-    <important>
-      <para>The functionality described in this section is not available in Red Hat Enterprise Linux 5.</para>
-    </important>
     <para>Environment modules allow you to manage, for example, different versions of applications by dynamically modifying your shell environment. To use your &DSCL; with the environment module system, convert the &DSCL;'s <filename>enable</filename> scriptlet into an environment module with a script <filename>/usr/share/Modules/bin/createmodule.sh</filename>.</para>
     <procedure>
       <title>Converting an enable scriptlet into an environment module</title>
@@ -310,12 +307,12 @@ EOF
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>Managing Services in &DSCL;s</title>
-    <para>When packaging your &DSCL;, ensure that users can directly manage any services (daemons) provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 5 and 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
-    <para>For Red Hat Enterprise Linux 5 and 6 &DSCL;s, make sure to adjust the <code>%install</code> section of the spec file as follows to avoid possible name conflicts with the system versions of the services that are part of the &DSCL;:</para>
+    <para>When packaging your &DSCL;, ensure that users can directly manage any services (daemons) provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
+    <para>For &DSCL;s on Red Hat Enterprise Linux 6, make sure to adjust the <code>%install</code> section of the spec file as follows to avoid possible name conflicts with the system versions of the services that are part of the &DSCL;:</para>
     <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rc.d/init.d/%{?scl_prefix}<replaceable>service_name</replaceable></programlisting>
     <para>Replace <replaceable>service_name</replaceable> with the actual name of the service.</para>
-    <para>For Red Hat Enterprise Linux 7 &DSCL;s, adjust the <code>%install</code> section of the spec file as follows:</para>
+    <para>For &DSCL;s on Red Hat Enterprise Linux 7, adjust the <code>%install</code> section of the spec file as follows:</para>
     <programlisting language="RPM Spec">%install
 install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replaceable>service_name</replaceable>.service</programlisting>
     <para>With this configuration in place, you can then refer to the version of the service included in the &DSCL; as follows:</para>
@@ -325,7 +322,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replac
     <title>Configuring an Environment for Services</title>
     <para>It is recommended to make the &DSCL; you want to enable for services configurable. The directions in this section show how to make a &DSCL; named <replaceable>software_collection</replaceable> configurable.</para>
     <procedure>
-      <title>Configuring an environment for services on Red Hat Enterprise Linux 5 and 6</title>
+      <title>Configuring an environment for services on Red Hat Enterprise Linux 6</title>
       <step>
         <para>Create a configuration file in <filename>/&OPT;/&RH;/<replaceable>software_collection</replaceable>/service-environment</filename> with the following content:</para>
         <programlisting>[<replaceable>SCLNAME</replaceable>]_SCLS_ENABLED="<replaceable>software_collection</replaceable>"</programlisting>
@@ -634,12 +631,6 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>The last command ensures that the newly created SELinux policy is properly loaded, and that the files installed by a package in the &DSCL; are created with the correct SELinux context. By using this command in the metapackage, you do not need to include the <command>restorecon</command> command in all packages in the &DSCL;.</para>
     <para>Note that the <command>semanage fcontext</command> command is provided by the <package>policycoreutils-python</package> package, therefore it is important that you include <code>policycoreutils-python</code> in <code>Requires</code> for the &DSCL; metapackage.</para>
     </section>
-    <section id="sect-Software_Collection_SELinux_Support-Red_Hat_Enterprise_Linux_5">
-      <title>SELinux Support in Red Hat Enterprise Linux 5</title>
-      <para>
-        Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
-      </para>
-    </section>
   </section>
   <!--TODO: BZ#968360 <section id="sect-Software_Collection_SELinux_Support">
     <title>&DSCL; SELinux Support</title>
@@ -731,12 +722,6 @@ Requires(preun): libselinux policycoreutils-python
     </programlisting>
   </step>
 </procedure>
-    </section>
-    <section id="sect-The_semanage_-e_command_and_Red_Hat_Enterprise_Linux_5">
-      <title>The semanage -e command and Red Hat Enterprise Linux 5</title>
-      <para>
-        Keep in mind that the <command>semanage -e</command> command, which substitutes the source path for the destination path during labeling, is not supported in Red Hat Enterprise Linux 5.
-      </para>
     </section>
   </section>-->
 </chapter>

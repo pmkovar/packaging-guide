@@ -72,11 +72,6 @@
            <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 6 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 6 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 6.
          </para>
        </listitem>
-       <listitem>
-         <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/index.html">Red Hat Enterprise Linux 5 Deployment Guide</ulink> &ndash; The <citetitle pubwork="book">Deployment Guide</citetitle> for Red Hat Enterprise Linux 5 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 5.
-         </para>
-       </listitem>
   </itemizedlist>
   </section>
 </appendix>
