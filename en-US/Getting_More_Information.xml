@@ -40,10 +40,10 @@
   <itemizedlist>
        <listitem>
          <para  condition="ga">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/1/html/2.0_Release_Notes/index.html">Red Hat Software Collections 2.0 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.0 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2/html/2.0_Release_Notes/index.html">Red Hat Software Collections 2.0 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.0 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
          </para>
          <para  condition="beta">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/1-Beta/html/2.0_Release_Notes/index.html">Red Hat Software Collections 2.0 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.0 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2-Beta/html/2.0_Release_Notes/index.html">Red Hat Software Collections 2.0 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.0 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
          </para>
        </listitem>
        <listitem>
