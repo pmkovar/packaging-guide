@@ -114,21 +114,6 @@
         This will redefine the <code language="RPM Spec">%{__python2}</code> macro only if the build subpackage from a corresponding &DSCL; is present, which usually means that you want to build software for that &DSCL;.
       </para>
   </section>
-  <section id="sect-Packaging_Wrappers_for_Software_Collections">
-    <title>Packaging Wrappers for &DSCL;s</title>
-    <para>
-      Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
-     <para>The following is an example of a wrapper from a Ruby-based &DSCL; named <package>rubyscl</package> that is installed as <filename>/usr/bin/rubyscl-ruby</filename> and allows the user to run <command>rubyscl-ruby <replaceable>command</replaceable></command> instead of <command>scl enable rubyscl 'ruby <replaceable>command</replaceable>'</command>:
-    </para>
-    <programlisting language="Bash">#!/bin/bash
-
-COMMAND="ruby $@"
-scl enable rubyscl "$COMMAND"
-</programlisting>
-<para>
-  It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
-</para>
-  </section>
   <section id="sect-Converting_Software_Collection_Scriptlets_into_Environment_Modules">
     <title>Converting &DSCL; Scriptlets into Environment Modules</title>
     <para>Environment modules allow you to manage, for example, different versions of applications by dynamically modifying your shell environment. To use your &DSCL; with the environment module system, convert the &DSCL;'s <filename>enable</filename> scriptlet into an environment module with a script <filename>/usr/share/Modules/bin/createmodule.sh</filename>.</para>
@@ -304,6 +289,21 @@ EOF
           <para>In the register scriptlet, you can optionally specify the commands you want to run when registering the &DSCL;, for example, commands to create files in <filename>/etc/opt/</filename> or <filename>/var/opt/</filename>.</para>
         </section>
       </section>
+  </section>
+  <section id="sect-Packaging_Wrappers_for_Software_Collections">
+    <title>Packaging Wrappers for &DSCL;s</title>
+    <para>
+      Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
+     <para>The following is an example of a wrapper from a Ruby-based &DSCL; named <package>rubyscl</package> that is installed as <filename>/usr/bin/rubyscl-ruby</filename> and allows the user to run <command>rubyscl-ruby <replaceable>command</replaceable></command> instead of <command>scl enable rubyscl 'ruby <replaceable>command</replaceable>'</command>:
+    </para>
+    <programlisting language="Bash">#!/bin/bash
+
+COMMAND="ruby $@"
+scl enable rubyscl "$COMMAND"
+</programlisting>
+<para>
+  It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
+</para>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>Managing Services in &DSCL;s</title>
