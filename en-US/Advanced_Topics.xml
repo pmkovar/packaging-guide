@@ -153,12 +153,12 @@ scl enable rubyscl "$COMMAND"
   <section id="sect-Using_Software_Collections_over_NFS">
     <title>Using &DSCL;s over NFS</title>
     <para>In some environments, the requirement is often to have a centralized model for how applications and tools are distributed rather than allowing users to install the application or tool version they prefer. In this way, NFS is the common method of mounting centrally managed software.</para>
-    <para>To use a &DSCL; over NFS, you need to define a &DSCL; macro <code>nfsmountable</code>. If you define the macro when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
-    <para>To build a &DSCL; with the <code>nfsmountable</code> macro defined, run the following command:</para>
-    <synopsis>
-      <command>rpmbuild -ba <replaceable>software_collection</replaceable>.spec --define 'scl <replaceable>software_collection</replaceable>' --define 'nfsmountable 1'</command>
-    </synopsis>
-    <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;. Defining the macro changes the values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros. The changed values are detailed in the following table.</para>
+    <para>You need to define a &DSCL; macro <code>nfsmountable</code> to use a &DSCL; over NFS. If the macro is defined when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
+    <para>To define the <code>nfsmountable</code> macro, ensure that the &DSCL; metapackage spec file contains the following lines:</para>
+    <programlisting language="RPM Spec">%global nfsmountable 1
+
+%scl_package %scl</programlisting>
+    <para>As shown above, the <code>nfsmountable</code> macro must be defined before defining the <code>%scl_package</code> macro. This is because the <code>%scl_package</code> macro redefines the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros depending on whether the <code>nfsmountable</code> macro has been defined or not. The values that <code>nfsmountable</code> changes for the redefined macros are detailed in the following table.</para>
         <table>
         <title>Changed Values for &DSCL; Macros</title>
         <tgroup cols="5">
@@ -246,8 +246,8 @@ scl enable rubyscl "$COMMAND"
       <section id="sect-Changed_Directory_Structure_and_File_Ownership">
       <title>Changed Directory Structure and File Ownership</title>
       <para>The <code>nfsmountable</code> macro also has an impact on how the <code>scl_install</code> and <code>scl_files</code> macros create a directory structure and set the file ownership when you run the <command>rpmbuild</command> command.</para>
-      <para>For example, a directory structure of a &DSCL; named <application>software_collection</application> looks as follows:</para>
-      <screen><computeroutput>$ </computeroutput><userinput>rpmbuild -ba software_collection.spec --define 'scl software_collection' --define 'nfsmountable 1'</userinput>
+      <para>For example, a directory structure of a &DSCL; named <application>software_collection</application> with the <code>nfsmountable</code> macro defined looks as follows:</para>
+      <screen><computeroutput>$ </computeroutput><userinput>rpmbuild -ba software_collection.spec --define 'scl software_collection'</userinput>
 ...
 <computeroutput>$ </computeroutput><userinput>rpm -qlp software_collection-runtime-1-1.&PKGOS;.x86_64</userinput>
 /etc/&OPT;/&RH;/scls/software_collection
