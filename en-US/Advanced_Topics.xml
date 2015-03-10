@@ -599,7 +599,8 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
     <para>If you store your &DSCL;'s configuration files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
-    <para>If you cannot store the configuration files within <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
+    <para>If you cannot store the configuration files within <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time. You can also define the <code>nfsmountable</code> macro to store the configuration files in the root file system.</para>
+    <para>For more information about using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
     <title>&DSCL; Kernel Module Support</title>
