@@ -142,9 +142,9 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
 # Only for this build, you need to override default __os_install_post,
 # because the default one would find /opt/.../lib/python2.7/ and try
 # to bytecompile with the system /usr/bin/python2.7
-%global __os_install_post %{%{scl_python}_os_install_post}
+%global __os_install_post %{%{scl_no_vendor}_os_install_post}
 # Similarly, override __python_requires for automatic dependency generator
-%global __python_requires %{%{scl_python}_python_requires}
+%global __python_requires %{%{scl_no_vendor}_python_requires}
 
 # The directory for site packages for this Software Collection
 %global vt191_sitelib %(echo %{python27python_sitelib} | sed 's|%{scl_python}|%{scl}|')
