@@ -64,7 +64,7 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
     </procedure>
     </section>
   </section>
-  <section id="sect-Extending_the_python27_and_python33_Software_Collections">
+  <section id="sect-Extending_the_python27_and_rh-python34_Software_Collections">
     <title>Extending the python27 and rh-python34 &DSCL;s</title>
     <para>This section describes extending the python27 and rh-python34 &DSCL;s by creating a dependent &DSCL;.</para>
     <para>
