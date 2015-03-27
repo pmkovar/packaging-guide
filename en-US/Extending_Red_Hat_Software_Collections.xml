@@ -703,7 +703,7 @@ popd
 # Default values for the rh-perl520 Software Collection. These
 # will be used when rh-perl520-scldevel is not in the build root.
 %{!?scl_perl:%global scl_perl rh-perl520}
-%{!?scl_prefix_rh-perl520:%global scl_prefix_perl %{scl_perl}-}
+%{!?scl_prefix_perl:%global scl_prefix_perl %{scl_perl}-}
 
 # Only for this build, override __perl_requires for the automatic dependency
 # generator.
