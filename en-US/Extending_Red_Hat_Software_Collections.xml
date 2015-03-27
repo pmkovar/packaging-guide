@@ -525,9 +525,9 @@ EOF
 * Thu Jan 16 2015 John Doe <jdoe@example.com> - 1-1
 - Initial package.]]></programlisting>
   </section>
-  <section id="sect-The_rh-ror41-rubygem-bcrypt-ruby_Package">
+  <section id="sect-The_rh-ror41-rubygem-bcrypt_Package">
     <title>The rh-ror41-rubygem-bcrypt Package</title>
-    <para>Below is a commented example of the <package>rh-ror41-rubygem-bcrypt</package> package spec file. This package provides the bcrypt-ruby gem. For more information on bcrypt-ruby, see the following website:</para>
+    <para>Below is a commented example of the <package>rh-ror41-rubygem-bcrypt</package> package spec file. This package provides the bcrypt Ruby gem. For more information on bcrypt, see the following website:</para>
     <itemizedlist>
       <listitem>
         <para><ulink url="http://rubygems.org/gems/bcrypt-ruby">http://rubygems.org/gems/bcrypt-ruby</ulink></para>
@@ -563,7 +563,7 @@ Provides: %{?scl_prefix}rubygem(bcrypt) = %{version}
 
 %description
 bcrypt() is a sophisticated and secure hash algorithm designed by The
-OpenBSD project for hashing passwords. bcrypt-ruby provides a simple,
+OpenBSD project for hashing passwords. bcrypt provides a simple,
 humane wrapper for safely handling passwords.
 
 %package doc
