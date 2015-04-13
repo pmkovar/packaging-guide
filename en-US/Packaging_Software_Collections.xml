@@ -245,11 +245,12 @@
 	</listitem>
 </itemizedlist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Metapackage</bridgehead>
-<para>To get an idea of what a typical metapackage for a &DSCL; named <replaceable>ruby193</replaceable> looks like, see the following example:</para>
-      <programlisting language="RPM Spec"><![CDATA[%global scl_name_base ruby
+<para>To get an idea of what a typical metapackage for a &DSCL; named <replaceable>myorganization-ruby193</replaceable> looks like, see the following example:</para>
+      <programlisting language="RPM Spec"><![CDATA[%global scl_name_prefix myorganization-
+%global scl_name_base ruby
 %global scl_name_version 193
 
-%global scl %{scl_name_base}%{scl_name_version}
+%global scl %{scl_name_prefix}%{scl_name_base}%{scl_name_version}
 %scl_package %scl
 %global _scl_prefix /opt/myorganization
 
