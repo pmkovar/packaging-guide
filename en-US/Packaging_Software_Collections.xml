@@ -769,7 +769,7 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
     <title>Converting a Conventional Spec File</title>
-      <para>The following steps show how to convert a conventional spec file into a &DSCL; spec file so that the &DSCL; spec file can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
+      <para>This section discusses converting a conventional spec file into a &DSCL; spec file so that the converted spec file can be used in both the conventional package and the &DSCL;.<!--To allow this option, a special macro usage needs to be followed while writing or converting a package for Software Collection.
 Software Collection macros simply relocate package to non-conflicting namespaced path by redefining essential build macros such as %_bindir, %_sysconfdir, etc. and adding Software Collection specific virtual provides. With this concept the Software Collection specific actions in spec file need to be put into the %{?scl: <something> } constructs. --></para>
       <section id="sect-Example_of_the_Converted_Spec_File">
       <title>Example of the Converted Spec File</title>
@@ -835,8 +835,9 @@ Software Collection macros simply relocate package to non-conflicting namespaced
       </section>
       <section id="sect-Converting_Tags_and_Macro_Definitions">
       <title>Converting Tags and Macro Definitions</title>
+      <para>The following steps show how to convert tags and macro definitions in a conventional spec file into a &DSCL; spec file.</para>
       <procedure>
-        <title>Converting a conventional spec file into a &DSCL; spec file</title>
+        <title>Converting tags and macro definitions</title>
         <step>
           <para>Add the <code>%scl_package</code> macro to the spec file. Place the macro in front of the spec file preamble as follows:</para>
           <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>package_name</replaceable>}</programlisting>
