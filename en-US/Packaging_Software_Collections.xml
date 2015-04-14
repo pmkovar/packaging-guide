@@ -925,7 +925,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
           <para>Wrap the script using the <code>%{?scl:</code> prefix, as in the following example:</para>
           <programlisting language="RPM Spec"><![CDATA[%{?scl:scl enable %scl - << \EOF}
  set -e
- ruby foo.rb
+ ruby example.rb
  RUBYOPT="-Ilib" ruby bar.rb
  # The rest of the script contents goes here.
 %{?scl:EOF}]]></programlisting>
@@ -936,9 +936,33 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
           </listitem>
          </itemizedlist>
        </section>
-       <section id="sect-Software_Collection_Shebangs_Support">
-         <title>&DSCL; Shebangs Support</title>
-         <para></para>
+       <section id="sect-Software_Collection_Shebang_Support">
+         <title>&DSCL; Shebang Support</title>
+         <para>A shebang is a sequence of characters at the beginning of a script that is used as an interpreter directive. The shebang is processed by the automatic dependency generator and it points to a certain location, possibly in the system root file system.</para>
+         <para>When the automatic dependency generator processes the shebang, it adds dependencies according to the interpreters they point to. From the &DSCL; point of view, there are two types of shebangs:</para>
+         <variablelist>
+           <varlistentry>
+             <term><code>/usr/bin/env <replaceable>example</replaceable></code></term>
+             <listitem>
+             <para>This shebang instructs the <filename>/usr/bin/env</filename> program to run the interpreter.</para>
+             <para>The automatic dependency generator will create a dependency on the <command>/usr/bin/env</command> program, as expected.</para>
+             <para>If the <envar>$PATH</envar> environment variable is redefined properly in the <filename>enable</filename> scriptlet, the <replaceable>example</replaceable> interpreter is found in the &DSCL; file system hierarchy, as expected.</para>
+             <para>You are advised to rewrite the shebang in your &DSCL; package so that the shebang specifies the full path to the interpreter located in the &DSCL; file system hierarchy.</para>
+             </listitem>
+           </varlistentry>
+           <varlistentry>
+             <term><code>/usr/bin/<replaceable>example</replaceable></code></term>
+             <listitem>
+             <para>This shebang specifies the direct path to the interpreter.</para>
+             <para>The automatic dependency generator will create a dependency on the <filename>/usr/bin/example</filename> interpreter located outside the &DSCL; file system hierarchy. However, when building a package for your &DSCL;, you often want to create a dependency on the <filename>%{?_scl_root}/usr/bin/example</filename> interpreter located in the &DSCL; file system hierarchy.</para>
+             <para>Keep in mind that even when you properly redefine the <envar>$PATH</envar> environment variable, this has no effect on what interpreter is used. The system version of the interpreter located outside the &DSCL; file system hierarchy is always used. In most cases, this is not desired.</para>
+             <para>If you are using this type of shebang and you want the shebang to point to the &DSCL; file system hierarchy when building your &DSCL; package, use a command like the following:</para>
+             <programlisting language="RPM Spec">find %{buildroot} -type f | \
+  xargs sed -i -e '1 s"^#!<replaceable>/usr/bin/example</replaceable>"#!%{?_scl_root}<replaceable>/usr/bin/example</replaceable>"'</programlisting>
+             <para>where <replaceable>/usr/bin/example</replaceable> is the interpreter you want to use.</para>
+             </listitem>
+           </varlistentry>
+         </variablelist>
        </section>
   </section>
   <section id="sect-Uninstalling_all_Software_Collection_directories">
