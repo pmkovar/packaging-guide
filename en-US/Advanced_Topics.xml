@@ -445,8 +445,12 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Log_File_Support">
     <title>&DSCL; Log File Support</title>
-    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory. To make the log files more accessible and easier to manage, consider creating the log files outside of the &DSCL;'s file system hierarchy.</para>
-    <para>By using a &DSCL; macro <code>nfsmountable</code>, you can configure the &DSCL; to create the log files underneath the <filename>/var/opt/</filename> directory. For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+    <!--para>&DSCL;s should store their log files in <filename>%{_localstatedir}/log/<replaceable>original-path</replaceable>/</filename> where <replaceable>original-path</replaceable> </para-->
+    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory.</para>
+    <para>To make the log files more accessible and easier to manage, you are strongly advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in the log file being created underneath the <filename>/var/opt/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy.</para>
+    <para>For example, a service <replaceable>mydaemon</replaceable> normally stores its log file in <filename>/var/log/mydaemon/mydaemond.log</filename> in the base system installation. When <replaceable>mydaemon</replaceable> is packaged as a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the log file in <replaceable>software_collection</replaceable> is as follows:</para>
+    <screen><filename>/var/opt/&OPT;/scls/<replaceable>software_collection</replaceable>/log/mydaemon/mydaemond.log</filename></screen>
+    <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
     <title>&DSCL; logrotate Support</title>
@@ -479,11 +483,23 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       </step>
     </procedure>
   </section>
+  <section id="sect-Software_Collection_varrun_Files_Support">
+    <title>&DSCL; /var/run/ Files Support</title>
+    <para>PID files are one example of files usually located underneath the <filename>/var/run/<replaceable>package_name</replaceable>/</filename> directory. When packaging PID files into your &DSCL;, you are strongly advised to use the <code>nfsmountable</code> macro and store the PID files in the following directory:</para>
+    <screen><filename>/var/run/<replaceable>software_collection</replaceable>-<replaceable>package_name</replaceable>/</filename></screen>
+    <para>where <replaceable>software_collection</replaceable> is the name of your &DSCL; and <replaceable>package_name</replaceable> is the name of the package included in your &DSCL;.</para>
+    <para>Following this naming convention avoids file conflicts with the base system installation, while it makes it possible for your &DSCL; to use <filename>/var/run/</filename> features, for example the <systemitem>tmpfs</systemitem> file system for PID files.</para>
+    <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+  </section>
   <section id="sect-Software_Collection_Lock_File_Support">
     <title>&DSCL; Lock File Support</title>
     <para>If you store your &DSCL;'s lock files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the applications or services that can be on the system.</para>
     <para>If you want to prevent &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
     <para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (when the &DSCL; version's resources will not conflict with the system version's resources), ensure that the applications or services write the lock to the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
+  <section id="Software_Collection_SysV_init_Lock_File_Support">
+    <title>&DSCL; SysV init Lock File Support</title>
+    <para>When a service is started by an init script, a lock file is touched in the <filename>/var/lock/subsys/</filename> directory with the same name as the init script. As discussed in <xref linkend="sect-Software_Collection_Initscript_Support" />, service names include a &DSCL; prefix. Use the same naming convention for files underneath <filename>/var/lock/subsys/</filename> to ensure that the lock file names do not conflict with the base system installation.</para>
+  </section>
   </section>
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
