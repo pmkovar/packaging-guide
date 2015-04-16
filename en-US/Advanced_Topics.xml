@@ -447,9 +447,9 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <title>&DSCL; Log File Support</title>
     <!--para>&DSCL;s should store their log files in <filename>%{_localstatedir}/log/<replaceable>original-path</replaceable>/</filename> where <replaceable>original-path</replaceable> </para-->
     <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory.</para>
-    <para>To make the log files more accessible and easier to manage, you are strongly advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in the log file being created underneath the <filename>/var/opt/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy.</para>
+    <para>To make the log files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in the log file being created underneath the <filename>/var/opt/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy.</para>
     <para>For example, a service <replaceable>mydaemon</replaceable> normally stores its log file in <filename>/var/log/mydaemon/mydaemond.log</filename> in the base system installation. When <replaceable>mydaemon</replaceable> is packaged as a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the log file in <replaceable>software_collection</replaceable> is as follows:</para>
-    <screen><filename>/var/opt/&OPT;/scls/<replaceable>software_collection</replaceable>/log/mydaemon/mydaemond.log</filename></screen>
+    <screen><filename>/var/&OPT;/&RH;/scls/<replaceable>software_collection</replaceable>/log/mydaemon/mydaemond.log</filename></screen>
     <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
@@ -485,7 +485,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_varrun_Files_Support">
     <title>&DSCL; /var/run/ Files Support</title>
-    <para>PID files are one example of files usually located underneath the <filename>/var/run/<replaceable>package_name</replaceable>/</filename> directory. When packaging PID files into your &DSCL;, you are strongly advised to use the <code>nfsmountable</code> macro and store the PID files in the following directory:</para>
+    <para>PID files are one example of files usually located underneath the <filename>/var/run/<replaceable>package_name</replaceable>/</filename> directory. When packaging PID files into your &DSCL;, you are advised to use the <code>nfsmountable</code> macro and store the PID files in the following directory:</para>
     <screen><filename>/var/run/<replaceable>software_collection</replaceable>-<replaceable>package_name</replaceable>/</filename></screen>
     <para>where <replaceable>software_collection</replaceable> is the name of your &DSCL; and <replaceable>package_name</replaceable> is the name of the package included in your &DSCL;.</para>
     <para>Following this naming convention avoids file conflicts with the base system installation, while it makes it possible for your &DSCL; to use <filename>/var/run/</filename> features, for example the <systemitem>tmpfs</systemitem> file system for PID files.</para>
