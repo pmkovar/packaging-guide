@@ -48,10 +48,10 @@
                 <para>/&OPT;/&RH;/%{scl}/root/etc</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_root_sysconfdir}%{_scl_prefix}/scls/%{scl}</para>
+                <para>%{_root_sysconfdir}%{_scl_prefix}/%{scl}</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>/etc/&OPT;/&RH;/scls/%{scl}</para>
+                <para>/etc/&OPT;/&RH;/%{scl}</para>
               </entry>
             </row>
             <row rowsep="1">
@@ -67,10 +67,10 @@
                 <para>/&OPT;/&RH;/%{scl}/root/var/lib</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_root_localstatedir}%{_scl_prefix}/scls/%{scl}/lib</para>
+                <para>%{_root_localstatedir}%{_scl_prefix}/%{scl}/lib</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>/var/&OPT;/&RH;/scls/%{scl}/lib</para>
+                <para>/var/&OPT;/&RH;/%{scl}/lib</para>
               </entry>
             </row>
             <row rowsep="1">
@@ -86,16 +86,15 @@
                 <para>/&OPT;/&RH;/%{scl}/root/var</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_root_localstatedir}%{_scl_prefix}/scls/%{scl}</para>
+                <para>%{_root_localstatedir}%{_scl_prefix}/%{scl}</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>/var/&OPT;/&RH;/scls/%{scl}</para>
+                <para>/var/&OPT;/&RH;/%{scl}</para>
               </entry>
             </row>
           </tbody>
         </tgroup>
       </table>
-      <para>Note that the expanded values for the changed definitions contain a <filename>/scls</filename> directory in their paths.</para>
       <section id="sect-Changed_Directory_Structure_and_File_Ownership">
       <title>Changed Directory Structure and File Ownership</title>
       <para>The <code>nfsmountable</code> macro also has an impact on how the <code>scl_install</code> and <code>scl_files</code> macros create a directory structure and set the file ownership when you run the <command>rpmbuild</command> command.</para>
@@ -103,19 +102,19 @@
       <screen><computeroutput>$ </computeroutput><userinput>rpmbuild -ba software_collection.spec --define 'scl software_collection'</userinput>
 ...
 <computeroutput>$ </computeroutput><userinput>rpm -qlp software_collection-runtime-1-1.&PKGOS;.x86_64</userinput>
-/etc/&OPT;/&RH;/scls/software_collection
-/etc/&OPT;/&RH;/scls/software_collection/X11
-/etc/&OPT;/&RH;/scls/software_collection/X11/applnk
-/etc/&OPT;/&RH;/scls/software_collection/X11/fontpath.d
+/etc/&OPT;/&RH;/software_collection
+/etc/&OPT;/&RH;/software_collection/X11
+/etc/&OPT;/&RH;/software_collection/X11/applnk
+/etc/&OPT;/&RH;/software_collection/X11/fontpath.d
 ...
 /&OPT;/&RH;/software_collection/root/usr/src
 /&OPT;/&RH;/software_collection/root/usr/src/debug
 /&OPT;/&RH;/software_collection/root/usr/src/kernels
 /&OPT;/&RH;/software_collection/root/usr/tmp
-/var/&OPT;/&RH;/scls/software_collection
-/var/&OPT;/&RH;/scls/software_collection/cache
-/var/&OPT;/&RH;/scls/software_collection/db
-/var/&OPT;/&RH;/scls/software_collection/empty
+/var/&OPT;/&RH;/software_collection
+/var/&OPT;/&RH;/software_collection/cache
+/var/&OPT;/&RH;/software_collection/db
+/var/&OPT;/&RH;/software_collection/empty
 ...</screen>
       </section>
       <section id="sect-Registering_and_Deregistering_Software_Collections">
@@ -449,7 +448,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory.</para>
     <para>To make the log files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in the log file being created underneath the <filename>/var/opt/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy.</para>
     <para>For example, a service <replaceable>mydaemon</replaceable> normally stores its log file in <filename>/var/log/mydaemon/mydaemond.log</filename> in the base system installation. When <replaceable>mydaemon</replaceable> is packaged as a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the log file in <replaceable>software_collection</replaceable> is as follows:</para>
-    <screen><filename>/var/&OPT;/&RH;/scls/<replaceable>software_collection</replaceable>/log/mydaemon/mydaemond.log</filename></screen>
+    <screen><filename>/var/&OPT;/&RH;/<replaceable>software_collection</replaceable>/log/mydaemon/mydaemond.log</filename></screen>
     <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
