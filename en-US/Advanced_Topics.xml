@@ -255,7 +255,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replac
       <step>
         <para>In the systemd service file, prefix all commands specified in <option>ExecStartPre</option>, <option>ExecStart</option>, and similar directives with <command>scl enable $[SCLNAME]_SCLS_ENABLED</command>, similarly to when you run a command in the &DSCL; environment:</para>
         <programlisting>ExecStartPre=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_collection/root/usr/bin/daemon_helper_binary --argument-1 --argument-2
-ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /opt/provider/software_collection/root/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
+ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_collection/root/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
       </step>
     </procedure>
   </section>
@@ -444,11 +444,10 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Log_File_Support">
     <title>&DSCL; Log File Support</title>
-    <!--para>&DSCL;s should store their log files in <filename>%{_localstatedir}/log/<replaceable>original-path</replaceable>/</filename> where <replaceable>original-path</replaceable> </para-->
-    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory.</para>
-    <para>To make log files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in log files being created underneath the <filename>/var/opt/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy.</para>
+    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/root/var/log/</filename> directory.</para>
+    <para>To make log files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in log files being created underneath the <filename>/var/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/log/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
     <para>For example, a service <replaceable>mydaemon</replaceable> normally stores its log file in <filename>/var/log/mydaemon/mydaemond.log</filename> in the base system installation. When <replaceable>mydaemon</replaceable> is packaged as a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the log file in <replaceable>software_collection</replaceable> is as follows:</para>
-    <screen><filename>/var/&OPT;/&RH;/<replaceable>software_collection</replaceable>/log/mydaemon/mydaemond.log</filename></screen>
+    <screen><filename>/var/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/log/<replaceable>mydaemon</replaceable>/<replaceable>mydaemond.log</replaceable></filename></screen>
     <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
@@ -492,11 +491,11 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Lock_File_Support">
     <title>&DSCL; Lock File Support</title>
-    <para>By default, programs packaged into a &DSCL; create lock files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename> directory.</para>
-    <para>To make lock files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in lock files being created underneath the <filename>/var/opt/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy.</para>
-    <para>When applications or services packaged into your &DSCL; write the lock underneath the <filename>/var/opt/</filename> directory, then those applications and services can run concurrently with the system versions (when the resources of your &DSCL;'s applications and services will not conflict with the system versions' resources).</para>
+    <para>By default, programs packaged into a &DSCL; create lock files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/root/var/lock/</filename> directory.</para>
+    <para>To make lock files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in lock files being created underneath the <filename>/var/opt/<replaceable>&RH;</replaceable>/%{scl}/lock/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>If applications or services packaged into your &DSCL; write the lock underneath the <filename>/var/opt/<replaceable>&RH;</replaceable>/%{scl}/lock/</filename> directory, then those applications and services can run concurrently with the system versions (when the resources of your &DSCL;'s applications and services will not conflict with the system versions' resources).</para>
     <para>For example, a lock file <filename>mylockfile.lock</filename> is normally created in the <filename>/var/lock/</filename> directory in the base system installation. If the lock file is a part of a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the lock file in <replaceable>software_collection</replaceable> is as follows:</para>
-    <screen><filename>/var/&OPT;/&RH;/<replaceable>software_collection</replaceable>/lock/mylockfile.lock</filename></screen>
+    <screen><filename>/var/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/lock/<replaceable>mylockfile.lock</replaceable></filename></screen>
     <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
     <bridgehead id="bg-Preventing_Programs_from_Running_Concurrently">Preventing Programs from Running Concurrently</bridgehead>
     <para>If you want to prevent your &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
@@ -507,8 +506,10 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
-    <para>If you store your &DSCL;'s configuration files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
-    <para>If you cannot store the configuration files within <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time. You can also define the <code>nfsmountable</code> macro to store the configuration files in the root file system.</para>
+    <para>By default, configuration files in a &DSCL; are stored within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>To make configuration files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_sysconfdir</code> macro. This results in configuration files being created underneath the <filename>/etc/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>For example, a configuration file <replaceable>example.conf</replaceable> is normally stored in the <filename>/etc</filename> directory in the base system installation. If the configuration file is a part of a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the configuration file in <replaceable>software_collection</replaceable> is as follows:</para>
+    <screen><filename>/etc/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/<replaceable>example.conf</replaceable></filename></screen>
     <para>For more information about using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
