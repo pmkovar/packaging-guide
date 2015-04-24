@@ -347,7 +347,7 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
     <para>The <code>%scl_package</code> macro defines files ownership for the &DSCL;'s metapackage and provides additional packaging macros to use in the &DSCL; environment.
 </para>
     <para>To be able to build a conventional package and a &DSCL; package with a single spec file, prefix the &DSCL; macros with <code>%{?scl:<replaceable>macro</replaceable>}</code>, as in the following example:</para>
-    <programlisting language="RPM Spec">%{?scl:Requires:%scl_runtime}</programlisting>
+    <programlisting language="RPM Spec">%{?scl:Requires: %scl_runtime}</programlisting>
     <para>In the example above, the <code>%scl_runtime</code> macro is the value of the <code>Requires</code> tag. Both the macro and the tag use the <code>%{?scl:</code> prefix.</para>
     <section id="sect-Macros_Specific_to_a_Software_Collection">
       <title>Macros Specific to a &DSCL;</title>
@@ -1054,7 +1054,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
          <para>When the automatic dependency generator processes the shebang, it adds dependencies according to the interpreters they point to. From the &DSCL; point of view, there are two types of shebangs:</para>
          <variablelist>
            <varlistentry>
-             <term><code>/usr/bin/env <replaceable>example</replaceable></code></term>
+             <term><code>#!/usr/bin/env <replaceable>example</replaceable></code></term>
              <listitem>
              <para>This shebang instructs the <filename>/usr/bin/env</filename> program to run the interpreter.</para>
              <para>The automatic dependency generator will create a dependency on the <command>/usr/bin/env</command> program, as expected.</para>
@@ -1063,7 +1063,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
              </listitem>
            </varlistentry>
            <varlistentry>
-             <term><code>/usr/bin/<replaceable>example</replaceable></code></term>
+             <term><code>#!/usr/bin/<replaceable>example</replaceable></code></term>
              <listitem>
              <para>This shebang specifies the direct path to the interpreter.</para>
              <para>The automatic dependency generator will create a dependency on the <filename>/usr/bin/example</filename> interpreter located outside the &DSCL; file system hierarchy. However, when building a package for your &DSCL;, you often want to create a dependency on the <filename>%{?_scl_root}/usr/bin/example</filename> interpreter located in the &DSCL; file system hierarchy.</para>
@@ -1083,9 +1083,9 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     	Keep in mind that the <command>yum remove</command> command does not uninstall directories provided by those &DSCL; packages and subpackages that are removed after the &DSCL; <package>runtime</package> subpackage is removed.
     </para>
     	<para>
-    		To ensure that all directories are uninstalled, make those packages and subpackages depend on the <package>runtime</package> subpackage. To do so, add the following line to the spec file of each of those packages and subpackages:
+    		To ensure that all directories are uninstalled, make those packages and subpackages depend on the <package>runtime</package> subpackage. To do so, add the following line with the <code>%scl_runtime</code> macro to the spec file of each of those packages and subpackages:
     	</para>
-    	<programlisting language="RPM Spec">%{?scl:Requires: %{scl}-runtime}</programlisting>
+    	<programlisting language="RPM Spec">%{?scl:Requires: %scl_runtime}</programlisting>
     	<para>
     		Adding the above line ensures that all directories provided by those packages and subpackages are removed correctly as long as the <package>runtime</package> subpackage does not depend on any of those packages and subpackages.
     	</para>
