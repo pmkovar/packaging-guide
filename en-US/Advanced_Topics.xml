@@ -3,162 +3,15 @@
 <chapter id="chap-Advanced_Topics">
   <title>Advanced Topics</title>
   <para>This chapter discusses advanced topics on packaging &DSCL;s.</para>
-  <section id="sect-Software_Collection_Automatic_Provides_Requires_Filtering_Support">
-    <title>&DSCL; Automatic Provides and Requires and Filtering Support</title>
-    <!--para>
-      Because the scripts generating automatic <code>Provides</code> and <code>Requires</code> do not have specific support for &DSCL;s, you have to remove them and use manually specified <code>Provides</code> and <code>Requires</code> instead.
-    </para>
-    <section id="">
-      <title>Automatic Provides </title>
-      <para>
-        To remove the automatic <code>Provides</code>, add the following line to your &DSCL; spec file:
-      </para>
-    </section>
-    <section id="">
-      <title>Automatic Requires </title>
-    </section-->
-    <important>
-      <para>
-        The functionality described in this section is not available in Enterprise Linux 6.
-      </para>
-    </important>
-    <para>
-      RPM in Enterprise Linux 7 features support for automatic <code>Provides</code> and <code>Requires</code> and filtering. For example, for all Python libraries, RPM automatically adds the following <code>Requires</code>:
-    </para>
-    <programlisting language="RPM Spec">Requires: python(abi) = (version)</programlisting>
-    <para>
-      As explained in <xref linkend="sect-Converting_a_Conventional_Spec_File" />, you should prefix this <code>Requires</code> with <code language="RPM Spec">%{?scl_prefix}</code> when converting your conventional RPM package:
-    </para>
-    <programlisting language="RPM Spec">Requires: %{?scl_prefix}python(abi) = (version))</programlisting>
-    <para>
-      Keep in mind that the scripts searching for these dependencies must sometimes be rewritten for your &DSCL;, as the original RPM scripts are not extensible enough, and, in some cases, filtering is not usable. For example, to rewrite automatic Python <code>Provides</code> and <code>Requires</code>, add the following lines in the <filename>macros.%{scl}-config</filename> macro file:
-    </para>
-    <programlisting language="RPM Spec">%__python_provides /usr/lib/rpm/pythondeps-scl.sh --provides %{_scl_root} %{scl_prefix}
-%__python_requires /usr/lib/rpm/pythondeps-scl.sh --requires %{_scl_root} %{scl_prefix}</programlisting>
-    <para>
-      The <filename>/usr/lib/rpm/pythondeps-scl.sh</filename> file is based on a <filename>pythondeps.sh</filename> file from the conventional package and adjusts search paths.
-    </para>
-    <para>
-      If there are <code>Provides</code> or <code>Requires</code> that you need to adjust, for example, a <systemitem>pkg_config</systemitem> <code>Provides</code>, there are two ways to do it:
-    </para>
-    <itemizedlist>
-      <listitem>
-        <para>
-          Add the following lines in the <filename>macros.%{scl}-config</filename> macro file so that it applies to all packages in the &DSCL;:
-        </para>
-        <programlisting language="RPM Spec">%_use_internal_dependency_generator 0
-%__deploop() while read FILE; do /usr/lib/rpm/rpmdeps -%{1} ${FILE}; done | /bin/sort -u
-%__find_provides /bin/sh -c "%{?__filter_prov_cmd} %{__deploop P} %{?__filter_from_prov}"
-%__find_requires /bin/sh -c "%{?__filter_req_cmd}  %{__deploop R} %{?__filter_from_req}"
-
-# Handle pkgconfig's virtual Provides and Requires
-%__filter_from_req | %{__sed} -e 's|pkgconfig|%{?scl_prefix}pkgconfig|g'
-%__filter_from_prov | %{__sed} -e 's|pkgconfig|%{?scl_prefix}pkgconfig|g'</programlisting>
-      </listitem>
-      <listitem>
-        <para>
-          Or, alternatively, add the following lines after tag definitions in every spec file for which you want to filter <code>Provides</code> or <code>Requires</code>: 
-        </para>
-        <programlisting language="RPM Spec">%{?scl:%filter_from_provides s|pkgconfig|%{?scl_prefix}pkgconfig|g}
-%{?scl:%filter_from_requires s|pkgconfig|%{?scl_prefix}pkgconfig|g}
-%{?scl:%filter_setup}</programlisting>
-      </listitem>
-    </itemizedlist>
-    <important>
-      <para>
-        When using filters, you need to pay attention to the automatic dependencies you change. For example, if the conventional package contains <code language="RPM Spec">Requires: pkgconfig(package_1)</code> and <code language="RPM Spec">Requires: pkgconfig(package_2)</code>, and only <package>package_2</package> is included in the &DSCL;, ensure that you do not filter the <code>Requires</code> tag for <package>package_1</package>.
-      </para>
-    </important>
-  </section>
-  <section id="sect-Software_Collection_Macro_Files_Support">
-  <title>&DSCL; Macro Files Support</title>
-  <para>
-    In some cases, you may need to ship macro files with your &DSCL; packages. They are located in the <code language="RPM Spec">%{?scl:%{_root_sysconfdir}}%{!?scl:%{_sysconfdir}}/rpm/</code> directory, which corresponds to the <filename>/etc/rpm/</filename> directory for conventional packages. When shipping macro files, ensure that:
-      </para>
-      <itemizedlist>
-        <listitem>
-          <para>
-            You rename the macro files by appending <filename>.%{scl}</filename> to their names so that they do not conflict with the files from the base system installation.
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            The macros in the macro files are either not expanded, or they are using conditionals, as in the following example:
-          </para>
-          <programlisting language="RPM Spec">%__python2 %{_bindir}/python
-%python2_sitelib %(%{?scl:scl enable %scl '}%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"%{?scl:'})</programlisting>
-        </listitem>
-      </itemizedlist>
-      <para>
-        As another example, there may be a situation where you need to create a &DSCL; <package>mypython</package> that depends on a &DSCL; <package>python26</package>. The <package>python26</package> &DSCL; defines the <code language="RPM Spec">%{__python2}</code> macro as in the above sample. This macro will evaluate to <filename>/&OPT;/&RH;/mypython/root/usr/bin/python2</filename>, but the <filename>python2</filename> binary is only available in the <package>python26</package> &DSCL; (<filename>/&OPT;/&RH;/python26/root/usr/bin/python2</filename>).
-      </para>
-      <para>
-      To be able to build software in the <package>mypython</package> &DSCL; environment, ensure that:
-      </para>
-      <itemizedlist>
-        <listitem>
-          <para>
-            The <filename>macros.python.python26</filename> macro file, which is a part of the <package>python26-python-devel</package> package, contains the following line:
-          </para>
-          <programlisting language="RPM Spec">%__python26_python2 /&OPT;/&RH;/python26/root/usr/bin/python2</programlisting>
-        </listitem>
-        <listitem>
-          <para>
-            And the macro file in the python26-build subpackage, and also the <package>build</package> subpackage in any depending &DSCL;, contains the following line:
-          </para>
-          <programlisting language="RPM Spec">%scl_package_override() {%global __python2 %__python26_python2}
-</programlisting>
-        </listitem>
-      </itemizedlist>
-      <para>
-        This will redefine the <code language="RPM Spec">%{__python2}</code> macro only if the build subpackage from a corresponding &DSCL; is present, which usually means that you want to build software for that &DSCL;.
-      </para>
-  </section>
-  <section id="sect-Packaging_Wrappers_for_Software_Collections">
-    <title>Packaging Wrappers for &DSCL;s</title>
-    <para>
-      Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
-     <para>The following is an example of a wrapper from a Ruby-based &DSCL; named <package>rubyscl</package> that is installed as <filename>/usr/bin/rubyscl-ruby</filename> and allows the user to run <command>rubyscl-ruby <replaceable>command</replaceable></command> instead of <command>scl enable rubyscl 'ruby <replaceable>command</replaceable>'</command>:
-    </para>
-    <programlisting language="Bash">#!/bin/bash
-
-COMMAND="ruby $@"
-scl enable rubyscl "$COMMAND"
-</programlisting>
-<para>
-  It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
-</para>
-  </section>
-  <section id="sect-Converting_Software_Collection_Scriptlets_into_Environment_Modules">
-    <title>Converting &DSCL; Scriptlets into Environment Modules</title>
-    <para>Environment modules allow you to manage, for example, different versions of applications by dynamically modifying your shell environment. To use your &DSCL; with the environment module system, convert the &DSCL;'s <filename>enable</filename> scriptlet into an environment module with a script <filename>/usr/share/Modules/bin/createmodule.sh</filename>.</para>
-    <procedure>
-      <title>Converting an enable scriptlet into an environment module</title>
-      <step>
-        <para>Ensure that an <package>environment-modules</package> package is installed on your system:</para>
-        <screen><computeroutput># </computeroutput><userinput>yum install environment-modules</userinput></screen>
-      </step>
-      <step>
-        <para>Run the <filename>/usr/share/Modules/bin/createmodule.sh</filename> script to convert your &DSCL;'s <filename>enable</filename> scriptlet into an environment module:</para>
-        <screen><command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command></screen>
-        <para>Replace <replaceable>/path/to/enable/scriptlet</replaceable> with the file path of the <filename>enable</filename> scriptlet you want to convert.</para>
-      </step>
-      <step>
-        <para>Add the same command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code> %pre</code> section of your &DSCL; metapackage, below the code generating your <filename>enable</filename> scriptlet.</para>
-        <para>In case you have the <filename>enable</filename> scriptlet packaged as a file in one of your &DSCL; packages, add the command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code>%post</code> section.</para>
-      </step>
-    </procedure>
-    <para>See the <emphasis role="bold">module</emphasis>(1) manual page for more information about environment modules.</para>
-  </section>
   <section id="sect-Using_Software_Collections_over_NFS">
     <title>Using &DSCL;s over NFS</title>
     <para>In some environments, the requirement is often to have a centralized model for how applications and tools are distributed rather than allowing users to install the application or tool version they prefer. In this way, NFS is the common method of mounting centrally managed software.</para>
-    <para>To use a &DSCL; over NFS, you need to define a &DSCL; macro <code>nfsmountable</code>. If you define the macro when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
-    <para>To build a &DSCL; with the <code>nfsmountable</code> macro defined, run the following command:</para>
-    <synopsis>
-      <command>rpmbuild -ba <replaceable>software_collection</replaceable>.spec --define 'scl <replaceable>software_collection</replaceable>' --define 'nfsmountable 1'</command>
-    </synopsis>
-    <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;. Defining the macro changes the values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros. The changed values are detailed in the following table.</para>
+    <para>You need to define a &DSCL; macro <code>nfsmountable</code> to use a &DSCL; over NFS. If the macro is defined when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
+    <para>To define the <code>nfsmountable</code> macro, ensure that the &DSCL; metapackage spec file contains the following lines:</para>
+    <programlisting language="RPM Spec">%global nfsmountable 1
+
+%scl_package %scl</programlisting>
+    <para>As shown above, the <code>nfsmountable</code> macro must be defined before defining the <code>%scl_package</code> macro. This is because the <code>%scl_package</code> macro redefines the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros depending on whether the <code>nfsmountable</code> macro has been defined or not. The values that <code>nfsmountable</code> changes for the redefined macros are detailed in the following table.</para>
         <table>
         <title>Changed Values for &DSCL; Macros</title>
         <tgroup cols="5">
@@ -195,10 +48,10 @@ scl enable rubyscl "$COMMAND"
                 <para>/&OPT;/&RH;/%{scl}/root/etc</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_root_sysconfdir}%{_scl_prefix}/scls/%{scl}</para>
+                <para>%{_root_sysconfdir}%{_scl_prefix}/%{scl}</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>/etc/&OPT;/&RH;/scls/%{scl}</para>
+                <para>/etc/&OPT;/&RH;/%{scl}</para>
               </entry>
             </row>
             <row rowsep="1">
@@ -214,10 +67,10 @@ scl enable rubyscl "$COMMAND"
                 <para>/&OPT;/&RH;/%{scl}/root/var/lib</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_root_localstatedir}%{_scl_prefix}/scls/%{scl}/lib</para>
+                <para>%{_root_localstatedir}%{_scl_prefix}/%{scl}/lib</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>/var/&OPT;/&RH;/scls/%{scl}/lib</para>
+                <para>/var/&OPT;/&RH;/%{scl}/lib</para>
               </entry>
             </row>
             <row rowsep="1">
@@ -233,36 +86,35 @@ scl enable rubyscl "$COMMAND"
                 <para>/&OPT;/&RH;/%{scl}/root/var</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>%{_root_localstatedir}%{_scl_prefix}/scls/%{scl}</para>
+                <para>%{_root_localstatedir}%{_scl_prefix}/%{scl}</para>
               </entry>
               <entry colsep="1" rowsep="1">
-                <para>/var/&OPT;/&RH;/scls/%{scl}</para>
+                <para>/var/&OPT;/&RH;/%{scl}</para>
               </entry>
             </row>
           </tbody>
         </tgroup>
       </table>
-      <para>Note that the expanded values for the changed definitions contain a <filename>/scls</filename> directory in their paths.</para>
       <section id="sect-Changed_Directory_Structure_and_File_Ownership">
       <title>Changed Directory Structure and File Ownership</title>
       <para>The <code>nfsmountable</code> macro also has an impact on how the <code>scl_install</code> and <code>scl_files</code> macros create a directory structure and set the file ownership when you run the <command>rpmbuild</command> command.</para>
-      <para>For example, a directory structure of a &DSCL; named <application>software_collection</application> looks as follows:</para>
-      <screen><computeroutput>$ </computeroutput><userinput>rpmbuild -ba software_collection.spec --define 'scl software_collection' --define 'nfsmountable 1'</userinput>
+      <para>For example, a directory structure of a &DSCL; named <application>software_collection</application> with the <code>nfsmountable</code> macro defined looks as follows:</para>
+      <screen><computeroutput>$ </computeroutput><userinput>rpmbuild -ba software_collection.spec --define 'scl software_collection'</userinput>
 ...
 <computeroutput>$ </computeroutput><userinput>rpm -qlp software_collection-runtime-1-1.&PKGOS;.x86_64</userinput>
-/etc/&OPT;/&RH;/scls/software_collection
-/etc/&OPT;/&RH;/scls/software_collection/X11
-/etc/&OPT;/&RH;/scls/software_collection/X11/applnk
-/etc/&OPT;/&RH;/scls/software_collection/X11/fontpath.d
+/etc/&OPT;/&RH;/software_collection
+/etc/&OPT;/&RH;/software_collection/X11
+/etc/&OPT;/&RH;/software_collection/X11/applnk
+/etc/&OPT;/&RH;/software_collection/X11/fontpath.d
 ...
 /&OPT;/&RH;/software_collection/root/usr/src
 /&OPT;/&RH;/software_collection/root/usr/src/debug
 /&OPT;/&RH;/software_collection/root/usr/src/kernels
 /&OPT;/&RH;/software_collection/root/usr/tmp
-/var/&OPT;/&RH;/scls/software_collection
-/var/&OPT;/&RH;/scls/software_collection/cache
-/var/&OPT;/&RH;/scls/software_collection/db
-/var/&OPT;/&RH;/scls/software_collection/empty
+/var/&OPT;/&RH;/software_collection
+/var/&OPT;/&RH;/software_collection/cache
+/var/&OPT;/&RH;/software_collection/db
+/var/&OPT;/&RH;/software_collection/empty
 ...</screen>
       </section>
       <section id="sect-Registering_and_Deregistering_Software_Collections">
@@ -304,6 +156,42 @@ EOF
           <para>In the register scriptlet, you can optionally specify the commands you want to run when registering the &DSCL;, for example, commands to create files in <filename>/etc/opt/</filename> or <filename>/var/opt/</filename>.</para>
         </section>
       </section>
+  </section>
+  <section id="sect-Converting_Software_Collection_Scriptlets_into_Environment_Modules">
+    <title>Converting &DSCL; Scriptlets into Environment Modules</title>
+    <para>Environment modules allow you to manage, for example, different versions of applications by dynamically modifying your shell environment. To use your &DSCL; with the environment module system, convert the &DSCL;'s <filename>enable</filename> scriptlet into an environment module with a script <filename>/usr/share/Modules/bin/createmodule.sh</filename>.</para>
+    <procedure>
+      <title>Converting an enable scriptlet into an environment module</title>
+      <step>
+        <para>Ensure that an <package>environment-modules</package> package is installed on your system:</para>
+        <screen><computeroutput># </computeroutput><userinput>yum install environment-modules</userinput></screen>
+      </step>
+      <step>
+        <para>Run the <filename>/usr/share/Modules/bin/createmodule.sh</filename> script to convert your &DSCL;'s <filename>enable</filename> scriptlet into an environment module:</para>
+        <screen><command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command></screen>
+        <para>Replace <replaceable>/path/to/enable/scriptlet</replaceable> with the file path of the <filename>enable</filename> scriptlet you want to convert.</para>
+      </step>
+      <step>
+        <para>Add the same command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code> %pre</code> section of your &DSCL; metapackage, below the code generating your <filename>enable</filename> scriptlet.</para>
+        <para>In case you have the <filename>enable</filename> scriptlet packaged as a file in one of your &DSCL; packages, add the command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code>%post</code> section.</para>
+      </step>
+    </procedure>
+    <para>See the <emphasis role="bold">module</emphasis>(1) manual page for more information about environment modules.</para>
+  </section>
+  <section id="sect-Packaging_Wrappers_for_Software_Collections">
+    <title>Packaging Wrappers for &DSCL;s</title>
+    <para>
+      Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
+     <para>The following is an example of a wrapper from a Ruby-based &DSCL; named <package>rubyscl</package> that is installed as <filename>/usr/bin/rubyscl-ruby</filename> and allows the user to run <command>rubyscl-ruby <replaceable>command</replaceable></command> instead of <command>scl enable rubyscl 'ruby <replaceable>command</replaceable>'</command>:
+    </para>
+    <programlisting language="Bash">#!/bin/bash
+
+COMMAND="ruby $@"
+scl enable rubyscl "$COMMAND"
+</programlisting>
+<para>
+  It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
+</para>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>Managing Services in &DSCL;s</title>
@@ -367,7 +255,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replac
       <step>
         <para>In the systemd service file, prefix all commands specified in <option>ExecStartPre</option>, <option>ExecStart</option>, and similar directives with <command>scl enable $[SCLNAME]_SCLS_ENABLED</command>, similarly to when you run a command in the &DSCL; environment:</para>
         <programlisting>ExecStartPre=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_collection/root/usr/bin/daemon_helper_binary --argument-1 --argument-2
-ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /opt/provider/software_collection/root/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
+ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_collection/root/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
       </step>
     </procedure>
   </section>
@@ -556,8 +444,11 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
   </section>
   <section id="sect-Software_Collection_Log_File_Support">
     <title>&DSCL; Log File Support</title>
-    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/root/var/log/</filename> directory. To make the log files more accessible and easier to manage, consider creating the log files outside of the &DSCL;'s file system hierarchy.</para>
-    <para>By using a &DSCL; macro <code>nfsmountable</code>, you can configure the &DSCL; to create the log files underneath the <filename>/var/opt/</filename> directory. For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+    <para>By default, programs packaged in a &DSCL; create log files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/root/var/log/</filename> directory.</para>
+    <para>To make log files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in log files being created underneath the <filename>/var/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/log/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>For example, a service <replaceable>mydaemon</replaceable> normally stores its log file in <filename>/var/log/mydaemon/mydaemond.log</filename> in the base system installation. When <replaceable>mydaemon</replaceable> is packaged as a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the log file in <replaceable>software_collection</replaceable> is as follows:</para>
+    <screen><filename>/var/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/log/<replaceable>mydaemon</replaceable>/<replaceable>mydaemond.log</replaceable></filename></screen>
+    <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_logrotate_Support">
     <title>&DSCL; logrotate Support</title>
@@ -590,16 +481,36 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
       </step>
     </procedure>
   </section>
+  <section id="sect-Software_Collection_varrun_Files_Support">
+    <title>&DSCL; /var/run/ Files Support</title>
+    <para>PID files are one example of files usually located underneath the <filename>/var/run/<replaceable>package_name</replaceable>/</filename> directory. When packaging PID files into your &DSCL;, you are advised to use the <code>nfsmountable</code> macro and store the PID files in the following directory:</para>
+    <screen><filename>/var/run/<replaceable>software_collection</replaceable>-<replaceable>package_name</replaceable>/</filename></screen>
+    <para>where <replaceable>software_collection</replaceable> is the name of your &DSCL; and <replaceable>package_name</replaceable> is the name of the package included in your &DSCL;.</para>
+    <para>Following this naming convention avoids file conflicts with the base system installation, while it makes it possible for your &DSCL; to use <filename>/var/run/</filename> features, for example the <systemitem>tmpfs</systemitem> file system for PID files.</para>
+    <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+  </section>
   <section id="sect-Software_Collection_Lock_File_Support">
     <title>&DSCL; Lock File Support</title>
-    <para>If you store your &DSCL;'s lock files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the applications or services that can be on the system.</para>
-    <para>If you want to prevent &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename> instead of the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
-    <para>If you want your &DSCL;'s version of the application or service to run concurrently with the system version (when the &DSCL; version's resources will not conflict with the system version's resources), ensure that the applications or services write the lock to the &DSCL;'s directory <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/var/lock/</filename>.</para>
+    <para>By default, programs packaged into a &DSCL; create lock files in the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/root/var/lock/</filename> directory.</para>
+    <para>To make lock files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_localstatedir</code> macro. This results in lock files being created underneath the <filename>/var/opt/<replaceable>&RH;</replaceable>/%{scl}/lock/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>If applications or services packaged into your &DSCL; write the lock underneath the <filename>/var/opt/<replaceable>&RH;</replaceable>/%{scl}/lock/</filename> directory, then those applications and services can run concurrently with the system versions (when the resources of your &DSCL;'s applications and services will not conflict with the system versions' resources).</para>
+    <para>For example, a lock file <filename>mylockfile.lock</filename> is normally created in the <filename>/var/lock/</filename> directory in the base system installation. If the lock file is a part of a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the lock file in <replaceable>software_collection</replaceable> is as follows:</para>
+    <screen><filename>/var/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/lock/<replaceable>mylockfile.lock</replaceable></filename></screen>
+    <para>For more information on using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+    <bridgehead id="bg-Preventing_Programs_from_Running_Concurrently">Preventing Programs from Running Concurrently</bridgehead>
+    <para>If you want to prevent your &DSCL;'s applications or services from running while the system version of the respective application or service is running, make sure that your applications or services, which require a lock, write the lock to the system directory <filename>/var/lock/</filename>. In this way, your applications or services' lock file will not be overwritten. The lock file will not be renamed and the name stays the same as the system version.</para>
+  <section id="Software_Collection_SysV_init_Lock_File_Support">
+    <title>&DSCL; SysV init Lock File Support</title>
+    <para>When a service is started by an init script, a lock file is touched in the <filename>/var/lock/subsys/</filename> directory with the same name as the init script. As discussed in <xref linkend="sect-Software_Collection_Initscript_Support" />, service names include a &DSCL; prefix. Use the same naming convention for files underneath <filename>/var/lock/subsys/</filename> to ensure that the lock file names do not conflict with the base system installation.</para>
+  </section>
   </section>
   <section id="sect-Software_Collection_Configuration_Files_Support">
     <title>&DSCL; Configuration Files Support</title>
-    <para>If you store your &DSCL;'s configuration files within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename> file system hierarchy, you can avoid any possible conflicts with the system versions of the configuration files that can be present on the system.</para>
-    <para>If you cannot store the configuration files within <filename>/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/</filename>, then ensure that you properly configure an alternative location for the configuration files. For many programs, this can be usually done at build or installation time.</para>
+    <para>By default, configuration files in a &DSCL; are stored within the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>To make configuration files more accessible and easier to manage, you are advised to use the <code>nfsmountable</code> macro that redefines the <code>_sysconfdir</code> macro. This results in configuration files being created underneath the <filename>/etc/&OPT;/<replaceable>&RH;</replaceable>/%{scl}/</filename> directory, outside of the <filename>/&OPT;/<replaceable>&RH;</replaceable>/%{scl}</filename> file system hierarchy.</para>
+    <para>For example, a configuration file <replaceable>example.conf</replaceable> is normally stored in the <filename>/etc</filename> directory in the base system installation. If the configuration file is a part of a <replaceable>software_collection</replaceable> &DSCL; and the <code>nfsmountable</code> macro is defined, the path to the configuration file in <replaceable>software_collection</replaceable> is as follows:</para>
+    <screen><filename>/etc/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection</replaceable>/<replaceable>example.conf</replaceable></filename></screen>
+    <para>For more information about using the <code>nfsmountable</code> macro, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
   </section>
   <section id="sect-Software_Collection_Kernel_Module_Support">
     <title>&DSCL; Kernel Module Support</title>

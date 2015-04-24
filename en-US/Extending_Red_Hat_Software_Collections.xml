@@ -6,7 +6,7 @@
   <section id="sect-Providing_an_scldevel_Subpackage">
     <title>Providing an scldevel Subpackage</title>
     <para>The purpose of an <package>scldevel</package> subpackage is to make the process of creating dependent &DSCL;s easier by providing a number of generic macro files. Packagers then use these macro files when they are extending existing &DSCL;s. <package>scldevel</package> is provided as a subpackage of your &DSCL;'s metapackage.</para>
-    <para>The following section describes creating an <package>scldevel</package> subpackage for Ruby-based &DSCL;s, ruby193 and ruby200.</para>
+    <para>The following section describes creating an <package>scldevel</package> subpackage for two examples of Ruby &DSCL;s, ruby193 and ruby200.</para>
     <procedure>
     <title>Providing your own scldevel subpackage</title>
       <step>
@@ -26,12 +26,12 @@ packages depending on %scl Software Collection.</programlisting>
 %%scl_%{scl_name_base} %{scl}
 %%scl_prefix_%{scl_name_base} %{scl_prefix}
 EOF]]></programlisting>
-    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the <code>%{scl_name_base}</code> &DSCL;s. For example, in the <literal>ruby193</literal> &DSCL;, the <package>ruby193-scldevel</package> subpackage cannot be installed when there is the <package>ruby200-scldevel</package> subpackage installed.</para>
+    <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the <code>%{scl_name_base}</code> &DSCL;s. For example, the <package>ruby193-scldevel</package> subpackage cannot be installed when there is the <package>ruby200-scldevel</package> subpackage installed.</para>
       </step>
     </procedure>
     <section id="sect-Using_an_scldevel_Subpackage_in_a_Dependent_Software_Collection">
     <title>Using an scldevel Subpackage in a Dependent &DSCL;</title>
-    <para>To use your <package>scldevel</package> subpackage in a &DSCL; that depends on a &DSCL; ruby200, update the metapackage of the dependent &DSCL; as described below.</para>
+    <para>To use your <package>scldevel</package> subpackage in a &DSCL; that depends on the ruby200 &DSCL;, update the metapackage of the dependent &DSCL; as described below.</para>
     <procedure>
     <title>Using your own scldevel subpackage in a dependent &DSCL;</title>
     <step>
