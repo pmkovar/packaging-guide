@@ -6,7 +6,8 @@
   <section id="sect-Using_Software_Collections_over_NFS">
     <title>Using &DSCL;s over NFS</title>
     <para>In some environments, the requirement is often to have a centralized model for how applications and tools are distributed rather than allowing users to install the application or tool version they prefer. In this way, NFS is the common method of mounting centrally managed software.</para>
-    <para>You need to define a &DSCL; macro <code>nfsmountable</code> to use a &DSCL; over NFS. If the macro is defined when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only.</para>
+    <para>You need to define a &DSCL; macro <code>nfsmountable</code> to use a &DSCL; over NFS. If the macro is defined when building a &DSCL;, the resulting &DSCL; has its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This enables you to mount the <filename>/opt</filename> file system hierarchy over NFS as read-only. It also makes state files and configuration files easier to manage.</para>
+    <para>If you do not need support for &DSCL;s over NFS, using <code>nfsmountable</code> is optional but recommended.</para>
     <para>To define the <code>nfsmountable</code> macro, ensure that the &DSCL; metapackage spec file contains the following lines:</para>
     <programlisting language="RPM Spec">%global nfsmountable 1
 

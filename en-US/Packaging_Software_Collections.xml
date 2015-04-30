@@ -243,6 +243,9 @@
 		 		This is because the <command>%setup</command> macro defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your &DSCL; packages, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
 		 	</para>
 	</listitem>
+	<listitem>
+	  <para>You are advised to define a &DSCL; macro <code>nfsmountable</code> that changes the location of configuration and state files and makes your &DSCL; usable over NFS. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+	</listitem>
 </itemizedlist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Metapackage</bridgehead>
 <para>To get an idea of what a typical metapackage for a &DSCL; named <replaceable>myorganization-ruby193</replaceable> looks like, see the following example:</para>
@@ -251,6 +254,10 @@
 %global scl_name_version 193
 
 %global scl %{scl_name_prefix}%{scl_name_base}%{scl_name_version}
+
+# Optional but recommended: define nfsmountable
+​%global nfsmountable 1
+
 %scl_package %scl
 %global _scl_prefix /opt/myorganization
 
@@ -764,7 +771,8 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
     </section>
     <section id="sect-The_nfsmountable_Macro">
       <title>The nfsmountable Macro</title>
-      <para>Using a &DSCL; macro <code>nfsmountable</code> allows you to change values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros so that your &DSCL; can have its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This is useful when using your &DSCL; over NFS. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+      <para>Using a &DSCL; macro <code>nfsmountable</code> allows you to change values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros so that your &DSCL; can have its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This makes the files easier to manage and is also required when using your &DSCL; over NFS.</para>
+      <para>If you do not need support for &DSCL;s over NFS, using <code>nfsmountable</code> is optional but recommended. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
     </section>
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
