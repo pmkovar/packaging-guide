@@ -164,7 +164,7 @@
       <para>The metapackage produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
         <varlistentry>
-          <term>The main package: %scl</term>
+          <term>The main package: <replaceable>%scl</replaceable></term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
             <para>When specifying dependencies for your &DSCL;'s packages, ensure that no other package in your &DSCL; depends on the main package. The purpose of the main package is to install only those packages that are essential for the user to perform most common tasks with the &DSCL;.</para>
@@ -174,7 +174,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
+          <term>The runtime subpackage: <replaceable>%scl</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets. This package needs to be installed for the user to be able to use the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
@@ -182,7 +182,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The build subpackage: <replaceable>name</replaceable>-build</term>
+          <term>The build subpackage: <replaceable>%scl</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. It contains RPM macros needed for building packages into the &DSCL;. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the build subpackage macro is expanded to:</para>
@@ -193,7 +193,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The scldevel subpackage: <replaceable>name</replaceable>-scldevel</term>
+          <term>The scldevel subpackage: <replaceable>%scl</replaceable>-scldevel</term>
           <listitem>
             <para>The scldevel subpackage in the %scl &DSCL; contains development files, which are useful when developing packages of another &DSCL; that depends on the %scl &DSCL;. The scldevel subpackage is optional and can be excluded from the %scl &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the scldevel subpackage macro is expanded to:</para>
@@ -256,7 +256,7 @@
 %global scl %{scl_name_prefix}%{scl_name_base}%{scl_name_version}
 
 # Optional but recommended: define nfsmountable
-​%global nfsmountable 1
+%global nfsmountable 1
 
 %scl_package %scl
 %global _scl_prefix /opt/myorganization
