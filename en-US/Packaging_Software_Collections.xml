@@ -1114,6 +1114,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
   </section>
   <section id="sect-Building_a_Software_Collection_Locally">
     <title>Building a &DSCL;</title>
+    <para>If you have correctly converted a conventional spec file for your &DSCL; as documented in <xref linkend="sect-Converting_a_Conventional_Spec_File" />, you will be able to build the resulting package in both the &DSCL; and conventional build roots. Building the converted package in a conventional build root will produce a conventional base system RPM package, while building in a &DSCL; build root that contains <package>%{scl}-build</package> will produce a &DSCL; package.</para>
     <para>To build a &DSCL; on your system, run the following command:</para>
     <synopsis>
       <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
@@ -1125,7 +1126,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;.</para>
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
     <title>Rebuilding a &DSCL; without build Subpackages</title>
-    <para>When you want to rebuild a &DSCL; that comes with no build subpackages (<package>software_collection-build</package>), you can create the build subpackages by rebuilding the &DSCL; metapackage, and thus avoid using the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command.</para>
+    <para>When you want to rebuild a &DSCL; that comes with no build subpackage (<package><replaceable>software_collection</replaceable>-build</package>), you can create the build subpackage by rebuilding the &DSCL; metapackage, and thus avoid using the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command.</para>
     <para>Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.</para>
     <para>For more information about the <package>scl-utils-build</package> package, see <xref linkend="sect-Enabling_Support_for_Software_Collections" />.</para>
   </section>
@@ -1134,7 +1135,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     <para>When you build two &DSCL; packages (or a conventional RPM package and a &DSCL; package) that specify the same <code>Source</code> tag, and thus unpack source files into the same directory underneath the <filename>%_builddir</filename> directory, their <filename>debuginfo</filename> packages will have file conflicts. Due to these conflicts, the user will be unable to install both packages on the same system at the same time.</para>
     <para>To avoid these file conflicts, the spec file of one of the packages has to be altered to unpack its upstream source into a uniquely named top directory. This adds one more directory level to the build tree underneath the <filename>%_builddir</filename> directory. By doing so, the <filename>debuginfo</filename> package generation script produces <filename>debuginfo</filename> files that do not conflict with files from the other <filename>debuginfo</filename> package.</para>
     <para>To see what the diff file comparing an original spec file with an altered spec file looks like, refer to the following example:</para>
-    <programlisting language="RPM Spec"><![CDATA[--- a/tbb.spec
+    <programlisting language="Diff"><![CDATA[--- a/tbb.spec
 +++ b/tbb.spec
 @@ -66,11 +66,13 @@ PDF documentation for the user of the Threading Building Block (TBB)
  C++ library.
