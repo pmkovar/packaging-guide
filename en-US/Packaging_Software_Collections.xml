@@ -213,13 +213,13 @@
 	  <para>It is recommended to define the following macros at the top of the metapackage spec file:</para>
 	  <itemizedlist>
 	  <listitem>
-	    <para><code>scl_name_prefix</code> that specifies the provider's name to be used as a prefix in your &DSCL;'s name (for example, <replaceable>myorganization</replaceable>-); this is different from <code>_scl_prefix</code>, which specifies the root of your &DSCL; but also uses the provider's name,</para>
+	    <para><code>scl_name_prefix</code> that specifies the provider's name to be used as a prefix in your &DSCL;'s name, for example, <replaceable>myorganization</replaceable>-. This is different from <code>_scl_prefix</code>, which specifies the root of your &DSCL; but also uses the provider's name. See <xref linkend="sect-The_Software_Collections_Prefix" /> for more information.</para>
 	  </listitem>
 	  <listitem>
-	    <para><code>scl_name_base</code> that specifies the base name of your &DSCL; (for example, <replaceable>ruby</replaceable>),</para>
+	    <para><code>scl_name_base</code> that specifies the base name of your &DSCL;, for example, <replaceable>ruby</replaceable>.</para>
 	  </listitem>
 	  <listitem>
-	    <para><code>scl_name_version</code> that specifies the version of your &DSCL; (for example, <replaceable>193</replaceable>).</para>
+	    <para><code>scl_name_version</code> that specifies the version of your &DSCL;, for example, <replaceable>193</replaceable>.</para>
 	  </listitem>
 	  </itemizedlist>
 	</listitem>
