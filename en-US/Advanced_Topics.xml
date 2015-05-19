@@ -150,7 +150,7 @@ cat >> %{buildroot}%{_scl_scripts}/deregister << EOF
 ...
 EOF
 ...
-%files runtime
+%files runtime -f filelist
 %scl_files
 %{_scl_scripts}/register
 %{_scl_scripts}/deregister]]></programlisting>
@@ -617,7 +617,7 @@ fi
     <para>
       Ensure that the <code language="RPM Spec">%files</code> section for the <package>runtime</package> subpackage of the &DSCL; metapackage contains the following lines:
     </para>
-    <programlisting language="RPM Spec">%files runtime -f filesystem
+    <programlisting language="RPM Spec">%files runtime -f filelist
 %defattr(-,root,root,-)
 %scl_files
 %attr(0644,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) %{_sysconfdir}/selinux-equiv.created

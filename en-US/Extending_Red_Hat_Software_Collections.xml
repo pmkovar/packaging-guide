@@ -223,7 +223,7 @@ EOF
 
 %files
 
-%files runtime]]><!--FIXME:BZ#1072319 -f filesystem--><![CDATA[
+%files runtime -f filelist
 %scl_files
 %vt191_sitelib
 
@@ -773,7 +773,7 @@ EOF
 
 %files
 
-%files runtime
+%files runtime -f filelist
 %scl_files
 
 %files build
