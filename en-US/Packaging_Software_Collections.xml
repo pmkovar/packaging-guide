@@ -120,7 +120,9 @@
 	<programlisting>myorganization-ruby193</programlisting>
 	<para>In this example, <replaceable>myorganization</replaceable> is the provider's name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
 	</para>
-	<para>While it is ultimately a vendor's or distributor's decision whether to specify the provider's name in the prefix or not, specifying it is highly recommended. A notable exception are &DSCL;s provided by Red Hat, they do not specify the provider's name in their prefixes.</para>
+	<para>While it is ultimately a vendor's or distributor's decision whether to specify the provider's name in the prefix or not, specifying it is highly recommended.</para>
+	<para>A notable exception are &DSCL;s which were first shipped with Red Hat Software Collections 1.x, they do not specify the provider's name in their prefixes. Newer &DSCL;s added in Red Hat Software Collections 2.0 and later use <literal>rh</literal> as the provider's name. For example:</para>
+	<programlisting>rh-ruby22</programlisting>
 	</section>
 	<section id="sect-Software_Collection_Package_Names">
 		<title>&DSCL; Package Names</title>
@@ -164,7 +166,7 @@
       <para>The metapackage produces the following packages that are also part of the &DSCL;:</para>
       <variablelist>
         <varlistentry>
-          <term>The main package: %scl</term>
+          <term>The main package: <replaceable>%name</replaceable></term>
           <listitem>
             <para>The main package in the &DSCL; contains dependencies of the base packages, which are included in the &DSCL;. The main package does not contain any files.</para>
             <para>When specifying dependencies for your &DSCL;'s packages, ensure that no other package in your &DSCL; depends on the main package. The purpose of the main package is to install only those packages that are essential for the user to perform most common tasks with the &DSCL;.</para>
@@ -174,7 +176,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The runtime subpackage: <replaceable>name</replaceable>-runtime</term>
+          <term>The runtime subpackage: <replaceable>%name</replaceable>-runtime</term>
           <listitem>
             <para>The runtime subpackage in the &DSCL; owns the &DSCL;'s file system and delivers the &DSCL;'s scriptlets. This package needs to be installed for the user to be able to use the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the runtime subpackage macro is expanded to:</para>
@@ -182,7 +184,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The build subpackage: <replaceable>name</replaceable>-build</term>
+          <term>The build subpackage: <replaceable>%name</replaceable>-build</term>
           <listitem>
             <para>The build subpackage in the &DSCL; delivers the &DSCL;'s build configuration. It contains RPM macros needed for building packages into the &DSCL;. The build subpackage is optional and can be excluded from the &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the build subpackage macro is expanded to:</para>
@@ -193,9 +195,9 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>The scldevel subpackage: <replaceable>name</replaceable>-scldevel</term>
+          <term>The scldevel subpackage: <replaceable>%name</replaceable>-scldevel</term>
           <listitem>
-            <para>The scldevel subpackage in the %scl &DSCL; contains development files, which are useful when developing packages of another &DSCL; that depends on the %scl &DSCL;. The scldevel subpackage is optional and can be excluded from the %scl &DSCL;.</para>
+            <para>The scldevel subpackage in the %name &DSCL; contains development files, which are useful when developing packages of another &DSCL; that depends on the %name &DSCL;. The scldevel subpackage is optional and can be excluded from the %name &DSCL;.</para>
             <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the scldevel subpackage macro is expanded to:</para>
             <programlisting>myorganization-ruby193-scldevel</programlisting>
             <para>For more information about the scldevel subpackage, see <xref linkend="sect-Providing_an_scldevel_Subpackage" />.</para>
@@ -208,23 +210,35 @@
 <itemizedlist>
 	<title>When creating a new metapackage:</title>
 	<listitem>
+	  <para>It is recommended to define the following macros at the top of the metapackage spec file:</para>
+	  <itemizedlist>
+	  <listitem>
+	    <para><code>scl_name_prefix</code> that specifies the provider's name to be used as a prefix in your &DSCL;'s name, for example, <replaceable>myorganization</replaceable>-. This is different from <code>_scl_prefix</code>, which specifies the root of your &DSCL; but also uses the provider's name. See <xref linkend="sect-The_Software_Collections_Prefix" /> for more information.</para>
+	  </listitem>
+	  <listitem>
+	    <para><code>scl_name_base</code> that specifies the base name of your &DSCL;, for example, <replaceable>ruby</replaceable>.</para>
+	  </listitem>
+	  <listitem>
+	    <para><code>scl_name_version</code> that specifies the version of your &DSCL;, for example, <replaceable>193</replaceable>.</para>
+	  </listitem>
+	  </itemizedlist>
+	</listitem>
+	<listitem>
+	  <para>You are advised to define a &DSCL; macro <code>nfsmountable</code> that changes the location of configuration and state files and makes your &DSCL; usable over NFS. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+	</listitem>
+	<listitem>
+		<para>
+			Consider specifying all packages in your &DSCL; that are essential for the &DSCL; run time as dependencies of the metapackage. That way you can ensure that the packages are installed with the &DSCL; metapackage.
+		</para>
+	</listitem>
+	<listitem>
 		<para>
 			You are advised to add <code language="RPM Spec">Requires: scl-utils-build</code> to the <package>build</package> subpackage.
 		</para>
 	</listitem>
 	<listitem>
 		<para>
-			Add any macros you need to use to the <filename>macros.%{scl}-config</filename> file in the <package>build</package> subpackage.
-		</para>
-	</listitem>
-	<listitem>
-		<para>
 			You are not required to use conditionals for &DSCL;-specific macros in the metapackage.
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			Consider specifying all packages in your &DSCL; that are essential for the &DSCL; run time as dependencies of the metapackage. That way you can ensure that the packages are installed with the &DSCL; metapackage.
 		</para>
 	</listitem>
 	<listitem>
@@ -243,6 +257,11 @@
 		 		This is because the <command>%setup</command> macro defines and creates the <code language="RPM Spec">%buildsubdir</code> directory, which is normally used for storing temporary files at build time. If you do not define <command>%setup</command> in your &DSCL; packages, files in the <code language="RPM Spec">%buildsubdir</code> directory will be overwritten, causing the build to fail.
 		 	</para>
 	</listitem>
+	<listitem>
+		<para>
+			Add any macros you need to use to the <filename>macros.%{scl}-config</filename> file in the <package>build</package> subpackage.
+		</para>
+	</listitem>
 </itemizedlist>
 <bridgehead id="bh-Example_of_the_Meta_Package">Example of the Metapackage</bridgehead>
 <para>To get an idea of what a typical metapackage for a &DSCL; named <replaceable>myorganization-ruby193</replaceable> looks like, see the following example:</para>
@@ -251,6 +270,10 @@
 %global scl_name_version 193
 
 %global scl %{scl_name_prefix}%{scl_name_base}%{scl_name_version}
+
+# Optional but recommended: define nfsmountable
+%global nfsmountable 1
+
 %scl_package %scl
 %global _scl_prefix /opt/myorganization
 
@@ -312,7 +335,7 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
 
 %files
 
-%files runtime]]><!--FIXME:BZ#1072319 -f filesystem-->
+%files runtime -f filelist
 %scl_files
 
 %files build
@@ -323,7 +346,7 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
 
 %changelog
 * Fri Aug 30 2013 John Doe &lt;jdoe@example.com&gt; 1-1
-- Initial package</programlisting>
+- Initial package]]></programlisting>
     </section>
     <!--<section id="sect-Packages_in_the_Software_Collection_Namespace">
       <title>Packages in the &DSCL; Namespace</title>
@@ -764,7 +787,8 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
     </section>
     <section id="sect-The_nfsmountable_Macro">
       <title>The nfsmountable Macro</title>
-      <para>Using a &DSCL; macro <code>nfsmountable</code> allows you to change values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros so that your &DSCL; can have its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This is useful when using your &DSCL; over NFS. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
+      <para>Using a &DSCL; macro <code>nfsmountable</code> allows you to change values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros so that your &DSCL; can have its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This makes the files easier to manage and is also required when using your &DSCL; over NFS.</para>
+      <para>If you do not need support for &DSCL;s over NFS, using <code>nfsmountable</code> is optional but recommended. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
     </section>
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
@@ -1092,6 +1116,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
   </section>
   <section id="sect-Building_a_Software_Collection_Locally">
     <title>Building a &DSCL;</title>
+    <para>If you have correctly converted a conventional spec file for your &DSCL; as documented in <xref linkend="sect-Converting_a_Conventional_Spec_File" />, you will be able to build the resulting package in both the &DSCL; and conventional build roots. Building the converted package in a conventional build root will produce a conventional base system RPM package, while building in a &DSCL; build root that contains <package>%{scl}-build</package> will produce a &DSCL; package.</para>
     <para>To build a &DSCL; on your system, run the following command:</para>
     <synopsis>
       <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command>
@@ -1103,7 +1128,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     <para>where <replaceable>software_collection</replaceable> is the name of the &DSCL;.</para>
   <section id="sect-Rebuilding_a_Software_Collection_without_build_subpackages">
     <title>Rebuilding a &DSCL; without build Subpackages</title>
-    <para>When you want to rebuild a &DSCL; that comes with no build subpackages (<package>software_collection-build</package>), you can create the build subpackages by rebuilding the &DSCL; metapackage, and thus avoid using the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command.</para>
+    <para>When you want to rebuild a &DSCL; that comes with no build subpackage (<package><replaceable>software_collection</replaceable>-build</package>), you can create the build subpackage by rebuilding the &DSCL; metapackage, and thus avoid using the <command>rpmbuild -ba <replaceable>package</replaceable>.spec --define 'scl <replaceable>name</replaceable>'</command> command.</para>
     <para>Note that you need to have the <package>scl-utils-build</package> package installed on your system, otherwise rebuilding the &DSCL; metapackage with the <command>rpmbuild</command> command will fail.</para>
     <para>For more information about the <package>scl-utils-build</package> package, see <xref linkend="sect-Enabling_Support_for_Software_Collections" />.</para>
   </section>
@@ -1112,7 +1137,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
     <para>When you build two &DSCL; packages (or a conventional RPM package and a &DSCL; package) that specify the same <code>Source</code> tag, and thus unpack source files into the same directory underneath the <filename>%_builddir</filename> directory, their <filename>debuginfo</filename> packages will have file conflicts. Due to these conflicts, the user will be unable to install both packages on the same system at the same time.</para>
     <para>To avoid these file conflicts, the spec file of one of the packages has to be altered to unpack its upstream source into a uniquely named top directory. This adds one more directory level to the build tree underneath the <filename>%_builddir</filename> directory. By doing so, the <filename>debuginfo</filename> package generation script produces <filename>debuginfo</filename> files that do not conflict with files from the other <filename>debuginfo</filename> package.</para>
     <para>To see what the diff file comparing an original spec file with an altered spec file looks like, refer to the following example:</para>
-    <programlisting language="RPM Spec"><![CDATA[--- a/tbb.spec
+    <programlisting language="Diff"><![CDATA[--- a/tbb.spec
 +++ b/tbb.spec
 @@ -66,11 +66,13 @@ PDF documentation for the user of the Threading Building Block (TBB)
  C++ library.

@@ -70,15 +70,6 @@
           <para>With a single spec file, you can build both the conventional package and the &DSCL; package.</para>
         </listitem>
       </varlistentry>
-      <!--TODO: Make it less confusing.
-      <varlistentry>
-        <term>Allow you to use a spec file from one &DSCL; to build a different &DSCL;</term>
-        <listitem>
-          <para>You can use a single spec file from one &DSCL; to build a different &DSCL;.
-</para>
-        </listitem>
-      </varlistentry>
-      -->
       <varlistentry>
         <term>Uniquely name all included packages</term>
         <listitem>
