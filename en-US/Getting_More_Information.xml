@@ -40,18 +40,19 @@
   <itemizedlist>
        <listitem>
          <para  condition="ga">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2/html/2.0_Release_Notes/index.html">Red Hat Software Collections 2.0 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.0 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2/html/2.1_Release_Notes/index.html">Red Hat Software Collections 2.1 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.1 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
          </para>
          <para  condition="beta">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2-Beta/html/2.0_Release_Notes/index.html">Red Hat Software Collections 2.0 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.0 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2-Beta/html/2.1_Release_Notes/index.html">Red Hat Software Collections 2.1 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.1 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
          </para>
        </listitem>
        <listitem>
-         <para>
-         <!--para condition="ga"-->
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/3/html/User_Guide/index.html">Red Hat Developer Toolset 3.1 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 3.1 contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
-         <!--para condition="beta">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/3-Beta/html/User_Guide/index.html">Red Hat Developer Toolset 3.0 Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 3.0 Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para-->
+         <para condition="ga">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/4/html/User_Guide/index.html">Red Hat Developer Toolset 4.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 4.0 contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
+         </para>
+         <para condition="beta">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/4-Beta/html/User_Guide/index.html">Red Hat Developer Toolset 4.0 Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 4.0 Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
+         </para>
        </listitem>
        <listitem>
          <para>
@@ -60,12 +61,12 @@
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Red Hat Enterprise Linux 7 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 7.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Red Hat Enterprise Linux 7 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 7.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
        <listitem>

@@ -70,9 +70,6 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
     <para>
       In Red Hat Software Collections &VERSIONNUM;, the <application>scl</application> tool is extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
     </para>
-    <!--para>
-      Note that even though the approach described below generally applies to every &DSCL; shipped with Red Hat Software Collections 2.0, there are specifics that depend on the &DSCL; you are extending.
-    </para-->
     <section id="The_vt191_Software_Collection">
     <title>The vt191 &DSCL;</title>
     <para>
