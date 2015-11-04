@@ -56,6 +56,11 @@
        </listitem>
        <listitem>
          <para>
+           <ulink url="https://access.redhat.com/articles/1752723">Using Red Hat Software Collections Container Images</ulink> &ndash; This article provides information on how to use container images based on Red Hat Software Collections. The available container images include applications, daemons, and databases. The images can be run on Red Hat Enterprise Linux 7 Server and Red Hat Enterprise Linux Atomic Host.
+         </para>
+       </listitem>
+       <listitem>
+         <para>
            <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Developer_Guide/index.html">Red Hat Enterprise Linux 7 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 7 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
