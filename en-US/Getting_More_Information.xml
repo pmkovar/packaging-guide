@@ -3,10 +3,13 @@
 <appendix id="chap-Getting_More_Information">
   <title>Getting More Information</title>
   <!--Hic sunt leones.-->
-  <para>For more information on &DSCL; packaging, Red Hat Enterprise Linux Developer Program, the Red Hat Software Collections and Red Hat Developer Toolset offerings, and Red Hat Enterprise Linux, see the resources listed below.</para>
-  <section id="sect-Red_Hat_Enterprise_Linux_Developer_Program">
-    <title>Red Hat Enterprise Linux Developer Program</title>
+  <para>For more information on &DSCL; packaging, Red Hat Developers, the Red Hat Software Collections and Red Hat Developer Toolset offerings, and Red Hat Enterprise Linux, see the resources listed below.</para>
+  <section id="sect-Red_Hat_Developers">
+    <title>Red Hat Developers</title>
   <itemizedlist>
+  <listitem>
+    <para><ulink url="https://developers.redhat.com/products/softwarecollections/overview/">Overview of Red Hat Software Collections on Red Hat Developers</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Developers</citetitle> portal provides a number of tutorials to get you started with developing code using different development technologies. This includes the Node.js, Perl, PHP, Python, and Ruby &DSCL;.</para>
+  </listitem>
   <listitem>
   <para><ulink url="https://access.redhat.com/products/Red_Hat_Enterprise_Linux/Developer/">Red Hat Enterprise Linux Developer Program</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program</citetitle> delivers industry-leading developer tools, instructional resources, and an ecosystem of experts to help programmers maximize productivity in building Linux applications.</para>
   </listitem>
