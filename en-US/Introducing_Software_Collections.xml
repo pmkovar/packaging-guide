@@ -111,7 +111,7 @@
     <para>For example, to install a &DSCL; with the metapackage named <code>software_collection_1</code>, run the following command:</para>
     <screen><computeroutput># </computeroutput><userinput>yum install software_collection_1</userinput></screen>
     <para>This command will automatically install all the packages in the &DSCL; that are essential for the user to perform most common tasks with the &DSCL;.</para>
-    <para>&DSCL;s allow you to only install a subset of packages you intend to use. For example, to use the Ruby interpreter from the rh-ruby22 &DSCL;, you only need to install a package <package>rh-ruby22-ruby</package> from that &DSCL;.</para>
+    <para>&DSCL;s allow you to only install a subset of packages you intend to use. For example, to use the Ruby interpreter from the rh-ruby23 &DSCL;, you only need to install a package <package>rh-ruby23-ruby</package> from that &DSCL;.</para>
     <para>If you install an application that depends on a &DSCL;, that &DSCL; will be installed along with the rest of the application's dependencies.</para>
     <para>
     	For detailed information on &DSCL; metapackages, see <xref linkend="sect-Meta_Package" />.

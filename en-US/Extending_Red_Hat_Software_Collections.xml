@@ -64,9 +64,9 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
     </procedure>
     </section>
   </section>
-  <section id="sect-Extending_the_python27_and_rh-python34_Software_Collections">
-    <title>Extending the python27 and rh-python34 &DSCL;s</title>
-    <para>This section describes extending the python27 and rh-python34 &DSCL;s by creating a dependent &DSCL;.</para>
+  <section id="sect-Extending_the_python27_and_rh-python35_Software_Collections">
+    <title>Extending the python27 and rh-python35 &DSCL;s</title>
+    <para>This section describes extending the python27 and rh-python35 &DSCL;s by creating a dependent &DSCL;.</para>
     <para>
       In Red Hat Software Collections &VERSIONNUM;, the <application>scl</application> tool is extended to support a macro <systemitem>%scl_package_override()</systemitem>, which allows for easier packaging of your own dependent &DSCL;.
     </para>
@@ -130,8 +130,8 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
 %global scl vt191
 %scl_package %scl
 
-# Defaults for the values for the python27/rh-python34 Software Collection. These
-# will be used when python27-scldevel (or rh-python34-scldevel) is not in the
+# Defaults for the values for the python27/rh-python35 Software Collection. These
+# will be used when python27-scldevel (or rh-python35-scldevel) is not in the
 # build root
 %{!?scl_python:%global scl_python python27}
 %{!?scl_prefix_python:%global scl_prefix_python %{scl_python}-}
@@ -152,7 +152,7 @@ Version: 1
 Release: 1%{?dist}
 License: GPLv2+
 BuildRequires: scl-utils-build
-# Always make sure that there is the python27-sclbuild (or rh-python34-sclbuild)
+# Always make sure that there is the python27-sclbuild (or rh-python35-sclbuild)
 # package in the build root
 BuildRequires: %{scl_prefix_python}scldevel
 # Require python27-python-devel, you will need macros from that package
@@ -173,7 +173,7 @@ Package shipping essential scripts to work with %scl Software Collection.
 %package build
 Summary: Package shipping basic build configuration
 Requires: scl-utils-build
-# Require python27-scldevel (or rh-python34-scldevel) so that there is always access
+# Require python27-scldevel (or rh-python35-scldevel) so that there is always access
 # to the %%scl_python and %%scl_prefix_python macros in builds for this Software
 # Collection
 Requires: %{scl_prefix_python}scldevel
@@ -349,47 +349,47 @@ Smart replacement for plain tuple used in __version__
     </procedure>
     </section>
   </section>
-  <section id="sect-Extending_the_rh-ruby22_Software_Collections">
-    <title>Extending the rh-ruby22 &DSCL;</title>
-    <para>In Red Hat Software Collections &VERSIONNUM;, it is possible to extend the rh-ruby22 &DSCL; by adding dependent packages. The Ruby on Rails 4.1 (rh-ror41) &DSCL;, which is built on top of Ruby 2.2 provided by the rh-ruby22 &DSCL;, is one example of such an extension.</para>
-    <para>This section provides detailed information about the <package>rh-ror41</package> metapackage and the <package>rh-ror41-rubygem-bcrypt</package> package, which are both part of the rh-ror41 &DSCL;.</para>
-    <section id="sect-The_rh-ror41_Software_Collection">
-      <title>The rh-ror41 Software Collection</title>
-    <para>This section contains a commented example of the Ruby on Rails 4.1 metapackage for the rh-ror41 &DSCL;. The rh-ror41 &DSCL; depends on the rh-ruby22 &DSCL;.</para>
-    <para>Note the following in the rh-ror41 &DSCL; metapackage example:</para>
+  <section id="sect-Extending_the_rh-ruby23_Software_Collections">
+    <title>Extending the rh-ruby23 &DSCL;</title>
+    <para>In Red Hat Software Collections &VERSIONNUM;, it is possible to extend the rh-ruby23 &DSCL; by adding dependent packages. The Ruby on Rails 4.2 (rh-ror42) &DSCL;, which is built on top of Ruby 2.3 provided by the rh-ruby23 &DSCL;, is one example of such an extension.</para>
+    <para>This section provides detailed information about the <package>rh-ror42</package> metapackage and the <package>rh-ror42-rubygem-bcrypt</package> package, which are both part of the rh-ror42 &DSCL;.</para>
+    <section id="sect-The_rh-ror42_Software_Collection">
+      <title>The rh-ror42 Software Collection</title>
+    <para>This section contains a commented example of the Ruby on Rails 4.2 metapackage for the rh-ror42 &DSCL;. The rh-ror42 &DSCL; depends on the rh-ruby23 &DSCL;.</para>
+    <para>Note the following in the rh-ror42 &DSCL; metapackage example:</para>
     <itemizedlist>
       <listitem>
-        <para>The rh-ror41 &DSCL; spec file has the following build dependencies set:</para>
+        <para>The rh-ror42 &DSCL; spec file has the following build dependencies set:</para>
         <programlisting language="RPM Spec">BuildRequires: %{scl_prefix_ruby}scldevel
 BuildRequires: %{scl_prefix_ruby}rubygems-devel</programlisting>
-    <para>This expands to, for example, <package>rh-ruby22-scldevel</package> and <package>rh-ruby22-rubygems-devel</package>.</para>
-    <para>The <package>rh-ruby22-scldevel</package> subpackage contains two important macros, <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code>. The <package>rh-ruby22-scldevel</package> subpackage should be available in the build root. In case there are multiple Ruby &DSCL;s available, <package>rh-ruby22-scldevel</package> determines which of the available &DSCL;s should be used.</para>
-    <para>Note that the <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code> macros are also defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the rh-ror41 &DSCL; has been designed to be built on top of the rh-ruby22 &DSCL;. They also serve as a fallback value.</para>
+    <para>This expands to, for example, <package>rh-ruby23-scldevel</package> and <package>rh-ruby23-rubygems-devel</package>.</para>
+    <para>The <package>rh-ruby23-scldevel</package> subpackage contains two important macros, <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code>. The <package>rh-ruby23-scldevel</package> subpackage should be available in the build root. In case there are multiple Ruby &DSCL;s available, <package>rh-ruby23-scldevel</package> determines which of the available &DSCL;s should be used.</para>
+    <para>Note that the <code>%scl_ruby</code> and <code>%scl_prefix_ruby</code> macros are also defined at the top of the spec file. Although the definitions are not required, they provide a visual hint that the rh-ror42 &DSCL; has been designed to be built on top of the rh-ruby23 &DSCL;. They also serve as a fallback value.</para>
     </listitem>
     <listitem>
-      <para>The <package>rh-ror41-runtime</package> subpackage must depend on the <package>runtime</package> subpackage of the &DSCL; it depends on. This dependency is specified as follows:</para>
+      <para>The <package>rh-ror42-runtime</package> subpackage must depend on the <package>runtime</package> subpackage of the &DSCL; it depends on. This dependency is specified as follows:</para>
       <programlisting language="RPM Spec">%package runtime
 Requires: %{scl_prefix_ruby}runtime</programlisting>
-      <para>When the package is built against the rh-ruby22 &DSCL;, this expands to <package>rh-ruby22-runtime</package>.</para>
+      <para>When the package is built against the rh-ruby23 &DSCL;, this expands to <package>rh-ruby23-runtime</package>.</para>
     </listitem>
     <listitem>
-      <para>The <package>rh-ror41-build</package> subpackage must depend on the <package>scldevel</package> subpackage of the &DSCL; it depends on. This is to ensure that all other packages of this &DSCL; will have the same macros defined, thus it is built against the same Ruby version.</para>
+      <para>The <package>rh-ror42-build</package> subpackage must depend on the <package>scldevel</package> subpackage of the &DSCL; it depends on. This is to ensure that all other packages of this &DSCL; will have the same macros defined, thus it is built against the same Ruby version.</para>
       <programlisting language="RPM Spec">%package build
 Requires: %{scl_prefix_ruby}scldevel</programlisting>
-      <para>In the case of the rh-ruby22 &DSCL;, this expands to <package>rh-ruby22-scldevel</package>.</para>
+      <para>In the case of the rh-ruby23 &DSCL;, this expands to <package>rh-ruby23-scldevel</package>.</para>
     </listitem>
     <listitem>
-      <para>The <filename>enable</filename> scriptlet for the rh-ror41 &DSCL; contains the following line:</para>
+      <para>The <filename>enable</filename> scriptlet for the rh-ror42 &DSCL; contains the following line:</para>
       <programlisting language="RPM Spec">. scl_source enable %{scl_ruby}</programlisting>
-      <para>Note the dot at the beginning of the line. This line makes the Ruby &DSCL; start implicitly when the rh-ror41 &DSCL; is started so that the user can only type <command>scl enable rh-ror41 <replaceable>command</replaceable></command> instead of <command>scl enable rh-ruby22 rh-ror41 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
+      <para>Note the dot at the beginning of the line. This line makes the Ruby &DSCL; start implicitly when the rh-ror42 &DSCL; is started so that the user can only type <command>scl enable rh-ror42 <replaceable>command</replaceable></command> instead of <command>scl enable rh-ruby23 rh-ror42 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
       </listitem>
       <listitem>
-        <para>The <package>rh-ror41-scldevel</package> subpackage is provided so that it is available in case you need it to build a &DSCL; which extends the rh-ror41 &DSCL;. The package provides the <code>%{scl_ror}</code> and <code>%{scl_prefix_ror}</code> macros, which can be used to extend the rh-ror41 &DSCL;.</para>
+        <para>The <package>rh-ror42-scldevel</package> subpackage is provided so that it is available in case you need it to build a &DSCL; which extends the rh-ror42 &DSCL;. The package provides the <code>%{scl_ror}</code> and <code>%{scl_prefix_ror}</code> macros, which can be used to extend the rh-ror42 &DSCL;.</para>
       </listitem>
       <listitem>
-        <para>Because the rh-ror41 &DSCL;'s gems are installed in a separate root directory structure, you need to ensure that the correct ownership for the rubygems directories is set. This is done by using a snippet to generate a file list <package>rubygems_filesystem.list</package>.
+        <para>Because the rh-ror42 &DSCL;'s gems are installed in a separate root directory structure, you need to ensure that the correct ownership for the rubygems directories is set. This is done by using a snippet to generate a file list <package>rubygems_filesystem.list</package>.
 </para>
-        <para>You are advised to set the <package>runtime</package> package to own all directories which would, if located in the root file system, be owned by another package. One example of such directories in the case of the rh-ror41 &DSCL; is the Rubygem directory structure<!--, but it might be pkgconfig directories, etc-->.</para>
+        <para>You are advised to set the <package>runtime</package> package to own all directories which would, if located in the root file system, be owned by another package. One example of such directories in the case of the rh-ror42 &DSCL; is the Rubygem directory structure<!--, but it might be pkgconfig directories, etc-->.</para>
       </listitem>
     </itemizedlist>
     <programlisting language="RPM Spec"><![CDATA[%global scl_name_prefix rh-
@@ -398,9 +398,9 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
 
 %global scl %{scl_name_prefix}%{scl_name_base}%{scl_name_version}
 
-# Fallback to rh-ruby22. rh-ruby22-scldevel is unlikely to be available in
+# Fallback to rh-ruby23. rh-ruby23-scldevel is unlikely to be available in
 # the build root.
-%{!?scl_ruby:%global scl_ruby rh-ruby22}
+%{!?scl_ruby:%global scl_ruby rh-ruby23}
 %{!?scl_prefix_ruby:%global scl_prefix_ruby %{scl_ruby}-}
 
 # Do not produce empty debuginfo package.
@@ -493,7 +493,7 @@ EOF
 scl enable %{scl_ruby} - << \EOF
 set -e
 
-# Fake rh-ror41 Software Collection environment.
+# Fake rh-ror42 Software Collection environment.
 GEM_PATH=%{gem_dir}:`ruby -e "print Gem.path.join(':')"` \
 X_SCLS=%{scl} \
 ruby -rfileutils > rubygems_filesystem.list << \EOR
@@ -522,15 +522,15 @@ EOF
 * Thu Jan 16 2015 John Doe <jdoe@example.com> - 1-1
 - Initial package.]]></programlisting>
   </section>
-  <section id="sect-The_rh-ror41-rubygem-bcrypt_Package">
-    <title>The rh-ror41-rubygem-bcrypt Package</title>
-    <para>Below is a commented example of the <package>rh-ror41-rubygem-bcrypt</package> package spec file. This package provides the bcrypt Ruby gem. For more information on bcrypt, see the following website:</para>
+  <section id="sect-The_rh-ror42-rubygem-bcrypt_Package">
+    <title>The rh-ror42-rubygem-bcrypt Package</title>
+    <para>Below is a commented example of the <package>rh-ror42-rubygem-bcrypt</package> package spec file. This package provides the bcrypt Ruby gem. For more information on bcrypt, see the following website:</para>
     <itemizedlist>
       <listitem>
         <para><ulink url="http://rubygems.org/gems/bcrypt-ruby">http://rubygems.org/gems/bcrypt-ruby</ulink></para>
       </listitem>
     </itemizedlist>
-    <para>Note that the only significant difference between the <package>rh-ror41-rubygem-bcrypt</package> package spec file and a normal &DSCL; package spec file is the following:</para>
+    <para>Note that the only significant difference between the <package>rh-ror42-rubygem-bcrypt</package> package spec file and a normal &DSCL; package spec file is the following:</para>
     <itemizedlist>
       <listitem>
         <para>The <code>BuildRequires</code> tags are prefixed with <code>%{?scl_prefix_ruby}</code> instead of <code>%{scl_prefix}</code>.</para>
@@ -622,15 +622,15 @@ popd
 * Fri Mar 21 2015 John Doe <jdoe@example.com> - 3.1.2-4
 - Initial package.]]></programlisting>
   </section>
-  <section id="sect-Building_the_rh-ror41_Software_Collection">
-    <title>Building the rh-ror41 &DSCL;</title>
-    <para>To build the rh-ror41 &DSCL;:</para>
+  <section id="sect-Building_the_rh-ror42_Software_Collection">
+    <title>Building the rh-ror42 &DSCL;</title>
+    <para>To build the rh-ror42 &DSCL;:</para>
     <procedure>
       <step>
-        <para>Install the <package>rh-ruby22-scldevel</package> subpackage which is a part of the rh-ruby22 &DSCL;.</para>
+        <para>Install the <package>rh-ruby23-scldevel</package> subpackage which is a part of the rh-ruby23 &DSCL;.</para>
       </step>
       <step>
-        <para>Build <filename>rh-ror41.spec</filename> and install the <package>ror41-runtime</package> and <package>ror41-build</package> packages.</para>
+        <para>Build <filename>rh-ror42.spec</filename> and install the <package>ror42-runtime</package> and <package>ror42-build</package> packages.</para>
       </step>
       <step>
         <para>Build <filename>rubygem-bcrypt.spec</filename>.</para>
@@ -638,15 +638,15 @@ popd
     </procedure>
   </section>
   <section id="sect-Testing_the_ror_Software_Collection">
-    <title>Testing the rh-ror41 &DSCL;</title>
-    <para>To test the rh-ror41 &DSCL;:</para>
+    <title>Testing the rh-ror42 &DSCL;</title>
+    <para>To test the rh-ror42 &DSCL;:</para>
     <procedure>
       <step>
-        <para>Install the <package>rh-ror41-rubygem-bcrypt</package> package.</para>
+        <para>Install the <package>rh-ror42-rubygem-bcrypt</package> package.</para>
       </step>
       <step>
         <para>Run the following command:</para>
-        <screen><computeroutput>$ </computeroutput><userinput>scl enable rh-ror41 -- ruby -r bcrypt -e "puts BCrypt::Password.create('my password')"</userinput></screen>
+        <screen><computeroutput>$ </computeroutput><userinput>scl enable rh-ror42 -- ruby -r bcrypt -e "puts BCrypt::Password.create('my password')"</userinput></screen>
       </step>
       <step>
         <para>Verify that the output contains the following line:</para>
@@ -656,39 +656,39 @@ popd
   </section>
   </section>
   <section id="sect-Extending_the_perl_Software_Collection">
-    <title>Extending the rh-perl520 &DSCL;</title>
-    <para>This section describes extending the rh-perl520 &DSCL; by building your own dependent &DSCL;.</para>
+    <title>Extending the rh-perl524 &DSCL;</title>
+    <para>This section describes extending the rh-perl524 &DSCL; by building your own dependent &DSCL;.</para>
     <important>
-      <para>Examples described in this section only work as expected when extending the rh-perl520 &DSCL; with packages that:</para>
+      <para>Examples described in this section only work as expected when extending the rh-perl524 &DSCL; with packages that:</para>
       <itemizedlist>
         <listitem>
           <para>do not provide any Perl modules, and</para>
         </listitem>
         <listitem>
-          <para>only depend on Perl modules provided by the rh-perl520 &DSCL;.</para>
+          <para>only depend on Perl modules provided by the rh-perl524 &DSCL;.</para>
         </listitem>
       </itemizedlist>
     </important>
     <section id="sect-The_h2m144_Software_Collection">
       <title>The h2m144 &DSCL;</title>
-      <para>This section contains a commented example of a dependent &DSCL;'s metapackage. The dependent &DSCL; is named h2m144 and contains the <package>help2man</package> Perl package version 1.44.1. The h2m144 &DSCL; depends on the rh-perl520 &DSCL;.</para>
+      <para>This section contains a commented example of a dependent &DSCL;'s metapackage. The dependent &DSCL; is named h2m144 and contains the <package>help2man</package> Perl package version 1.44.1. The h2m144 &DSCL; depends on the rh-perl524 &DSCL;.</para>
       <para>Note the following in the h2m144 &DSCL; metapackage:</para>
       <itemizedlist>
         <listitem>
           <para>The h2m144 &DSCL; metapackage has the following build dependency set:</para>
           <programlisting language="RPM Spec">BuildRequires: %{scl_prefix_perl}scldevel</programlisting>
-          <para>This expands to <package>rh-perl520-scldevel</package>.</para>
-          <para>The <package>rh-perl520-scldevel</package> subpackage contains two important macros, <code>%scl_perl</code> and <code>%scl_prefix_perl</code>, and also provides Perl dependency generators. Note that the macros are defined at the top of the metapackage spec file. Although the definitions are not required, they provide a visual hint that the h2m144 &DSCL; has been designed to be built on top of the rh-perl520 &DSCL;. They also serve as a fallback value.</para>
+          <para>This expands to <package>rh-perl524-scldevel</package>.</para>
+          <para>The <package>rh-perl524-scldevel</package> subpackage contains two important macros, <code>%scl_perl</code> and <code>%scl_prefix_perl</code>, and also provides Perl dependency generators. Note that the macros are defined at the top of the metapackage spec file. Although the definitions are not required, they provide a visual hint that the h2m144 &DSCL; has been designed to be built on top of the rh-perl524 &DSCL;. They also serve as a fallback value.</para>
         </listitem>
         <listitem>
           <para>The <package>h2m144-build</package> subpackage has the following dependency set:</para>
           <programlisting language="RPM Spec">Requires: %{scl_prefix_perl}scldevel</programlisting>
-          <para>This expands to <package>rh-perl520-scldevel</package>. The purpose of this dependency is to ensure that the macros and dependency generators are always present when building packages for the h2m144 &DSCL;.</para>
+          <para>This expands to <package>rh-perl524-scldevel</package>. The purpose of this dependency is to ensure that the macros and dependency generators are always present when building packages for the h2m144 &DSCL;.</para>
         </listitem>
         <listitem>
           <para>The <filename>enable</filename> scriptlet for the h2m144 &DSCL; contains the following line:</para>
           <programlisting language="RPM Spec">. scl_source enable %{scl_perl}</programlisting>
-          <para>Note the dot at the beginning of the line. This line makes the Perl &DSCL; start implicitly when the h2m144 &DSCL; is started so that the user can only type <command>scl enable h2m144 <replaceable>command</replaceable></command> instead of <command>scl enable rh-perl520 h2m144 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
+          <para>Note the dot at the beginning of the line. This line makes the Perl &DSCL; start implicitly when the h2m144 &DSCL; is started so that the user can only type <command>scl enable h2m144 <replaceable>command</replaceable></command> instead of <command>scl enable rh-perl524 h2m144 <replaceable>command</replaceable></command> to run <replaceable>command</replaceable> in the &DSCL; environment.</para>
         </listitem>
         <listitem>
           <para>The macro file <filename>macros.h2m144-config</filename> calls the Perl dependency generators, and certain Perl-specific macros used in other packages' spec files.</para>
@@ -697,9 +697,9 @@ popd
       <programlisting language="RPM Spec"><![CDATA[%global scl h2m144
 %scl_package %scl
 
-# Default values for the rh-perl520 Software Collection. These
-# will be used when rh-perl520-scldevel is not in the build root.
-%{!?scl_perl:%global scl_perl rh-perl520}
+# Default values for the rh-perl524 Software Collection. These
+# will be used when rh-perl524-scldevel is not in the build root.
+%{!?scl_perl:%global scl_perl rh-perl524}
 %{!?scl_prefix_perl:%global scl_prefix_perl %{scl_perl}-}
 
 # Only for this build, override __perl_requires for the automatic dependency
@@ -712,10 +712,10 @@ Version: 1
 Release: 1%{?dist}
 License: GPLv2+
 BuildRequires: scl-utils-build
-# Always make sure that there is the rh-perl520-scldevel
+# Always make sure that there is the rh-perl524-scldevel
 # package in the build root.
 BuildRequires: %{scl_prefix_perl}scldevel
-# Require rh-perl520-perl-macros; you will need macros from that package.
+# Require rh-perl524-perl-macros; you will need macros from that package.
 BuildRequires: %{scl_prefix_perl}perl-macros
 Requires: %{scl_prefix}help2man
 
@@ -733,7 +733,7 @@ Package shipping essential scripts to work with %scl Software Collection.
 %package build
 Summary: Package shipping basic build configuration
 Requires: scl-utils-build
-# Require rh-perl520-scldevel so that there is always access to the %%scl_perl
+# Require rh-perl524-scldevel so that there is always access to the %%scl_perl
 # and %%scl_prefix_perl macros in builds for this Software Collection.
 Requires: %{scl_prefix_perl}scldevel
 
@@ -753,7 +753,7 @@ Package shipping essential configuration macros to build %scl Software Collectio
 # - Runs scl_source so that you can run:
 #     scl enable h2m144 'bash'
 #   instead of:
-#     scl enable rh-perl520 h2m144 'bash'
+#     scl enable rh-perl524 h2m144 'bash'
 
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
 . scl_source enable %{scl_perl}
@@ -873,13 +873,13 @@ fi
     <para>To build the h2m144 &DSCL;:</para>
     <procedure>
       <step>
-        <para>Install the <package>rh-perl520-scldevel</package> and <package>rh-perl520-perl-macros</package> packages that are part of the perl520 &DSCL;.</para>
+        <para>Install the <package>rh-perl524-scldevel</package> and <package>rh-perl524-perl-macros</package> packages that are part of the perl524 &DSCL;.</para>
       </step>
       <step>
         <para>Build <package>h2m144.spec</package> and install the <package>h2m144-runtime</package> and <package>h2m144-build</package> packages.</para>
       </step>
       <step>
-        <para>Install the <package>rh-perl520-perl</package>, <package>rh-perl520-perl-Text-ParseWords</package> and <package>rh-perl520-perl-Getopt-Long</package> packages, which are all build requirements for <package>help2man</package>.</para>
+        <para>Install the <package>rh-perl524-perl</package>, <package>rh-perl524-perl-Text-ParseWords</package> and <package>rh-perl524-perl-Getopt-Long</package> packages, which are all build requirements for <package>help2man</package>.</para>
       </step>
       <step>
         <para>Build <filename>help2man.spec</filename>.</para>

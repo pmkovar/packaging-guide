@@ -118,11 +118,10 @@
   	</itemizedlist>
   	<para>These two parts of the &DSCL; prefix are separated by a dash (<literal>-</literal>), as in the following example:</para>
 	<programlisting>myorganization-ruby193</programlisting>
-	<para>In this example, <replaceable>myorganization</replaceable> is the provider's name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.
-	</para>
+	<para>In this example, <replaceable>myorganization</replaceable> is the provider's name, and <replaceable>ruby193</replaceable> is the name of the &DSCL;.</para>
 	<para>While it is ultimately a vendor's or distributor's decision whether to specify the provider's name in the prefix or not, specifying it is highly recommended.</para>
 	<para>A notable exception are &DSCL;s which were first shipped with Red Hat Software Collections 1.x, they do not specify the provider's name in their prefixes. Newer &DSCL;s added in Red Hat Software Collections 2.0 and later use <literal>rh</literal> as the provider's name. For example:</para>
-	<programlisting>rh-ruby22</programlisting>
+	<programlisting>rh-ruby23</programlisting>
 	</section>
 	<section id="sect-Software_Collection_Package_Names">
 		<title>&DSCL; Package Names</title>
