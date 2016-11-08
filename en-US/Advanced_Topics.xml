@@ -208,6 +208,12 @@ scl enable rubyscl "$COMMAND"
       <para>On Red Hat Enterprise Linux 7, the <application>scl</application> tool automatically generates the needed <code>Requires</code> on the &DSCL; <package>runtime</package> subpackage. This does not work on Red Hat Enterprise Linux 6. When building your &DSCL; for that system, you need to explicitly specify the dependency on the <package>runtime</package> subpackage in each &DSCL; package:</para>
       <programlisting language="RPM Spec">Requires: %{?scl_prefix}runtime</programlisting>
     </section>
+    <section id="The_scl-package_Provides">
+      <title>The scl-package(*) Provides</title>
+      <para>Building a &DSCL; package on Red Hat Enterprise Linux 7 generates a number of <code>Provide: scl-package(*)</code> tags. For example, <code>${software_collection}</code> provides <code>scl-package(software_collection)</code>, <code>${software_collection}-build</code> provides <code>scl-package(software_collection)</code>, and <code>${software_collection}-runtime</code> provides <code>scl-package(software_collection)</code>. The purpose of these is to internally identify the built package as belonging to a specific &DSCL;.</para>
+      <para>Due to the differences between the RPM Package Manager in Red Hat Enterprise Linux 7 and 6, building the same package on Red Hat Enterprise Linux 6 generates a single <code>Provide:</code> tag in <code>${software_collection}</code> for <code>scl-package(software_collection)</code>. This is an expected behavior and the differences are handled internally by the <application>scl</application> tool.</para>
+      <para>Do not use these internally generated dependencies to list packages that belong to a particular &DSCL;. For information on how to properly list &DSCL; packages, see <xref linkend="sect-Listing_Installed_Software_Collections" />.</para>
+    </section>
   </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>Managing Services in &DSCL;s</title>
