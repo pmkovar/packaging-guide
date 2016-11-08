@@ -956,7 +956,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
           <para>It is important to specify <code>set -e</code> in the script so that the script behavior is consistent regardless of whether the script is executed in the <command>rpm</command> shell or the <command>scl</command> environment.</para>
           </listitem>
           <listitem>
-            <para>Pay attention to any scriptlets that are executed during the &DSCL; package installation, such as:</para>
+            <para>Pay attention to any scripts that are executed during the &DSCL; package installation, such as:</para>
               <itemizedlist>
                 <listitem>
                   <para><code>%pretrans</code>, <code>%pre</code>,</para>
@@ -968,7 +968,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
                   <para><code>%triggerin</code>, <code>%triggerun</code>, and <code>%triggerpostun</code>.</para>
                 </listitem>
               </itemizedlist>
-             <para>If you use the <command>scl enable</command> functionality in those scriptlets, you are advised to define <code>env -i - scl enable %{scl} -</code> to start with an empty environment and to avoid any unintentional collisions with the base system installation.</para>
+             <para>If you use the <command>scl enable</command> functionality in those scripts, you are advised to define <code>env -i - scl enable %{scl} -</code> to start with an empty environment and to avoid any unintentional collisions with the base system installation.</para>
              <para>For example:</para>
             <programlisting language="RPM Spec"><![CDATA[%posttrans
 %{?scl:env -i - scl enable %{scl} - << \EOF}
@@ -976,7 +976,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
 %{?scl:EOF}]]></programlisting>
           </listitem>
           <listitem>
-            <para>All hardcoded paths found in the script must be replaced with proper macros. For example, replace all occurrences of <code>/usr/share</code> with <code>%{_datadir}</code>.</para>
+            <para>All hardcoded paths found in RPM scripts must be replaced with proper macros. For example, replace all occurrences of <code>/usr/share</code> with <code>%{_datadir}</code>. This is needed because the <code>$RPM_BUILD_ROOT</code> variable and the <code>%{build_root}</code> macro are not relocated by the <code>scl</code> macro.</para>
           </listitem>
          </itemizedlist>
        </section>
