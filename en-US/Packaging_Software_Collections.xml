@@ -931,7 +931,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
          <para>This section describes general rules for converting RPM scripts that can often be found in the <code>%prep</code>, <code>%build</code>, <code>%install</code>, <code>%check</code>, <code>%pre</code>, and <code>%post</code> sections of a conventional spec file.</para>
          <itemizedlist>
          <listitem>
-         <para>Replace all occurrences of <code>%name</code> with <code>%pkg_name</code>. Most importantly, this will include adjusting the <code>%setup</code> macro.</para>
+         <para>Replace all occurrences of <code>%name</code> with <code>%pkg_name</code>. Most importantly, this includes adjusting the <code>%setup</code> macro.</para>
          <itemizedlist>
           <listitem>
           <para>Adjust the <code>%setup</code> macro in the <code>%prep</code> section of the spec file so that the macro can deal with a different package name in the &DSCL; environment:</para>
@@ -945,7 +945,7 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
           <programlisting language="RPM Spec">mkdir -p %{?scl:%_root_sysconfdir}%{?!scl:%_sysconfdir}</programlisting>
           </listitem>
           <listitem>
-          <para>When building &DSCL; packages that depend on other &DSCL; packages, it is often important to ensure that the <command>scl enable</command> functionality links properly or run proper binaries, and so on. One of the examples where this will be needed is compiling against a &DSCL; library or running an interpreted script with the interpreter in the &DSCL;.</para>
+          <para>When building &DSCL; packages that depend on other &DSCL; packages, it is often important to ensure that the <command>scl enable</command> functionality links properly or run proper binaries, and so on. One of the examples where this is needed is compiling against a &DSCL; library or running an interpreted script with the interpreter in the &DSCL;.</para>
           <para>Wrap the script using the <code>%{?scl:</code> prefix, as in the following example:</para>
           <programlisting language="RPM Spec"><![CDATA[%{?scl:scl enable %scl - << \EOF}
  set -e
@@ -954,6 +954,26 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
  # The rest of the script contents goes here.
 %{?scl:EOF}]]></programlisting>
           <para>It is important to specify <code>set -e</code> in the script so that the script behavior is consistent regardless of whether the script is executed in the <command>rpm</command> shell or the <command>scl</command> environment.</para>
+          </listitem>
+          <listitem>
+            <para>Pay attention to any scriptlets that are executed during the &DSCL; package installation, such as:</para>
+              <itemizedlist>
+                <listitem>
+                  <para><code>%pretrans</code>, <code>%pre</code>,</para>
+                </listitem>
+                <listitem>
+                  <para><code>%post</code>, <code>%postun</code>, <code>%posttrans</code>,</para>
+                </listitem>
+                <listitem>
+                  <para><code>%triggerin</code>, <code>%triggerun</code>, and <code>%triggerpostun</code>.</para>
+                </listitem>
+              </itemizedlist>
+             <para>If you use the <command>scl enable</command> functionality in those scriptlets, you are advised to define <code>env -i - scl enable %{scl} -</code> to start with an empty environment and to avoid any unintentional collisions with the base system installation.</para>
+             <para>For example:</para>
+            <programlisting language="RPM Spec"><![CDATA[%posttrans
+%{?scl:env -i - scl enable %{scl} - << \EOF}
+%vagrant_plugin_register %{vagrant_plugin_name}
+%{?scl:EOF}]]></programlisting>
           </listitem>
           <listitem>
             <para>All hardcoded paths found in the script must be replaced with proper macros. For example, replace all occurrences of <code>/usr/share</code> with <code>%{_datadir}</code>.</para>
