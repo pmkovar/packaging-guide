@@ -912,20 +912,6 @@ libraries.</programlisting>
          <para>In case the subpackage requires the main package, make sure to also adjust the <code>Requires</code> tag in that subpackage so that the tag uses <code>%{?scl_prefix}%{pkg_name}</code>. For example:</para>
          <programlisting language="RPM Spec">Requires: %{?scl_prefix}%{pkg_name} = %{version}-%{release}</programlisting>
        </section>
-       <section id="sect-Using_a_Software_Collection_in_Your_Application">
-       <title>Making a &DSCL; Depend on Another &DSCL;</title>
-       <para>To make one &DSCL; depend on a package from another &DSCL;, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in the dependent &DSCL;'s spec file so that these tags properly define the dependency.</para>
-       <para>For example, to define dependencies on two &DSCL;s named <application>software_collection_1</application> and <application>software_collection_2</application>, add the following three lines to your application's spec file:</para>
-       <programlisting language="RPM Spec">BuildRequires: scl-utils-build
-Requires: %scl_require <replaceable>software_collection_1</replaceable>
-Requires: %scl_require <replaceable>software_collection_2</replaceable></programlisting>
-       <para>Ensure that the spec file also contains the <code>%scl_package</code> macro in front of the spec file preamble, for example:</para>
-       <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>less</replaceable>}</programlisting>
-       <para>Note that the <code>%scl_package</code> macro must be included in every spec file of your &DSCL;.</para>
-       <para>You can also use the <code>%scl_require_package</code> macro to define dependencies on a particular package from a specific &DSCL;, as in the following example:</para>
-       <programlisting language="RPM Spec">BuildRequires: scl-utils-build
-Requires: %scl_require_package <replaceable>software_collection_1</replaceable> <replaceable>package_name</replaceable></programlisting>
-       </section>
        <section id="sect-Converting_RPM_Scripts">
          <title>Converting RPM Scripts</title>
          <para>This section describes general rules for converting RPM scripts that can often be found in the <code>%prep</code>, <code>%build</code>, <code>%install</code>, <code>%check</code>, <code>%pre</code>, and <code>%post</code> sections of a conventional spec file.</para>
@@ -968,8 +954,8 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
                   <para><code>%triggerin</code>, <code>%triggerun</code>, and <code>%triggerpostun</code>.</para>
                 </listitem>
               </itemizedlist>
-             <para>If you use the <command>scl enable</command> functionality in those scripts, you are advised to define <code>env -i - scl enable %{scl} -</code> to start with an empty environment and to avoid any unintentional collisions with the base system installation.</para>
-             <para>For example:</para>
+             <para>If you use the <command>scl enable</command> functionality in those scripts, you are advised to start with an empty environment to avoid any unintentional collisions with the base system installation.</para>
+             <para>To do so, use <code>env -i -</code> before enabling the &DSCL;, as in the following example:</para>
             <programlisting language="RPM Spec"><![CDATA[%posttrans
 %{?scl:env -i - scl enable %{scl} - << \EOF}
 %vagrant_plugin_register %{vagrant_plugin_name}
@@ -1118,6 +1104,20 @@ Requires: %scl_require_package <replaceable>software_collection_1</replaceable> 
              </listitem>
            </varlistentry>
          </variablelist>
+       </section>
+       <section id="sect-Using_a_Software_Collection_in_Your_Application">
+       <title>Making a &DSCL; Depend on Another &DSCL;</title>
+       <para>To make one &DSCL; depend on a package from another &DSCL;, you need to adjust the <code>BuildRequires</code> and <code>Requires</code> tags in the dependent &DSCL;'s spec file so that these tags properly define the dependency.</para>
+       <para>For example, to define dependencies on two &DSCL;s named <application>software_collection_1</application> and <application>software_collection_2</application>, add the following three lines to your application's spec file:</para>
+       <programlisting language="RPM Spec">BuildRequires: scl-utils-build
+Requires: %scl_require <replaceable>software_collection_1</replaceable>
+Requires: %scl_require <replaceable>software_collection_2</replaceable></programlisting>
+       <para>Ensure that the spec file also contains the <code>%scl_package</code> macro in front of the spec file preamble, for example:</para>
+       <programlisting language="RPM Spec">%{?scl:%scl_package <replaceable>less</replaceable>}</programlisting>
+       <para>Note that the <code>%scl_package</code> macro must be included in every spec file of your &DSCL;.</para>
+       <para>You can also use the <code>%scl_require_package</code> macro to define dependencies on a particular package from a specific &DSCL;, as in the following example:</para>
+       <programlisting language="RPM Spec">BuildRequires: scl-utils-build
+Requires: %scl_require_package <replaceable>software_collection_1</replaceable> <replaceable>package_name</replaceable></programlisting>
        </section>
   </section>
   <section id="sect-Uninstalling_all_Software_Collection_directories">
