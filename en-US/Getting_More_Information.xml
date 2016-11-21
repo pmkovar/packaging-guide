@@ -3,7 +3,21 @@
 <appendix id="chap-Getting_More_Information">
   <title>Getting More Information</title>
   <!--Hic sunt leones.-->
-  <para>For more information on &DSCL; packaging, see the resources listed below.</para>
+  <para>For more information on &DSCL; packaging, Red Hat Developers, the Red Hat Software Collections and Red Hat Developer Toolset offerings, and Red Hat Enterprise Linux, see the resources listed below.</para>
+  <section id="sect-Red_Hat_Developers">
+    <title>Red Hat Developers</title>
+  <itemizedlist>
+  <listitem>
+    <para><ulink url="https://developers.redhat.com/products/softwarecollections/overview/">Overview of Red Hat Software Collections on Red Hat Developers</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Developers</citetitle> portal provides a number of tutorials to get you started with developing code using different development technologies. This includes the Node.js, Perl, PHP, Python, and Ruby &DSCL;.</para>
+  </listitem>
+  <listitem>
+  <para><ulink url="https://access.redhat.com/products/Red_Hat_Enterprise_Linux/Developer/">Red Hat Enterprise Linux Developer Program</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program</citetitle> delivers industry-leading developer tools, instructional resources, and an ecosystem of experts to help programmers maximize productivity in building Linux applications.</para>
+  </listitem>
+  <listitem>
+    <para><ulink url="http://developerblog.redhat.com/">Red Hat Developer Blog</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Developer Blog</citetitle> contains up-to-date information, best practices, opinion, product and program announcements as well as pointers to sample code and other resources for those who are designing and developing applications based on Red Hat technologies.</para>
+  </listitem>
+  </itemizedlist>
+  </section>
   <section id="sect-Installed_Documentation">
     <title>Installed Documentation</title>
   <itemizedlist>
@@ -28,13 +42,25 @@
          <para><ulink url="https://bitbucket.org/bkabrda/spec2scl/">spec2scl</ulink> &ndash; The <application>spec2scl</application> tool can help you convert conventional RPM spec files to SCL-style spec files. Install it on Fedora by running the <command>yum install spec2scl</command> command.</para>
        </listitem>
        <listitem>
-         <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/1/html/1.2_Release_Notes/index.html">Red Hat Software Collections 1.2 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 1.2 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         <para  condition="ga">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2/html/2.3_Release_Notes/index.html">Red Hat Software Collections 2.3 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.3 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         </para>
+         <para  condition="beta">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/2-Beta/html/2.3_Release_Notes/index.html">Red Hat Software Collections 2.3 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 2.3 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         </para>
+       </listitem>
+       <listitem>
+         <para condition="ga">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/6/html/User_Guide/index.html">Red Hat Developer Toolset 6.0 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 6.0 contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
+         </para>
+         <para condition="beta">
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/6-Beta/html/User_Guide/index.html">Red Hat Developer Toolset 6.0 Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 6.0 Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/3/html/User_Guide/index.html">Red Hat Developer Toolset 3.1 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 3.1 contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.</para>
+           <ulink url="https://access.redhat.com/articles/1752723">Using Red Hat Software Collections Container Images</ulink> &ndash; This article provides information on how to use container images based on Red Hat Software Collections. The available container images include applications, daemons, and databases. The images can be run on Red Hat Enterprise Linux 7 Server and Red Hat Enterprise Linux Atomic Host.
+         </para>
        </listitem>
        <listitem>
          <para>
@@ -43,12 +69,12 @@
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Red Hat Enterprise Linux 7 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 7.
          </para>
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">Red Hat Enterprise Linux 7 System Administrator's Guide</ulink> &ndash; The <citetitle pubwork="book">System Administrator's Guide</citetitle> for Red Hat Enterprise Linux 7 documents relevant information regarding the deployment, configuration, and administration of Red Hat Enterprise Linux 7.
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/index.html">Red Hat Enterprise Linux 6 Developer Guide</ulink> &ndash; The <citetitle pubwork="book">Developer Guide</citetitle> for Red Hat Enterprise Linux 6 provides detailed description of Red Hat Developer Toolset features, as well as an introduction to Red Hat Software Collections, and information on libraries and runtime support, compiling and building, debugging, and profiling.
          </para>
        </listitem>
        <listitem>
