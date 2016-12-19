@@ -196,7 +196,7 @@ Package shipping essential configuration macros to build %scl Software Collectio
 
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
 . scl_source enable %{scl_python}
-export PYTHONPATH=%{vt191_sitelib}\${PYTHONPATH:+:\${PYTHONPATH}}
+export PYTHONPATH="%{vt191_sitelib}\${PYTHONPATH:+:\${PYTHONPATH}}"
 EOF
 
 mkdir -p %{buildroot}%{vt191_sitelib}
@@ -475,11 +475,11 @@ packages depending on %scl Software Collection.
 %scl_install
 
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
-export PATH=%{_bindir}\${PATH:+:\${PATH}}
-export LD_LIBRARY_PATH=%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}
-export MANPATH=%{_mandir}:\${MANPATH}
-export PKG_CONFIG_PATH=%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}
-export GEM_PATH=\${GEM_PATH:=%{gem_dir}:\`scl enable %{scl_ruby} -- ruby -e "print Gem.path.join(':')"\`}
+export PATH="%{_bindir}:%{_sbindir}\${PATH:+:\${PATH}}"
+export LD_LIBRARY_PATH="%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}"
+export MANPATH="%{_mandir}:\${MANPATH:-}"
+export PKG_CONFIG_PATH="%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}"
+export GEM_PATH="\${GEM_PATH:=%{gem_dir}:\`scl enable %{scl_ruby} -- ruby -e "print Gem.path.join(':')"\`}"
 
 . scl_source enable %{scl_ruby}
 EOF
@@ -757,8 +757,8 @@ Package shipping essential configuration macros to build %scl Software Collectio
 
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
 . scl_source enable %{scl_perl}
-export PATH=%{_bindir}\${PATH:+:\${PATH}}
-export MANPATH=%{_mandir}:\${MANPATH}
+export PATH="%{_bindir}:%{_sbindir}\${PATH:+:\${PATH}}"
+export MANPATH="%{_mandir}:\${MANPATH:-}"
 EOF
 
 cat >> %{buildroot}%{_root_sysconfdir}/rpm/macros.%{scl}-config << EOF

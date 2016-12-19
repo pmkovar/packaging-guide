@@ -245,7 +245,7 @@
 			Include any path redefinition that the packages in your &DSCL; may require in the <filename>enable</filename> scriptlet.
 		</para>
 		<para>
-			For example, to run &DSCL; binary files, add <code language="RPM Spec">PATH=%{_bindir}\${PATH:+:\${PATH}}</code> to the <filename>enable</filename> scriptlet.
+			For information on commonly used path redefinitions, see <xref linkend="sect-Commonly_Used_Environment_Variables" />.
 		</para>
 	</listitem>
 	<listitem>
@@ -316,10 +316,10 @@ packages depending on %scl Software Collection.
 %scl_install
 
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
-export PATH=%{_bindir}\${PATH:+:\${PATH}}
-export LD_LIBRARY_PATH=%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}
-export MANPATH=%{_mandir}:\$MANPATH
-export PKG_CONFIG_PATH=%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}
+export PATH="%{_bindir}:%{_sbindir}\${PATH:+:\${PATH}}"
+export LD_LIBRARY_PATH="%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}"
+export MANPATH="%{_mandir}:\${MANPATH:-}"
+export PKG_CONFIG_PATH="%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}"
 EOF
 
 # This is only needed when you want to provide an optional scldevel subpackage
@@ -789,6 +789,122 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
       <para>Using a &DSCL; macro <code>nfsmountable</code> allows you to change values for the <code>_sysconfdir</code>, <code>_sharedstatedir</code>, and <code>_localstatedir</code> macros so that your &DSCL; can have its state files and configuration files located outside the &DSCL;'s <filename>/opt</filename> file system hierarchy. This makes the files easier to manage and is also required when using your &DSCL; over NFS.</para>
       <para>If you do not need support for &DSCL;s over NFS, using <code>nfsmountable</code> is optional but recommended. For more information, see <xref linkend="sect-Using_Software_Collections_over_NFS" />.</para>
     </section>
+  </section>
+  <section id="sect-Commonly_Used_Environment_Variables">
+    <title>Commonly Used Environment Variables</title>
+    <para>This section lists environment variables that are commonly used in the <filename>enable</filename> scriptlet to redefine paths. Depending on the packages you choose to include in your &DSCL;, you may need to specify a path redefinition in the <filename>enable</filename> scriptlet for the &DSCL; to work properly.</para>
+    <variablelist>
+      <varlistentry>
+        <term>CPATH</term>
+        <listitem>
+          <para>The <envar>CPATH</envar> environment variable specifies include paths for the <application>GCC</application> compiler to use. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export CPATH="%{_includedir}\${CPATH:+:\${CPATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>GEM_PATH</term>
+        <listitem>
+          <para>The <envar>GEM_PATH</envar> environment variable is used in &DSCL;s that extend the rh-ruby23 &DSCL;. For more information, see <xref linkend="sect-Extending_the_rh-ruby23_Software_Collections" />.</para>
+          <para>Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export GEM_PATH="\${GEM_PATH:=%{gem_dir}:\`scl enable %{scl_ruby} -- ruby -e "print Gem.path.join(':')"\`}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>GOPATH</term>
+        <listitem>
+          <para>The <envar>GOPATH</envar> environment variable specifies the location of Go source and binary files. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export GOPATH="%{gopath}\${GOPATH:+:\${GOPATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>INFOPATH</term>
+        <listitem>
+          <para>The <envar>INFOPATH</envar> environment variable specifies directories that contain Info files. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export INFOPATH="%{_infodir}\${INFOPATH:+:\${INFOPATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>JAVACONFDIRS</term>
+        <listitem>
+          <para>The <envar>JAVACONFDIRS</envar> environment variable is used to specify the location of the <filename>java.conf</filename> configuration file. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export JAVACONFDIRS="%{_sysconfdir}/java\${JAVACONFDIRS:+:}\${JAVACONFDIRS:-}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>LD_LIBRARY_PATH</term>
+        <listitem>
+          <para>The <envar>LD_LIBRARY_PATH</envar> environment variable specifies the location of libraries. For more information, see <xref linkend="sect-Software_Collection_Library_Support" />.</para>
+          <para>Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export LD_LIBRARY_PATH="%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>LIBRARY_PATH</term>
+        <listitem>
+          <para>The <envar>LIBRARY_PATH</envar> environment variable specifies the location of special linker files or ordinary libraries for <application>GCC</application> to use. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export LIBRARY_PATH="%{_libdir}\${LIBRARY_PATH:+:\${LIBRARY_PATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>MANPATH</term>
+        <listitem>
+          <para>The <envar>MANPATH</envar> environment variable specifies the location of man pages. For more information, see <xref linkend="sect-Software_Collection_manpath_Support" />.</para>
+          <para>Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export MANPATH="%{_mandir}:\${MANPATH:-}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PATH</term>
+        <listitem>
+          <para>The <envar>PATH</envar> environment variable specifies the location of binary files. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export PATH="%{_bindir}:%{_sbindir}\${PATH:+:\${PATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PCP_DIR</term>
+        <listitem>
+          <para>The <envar>PCP_DIR</envar> environment variable specifies the location of files and directories used by <application>PCP</application>. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export PCP_DIR="%{_scl_root}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PERL5LIB</term>
+        <listitem>
+          <para>The <envar>PERL5LIB</envar> environment variable is used to specify the location of custom Perl modules so that they can be installed with the <filename>%{?_scl_root}
+</filename> prefix. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export PERL5LIB="%{_scl_root}%{perl_vendorlib}\${PERL5LIB:+:\${PERL5LIB}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PKG_CONFIG_PATH</term>
+        <listitem>
+          <para>The <envar>PKG_CONFIG_PATH</envar> environment variable specifies the location of <filename>.pc</filename> files used by the <application>pkg-config</application> program. For more information, see <xref linkend="sect-Software_Collection_pc_Files_Support" />.</para>
+          <para>Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export PKG_CONFIG_PATH="%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>PYTHONPATH</term>
+        <listitem>
+          <para>The <envar>PYTHONPATH</envar> environment variable specifies the location of custom Python libraries. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export PYTHONPATH="%{_scl_root}%{python_sitearch}:%{_scl_root}%{python_sitelib}\${PYTHONPATH:+:}\${PYTHONPATH:-}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>XDG_CONFIG_DIRS</term>
+        <listitem>
+          <para>The <envar>XDG_CONFIG_DIRS</envar> environment variable specifies the location of desktop configuration files. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export XDG_CONFIG_DIRS="%{_sysconfdir}/xdg:\${XDG_CONFIG_DIRS:-/etc/xdg}"</programlisting>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>XDG_DATA_DIRS</term>
+        <listitem>
+          <para>The <envar>XDG_DATA_DIRS</envar> environment variable specifies the location of desktop data files. Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
+          <programlisting language="RPM Spec">export XDG_DATA_DIRS="%{_datadir}:\${XDG_DATA_DIRS:-/usr/local/share:%{_mandir}}"</programlisting>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </section>
   <section id="sect-Converting_a_Conventional_Spec_File">
     <title>Converting a Conventional Spec File</title>
