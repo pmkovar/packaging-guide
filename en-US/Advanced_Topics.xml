@@ -177,7 +177,7 @@ EOF
         <para>In case you have the <filename>enable</filename> scriptlet packaged as a file in one of your &DSCL; packages, add the command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code>%post</code> section.</para>
       </step>
     </procedure>
-    <para>See the <emphasis role="bold">module</emphasis>(1) manual page for more information about environment modules.</para>
+    <para>See the <emphasis role="bold">module</emphasis>(1) man page for more information about environment modules.</para>
   </section>
   <section id="sect-Packaging_Wrappers_for_Software_Collections">
     <title>Packaging Wrappers for &DSCL;s</title>
@@ -391,15 +391,15 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 </section>
   <section id="sect-Software_Collection_manpath_Support">
     <title>&DSCL; MANPATH Support</title>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages that are associated with the &DSCL;.</para>
+    <para>To allow the <command>man</command> command on the system to display man pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the man pages that are associated with the &DSCL;.</para>
     <para>To update the <envar>MANPATH</envar> environment variable, add the following to the <code>%install</code> section of the &DSCL; spec file:</para>
     <programlisting language="RPM Spec"><![CDATA[%install
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
 export MANPATH="%{_mandir}:\${MANPATH:-}"
 EOF]]></programlisting>
-    <para>This configures the <filename>enable</filename> scriptlet to update the <envar>MANPATH</envar> environment variable. The manual pages associated with the &DSCL; are then not visible as long as the &DSCL; is not enabled.</para>
-    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
+    <para>This configures the <filename>enable</filename> scriptlet to update the <envar>MANPATH</envar> environment variable. The man pages associated with the &DSCL; are then not visible as long as the &DSCL; is not enabled.</para>
+    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the man pages are visible to the system even if the &DSCL; is disabled.</para>
+    <para>To allow the <command>man</command> command on the system to display man pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
 <procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
 <step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
