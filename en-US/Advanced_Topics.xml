@@ -177,7 +177,7 @@ EOF
         <para>In case you have the <filename>enable</filename> scriptlet packaged as a file in one of your &DSCL; packages, add the command <command>/usr/share/Modules/bin/createmodule.sh <replaceable>/path/to/enable/scriptlet</replaceable></command> in the <code>%post</code> section.</para>
       </step>
     </procedure>
-    <para>See the <emphasis role="bold">module</emphasis>(1) manual page for more information about environment modules.</para>
+    <para>See the <emphasis role="bold">module</emphasis>(1) man page for more information about environment modules.</para>
   </section>
   <section id="sect-Packaging_Wrappers_for_Software_Collections">
     <title>Packaging Wrappers for &DSCL;s</title>
@@ -264,7 +264,7 @@ ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_co
   <section id="sect-Software_Collection_Library_Support">
     <title>&DSCL; Library Support</title>
     <para>In case you distribute libraries that you intend to use only in the &DSCL; environment or in addition to the libraries available on the system, update the <envar>LD_LIBRARY_PATH</envar> environment variable in the <filename>enable</filename> scriptlet as follows:</para>
-    <programlisting language="RPM Spec">export LD_LIBRARY_PATH=%{_libdir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}</programlisting>
+    <programlisting language="RPM Spec">export LD_LIBRARY_PATH="%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}"</programlisting>
     <para>The configuration ensures that the version of the library in the &DSCL; is preferred over the version of the library available on the system if the &DSCL; is enabled.</para>
     <note>
       <para>
@@ -352,12 +352,12 @@ $ <command>rpm -ql mysql-libs | grep 'lib.*so'</command>
     <para>If the library directory is defined in your .pc files, update the <envar>PKG_CONFIG_PATH</envar> environment variable by adjusting the <code>%install</code> section of the &DSCL; spec file as follows:</para>
     <programlisting language="RPM Spec"><![CDATA[%install
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
-export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:\$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH="%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}"
 EOF]]></programlisting>
     <para>If the share directory is defined in your .pc files, update the <envar>PKG_CONFIG_PATH</envar> environment variable by adjusting the <code>%install</code> section of the &DSCL; spec file as follows:</para>
     <programlisting language="RPM Spec"><![CDATA[%install
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
-export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:\$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH="%{_datadir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}"
 EOF]]></programlisting>
     <para>The two examples above both configure the <filename>enable</filename> scriptlet so that it ensures that the .pc files in the &DSCL; are preferred over the .pc files available on the system if the &DSCL; is enabled.</para>
     <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the .pc files are visible to the system even if the &DSCL; is disabled.</para>
@@ -367,7 +367,7 @@ EOF]]></programlisting>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-libdir.sh</screen></step>
 <step><para>Use the <filename>pc-libdir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
-    <screen>export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
+    <screen>export PKG_CONFIG_PATH="%{_libdir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable>"</screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-libdir.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
@@ -380,7 +380,7 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}pc-datadir.sh</screen></step>
 <step><para>Use the <filename>pc-datadir.sh</filename> short script that modifies the <envar>PKG_CONFIG_PATH</envar> variable to refer to your .pc files:</para>
-    <screen>export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable></screen></step>
+    <screen>export PKG_CONFIG_PATH="%{_datadir}/pkgconfig:/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/pc_files</replaceable>"</screen></step>
 <step><para>Add the file to your &DSCL; package's spec file:</para>
 <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}pc-datadir.sh</programlisting></step>
     <step><para>Install this file into the system <filename>/etc/profile.d/</filename> directory by adjusting the <code>%install</code> section of the &DSCL; package's spec file:</para>
@@ -391,22 +391,22 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
 </section>
   <section id="sect-Software_Collection_manpath_Support">
     <title>&DSCL; MANPATH Support</title>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages that are associated with the &DSCL;.</para>
+    <para>To allow the <command>man</command> command on the system to display man pages from the enabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the man pages that are associated with the &DSCL;.</para>
     <para>To update the <envar>MANPATH</envar> environment variable, add the following to the <code>%install</code> section of the &DSCL; spec file:</para>
     <programlisting language="RPM Spec"><![CDATA[%install
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
-export MANPATH=%{_mandir}:\${MANPATH}
+export MANPATH="%{_mandir}:\${MANPATH:-}"
 EOF]]></programlisting>
-    <para>This configures the <filename>enable</filename> scriptlet to update the <envar>MANPATH</envar> environment variable. The manual pages associated with the &DSCL; are then not visible as long as the &DSCL; is not enabled.</para>
-    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the manual pages are visible to the system even if the &DSCL; is disabled.</para>
-    <para>To allow the <command>man</command> command on the system to display manual pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the manual pages associated with the &DSCL;.</para>
+    <para>This configures the <filename>enable</filename> scriptlet to update the <envar>MANPATH</envar> environment variable. The man pages associated with the &DSCL; are then not visible as long as the &DSCL; is not enabled.</para>
+    <para>The &DSCL; can provide a wrapper script that is visible to the system to enable the &DSCL;, for example in the <filename>/usr/bin/</filename> directory. In this case, ensure that the man pages are visible to the system even if the &DSCL; is disabled.</para>
+    <para>To allow the <command>man</command> command on the system to display man pages from the disabled &DSCL;, update the <envar>MANPATH</envar> environment variable with the paths to the man pages associated with the &DSCL;.</para>
 <procedure><title>Updating the MANPATH environment variable for the disabled &DSCL;</title>
 <step><para>To update the <envar>MANPATH</envar> environment variable, create a custom script <filename>/etc/profile.d/<replaceable>name.sh</replaceable></filename>. The script is preloaded when a shell is started on the system.</para>
 <para>For example, create the following file:</para>
     <screen>%{?scl_prefix}manpage.sh</screen></step>
     <step>
     <para>Use the <filename>manpage.sh</filename> short script that modifies the <envar>MANPATH</envar> variable to refer to your man path directory:</para>
-    <screen>export MANPATH=/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/man_pages</replaceable>:${MANPATH}</screen>
+    <screen>export MANPATH="/&OPT;/<replaceable>&RH;</replaceable>/<replaceable>software_collection/path/to/your/man_pages</replaceable>:${MANPATH}"</screen>
     </step>
     <step><para>Add the file to your &DSCL; package's spec file:</para>
     <programlisting language="RPM Spec">SOURCE2: %{?scl_prefix}manpage.sh</programlisting></step>
