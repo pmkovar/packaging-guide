@@ -7,8 +7,8 @@
 	<title>Packaging Guide</title>
 	<subtitle>A guide to packaging &DSCL;s for &MAJOROS;</subtitle>
 	<productname>Red Hat Software Collections</productname>
-	<productnumber condition="ga">2.3</productnumber>
-	<productnumber condition="beta">2.3 Beta</productnumber>
+	<productnumber condition="ga">2.4</productnumber>
+	<productnumber condition="beta">2.4 Beta</productnumber>
 	<abstract>
 		<para>The Packaging Guide provides an explanation of &DSCL;s and details how to build and package them. Developers and system administrators who have a basic understanding of software packaging with RPM packages, but who are new to the concept of &DSCL;s, can use this Guide to get started with &DSCL;s.</para>
 		<para condition="beta"><emphasis role="strong">Note:</emphasis> This document is under development, is subject to substantial change, and is provided only as a preview. The included information and instructions should not be considered complete, and should be used with caution.</para>

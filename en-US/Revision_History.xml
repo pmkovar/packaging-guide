@@ -6,6 +6,20 @@
 	<simpara>
 		<revhistory>
 			<revision>
+				<revnumber>3.8-0</revnumber>
+				<date>Wed Apr 05 2017</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red Hat Software Collections 2.4 Beta release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
 				<revnumber>3.7-0</revnumber>
 				<date>Wed Jan 25 2017</date>
 				<author>
