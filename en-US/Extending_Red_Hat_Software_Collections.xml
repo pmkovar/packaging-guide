@@ -134,6 +134,7 @@ Requires: %{scl_prefix_ruby}scldevel</programlisting>
 # will be used when python27-scldevel (or rh-python35-scldevel) is not in the
 # build root
 %{!?scl_python:%global scl_python python27}
+%{!?scl_no_vendor:%global scl_no_vendor python27}
 %{!?scl_prefix_python:%global scl_prefix_python %{scl_python}-}
 
 # Only for this build, you need to override default __os_install_post,
