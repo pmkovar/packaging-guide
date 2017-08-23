@@ -911,7 +911,7 @@ install -p -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/
         <listitem>
           <para>The <envar>XDG_DATA_DIRS</envar> environment variable specifies the location of desktop data files according to the freedesktop.org specification. It is used in some &DSCL;s to locate the &DSCL;-specific scripts or to enable bash completion.</para>
           <para>Include the following in the <filename>enable</filename> scriptlet to redefine the environment variable:</para>
-          <programlisting language="RPM Spec">export XDG_DATA_DIRS="%{_datadir}:\${XDG_DATA_DIRS:-/usr/local/share:%{_mandir}}"</programlisting>
+          <programlisting language="RPM Spec">export XDG_DATA_DIRS="%{_datadir}:\${XDG_DATA_DIRS:-/usr/local/share:%{_root_datadir}}"</programlisting>
         </listitem>
       </varlistentry>
     </variablelist>
