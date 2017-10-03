@@ -59,7 +59,7 @@
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/articles/1752723">Using Red Hat Software Collections Container Images</ulink> &ndash; This article provides information on how to use container images based on Red Hat Software Collections. The available container images include applications, daemons, and databases. The images can be run on Red Hat Enterprise Linux 7 Server and Red Hat Enterprise Linux Atomic Host.
+           <ulink url="https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/using_red_hat_software_collections_container_images/">Using Red Hat Software Collections Container Images</ulink> &ndash; This guide provides information on how to use container images based on Red Hat Software Collections. The available container images include applications, daemons, and databases. The images can be run on Red Hat Enterprise Linux 7 Server and Red Hat Enterprise Linux Atomic Host.
          </para>
        </listitem>
        <listitem>
