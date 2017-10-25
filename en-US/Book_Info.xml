@@ -11,7 +11,7 @@
 	<productnumber condition="beta">3.0 Beta</productnumber>
 	<abstract>
 		<para>The Packaging Guide provides an explanation of &DSCL;s and details how to build and package them. Developers and system administrators who have a basic understanding of software packaging with RPM packages, but who are new to the concept of &DSCL;s, can use this Guide to get started with &DSCL;s.</para>
-		<para><emphasis role="bold">This version of the document is provided only as a preview. It is under development and is subject to substantial change. Consider the included information incomplete and use it with caution.</emphasis></para>
+		<para condition="beta"><emphasis role="bold">This version of the document is provided only as a preview. It is under development and is subject to substantial change. Consider the included information incomplete and use it with caution.</emphasis></para>
 	</abstract>
 	<corpauthor>
 		<inlinemediaobject>
