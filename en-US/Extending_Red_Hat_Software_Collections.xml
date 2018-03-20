@@ -6,6 +6,8 @@
   <section id="sect-Providing_an_scldevel_Subpackage">
     <title>Providing an scldevel Subpackage</title>
     <para>The purpose of an <package>scldevel</package> subpackage is to make the process of creating dependent &DSCL;s easier by providing a number of generic macro files. Packagers then use these macro files when they are extending existing &DSCL;s. <package>scldevel</package> is provided as a subpackage of your &DSCL;'s metapackage.</para>
+    <section id="sect-Creating_an_scldevel_Subpackage">
+    <title>Creating an scldevel Subpackage</title>
     <para>The following section describes creating an <package>scldevel</package> subpackage for two examples of Ruby &DSCL;s, ruby193 and ruby200.</para>
     <procedure>
     <title>Providing your own scldevel subpackage</title>
@@ -29,6 +31,7 @@ EOF]]></programlisting>
     <para>Note that between all &DSCL;s that share the same <code>%{scl_name_base}</code> name, the provided <code>macros.%{scl_name_base}-scldevel</code> files must conflict. This is to disallow installing multiple versions of the <code>%{scl_name_base}</code> &DSCL;s. For example, the <package>ruby193-scldevel</package> subpackage cannot be installed when there is the <package>ruby200-scldevel</package> subpackage installed.</para>
       </step>
     </procedure>
+    </section>
     <section id="sect-Using_an_scldevel_Subpackage_in_a_Dependent_Software_Collection">
     <title>Using an scldevel Subpackage in a Dependent &DSCL;</title>
     <para>To use your <package>scldevel</package> subpackage in a &DSCL; that depends on the ruby200 &DSCL;, update the metapackage of the dependent &DSCL; as described below.</para>
@@ -55,11 +58,12 @@ Requires: scl-utils
 Requires: %{scl_prefix_ruby}runtime</programlisting>
     </step>
     <step>
-   <para>Ensure that the <code>%package build</code> part of the metapackage's spec file includes the following lines:</para>
+   <para>Consider including the following lines in the <code>%package build</code> part of the metapackage's spec file:</para>
    <programlisting language="RPM Spec">%package build
 Summary: Package shipping basic build configuration
 Requires: %{scl_prefix_ruby}scldevel</programlisting>
     <para>Specifying <code>Requires: %{scl_prefix_ruby}scldevel</code> ensures that macros are available in all packages of the &DSCL;.</para>
+    <para>Note that adding this <code>Requires</code> only makes sense in specific use cases, such as where packages in a dependent &DSCL; use macros provided by the <package>scldevel</package> subpackage.</para>
     </step>
     </procedure>
     </section>
