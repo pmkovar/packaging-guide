@@ -194,6 +194,50 @@ scl enable rubyscl "$COMMAND"
   It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
 </para>
   </section>
+  <section id="sect-Providing_syspaths_Subpackages">
+       <title>Providing syspaths Subpackages</title>
+       <para>In order to use a &DSCL;'s packages, users need to perform certain tasks that differ from when using conventional RPM packages. For example, they need to use an <command>scl enable</command> call, which changes environment variables, such as <envar>PATH</envar> or <envar>LD_LIBRARY_PATH</envar>, so that binaries installed in alternative locations can be found. Users also need to use alternative names for systemd services. Some scripts may also call binaries using full paths, for example <command>/usr/bin/mysql</command>, and as a result, those scripts may not work with the &DSCL;.</para>
+       <para>A recommended solution to address the problems described above is to use <package>syspaths</package> subpackages. The basic idea is to allow users to consume different versions of the same package without affecting the base system installation, but with the option to use the &DSCL; packages as if they were conventional RPM packages, making the &DSCL; easier to use.</para>
+       <para>The optional <package>syspaths</package> subpackages (such as <package>rh-mariadb102-syspaths</package>) provide shell wrappers and symbolic links that are installed into the standard path (typically, <filename>/usr/bin/</filename>). This means that by choosing to install the <package>syspaths</package> subpackages, users deliberately alter the base system installation, making the <package>syspaths</package> subpackages typically suitable for users who do not require installing and running multiple versions of the same package at a time. This is especially the case when using databases.</para>
+       <para>Using <package>syspaths</package> subpackages avoids the need for adjusting scripts in the &DSCL; packages to make those scripts easier to use. Keep in mind that <package>syspaths</package> subpackages do conflict with the packages from the base system installation, so the conventional packages cannot be installed together with the <package>syspaths</package> subpackages. If that is a concern, consider employing a container-based technology to isolate the <package>syspaths</package> subpackages from the base system installation.</para>
+       <section id="sect-Naming_syspaths_Subpackages">
+       <title>Naming syspaths Subpackages</title>
+       <para>For each &DSCL; that utilizes the concept of a <package>syspaths</package> subpackage, there are typically multiple <package>syspaths</package> subpackages provided. <package>syspaths</package> subpackages are made available for each package with a file that can be provided with a wrapper or a symbolic link.</para>
+       <para>On top of that, there is a &DSCL; metapackage's subpackage named <package>software_collection_1-syspaths</package>, where <package>software_collection_1</package> is the name of the &DSCL;. The <package>software_collection_1-syspaths</package> subpackage requires other <package>syspaths</package> subpackages included the &DSCL;. Installing the <package>software_collection_1-syspaths</package> subpackage thus results in installing all the other <package>syspaths</package> packages.</para>
+       <para>For example, if you want to include wrappers for a binary file <filename>binary_1</filename> included in the <package>software_collection_1-package_1</package> package and a binary file <filename>binary_2</filename> included in the <package>software_collection_1-package_2</package> package, then create the following three <package>syspaths</package> subpackages in the <package>software_collection_1</package> &DSCL;:</para>
+       <screen>software_collection_1-syspaths
+software_collection_1-package_1-syspaths
+software_collection_1-package_2-syspaths</screen>
+       </section>
+       <section id="sect-Files_Included_in_syspaths_Subpackages">
+       <title>Files Included in syspaths Subpackages</title>
+       <para>The files suitable for inclusion in <package>syspaths</package> subpackages are executable shell wrappers for binaries that users interact with.</para>
+       <para>The following is an example of a wrapper for a binary file <filename>binary_1</filename> included in the <package>software_collection_1</package> and located in <filename>/opt/rh/software_collection_1/root/usr/bin/binary_1</filename>:</para>
+       <programlisting language="Bash">#!/bin/bash
+source scl_source enable software_collection_1
+exec "/opt/rh/software_collection_1/root/usr/bin/binary_1" "$@"</programlisting>
+       <para>When you install this wrapper in <filename>/usr/bin/binary_1</filename> and make it executable, users can then simply run the <command>binary_1</command> command without the need to prefix it with <command>scl enable software_collection_1</command>. The wrapper installed in <filename>/usr/bin/</filename> sets up the correct environment and executes the target binary located withing the <filename>/opt/provider/%{scl}</filename> file system hierarchy.</para>
+       </section>
+       <section id="sect-Limitations_of_syspaths_Wrappers">
+       <title>Limitations of syspaths Wrappers</title>
+       <para>The fact that <package>syspaths</package> wrappers are shell scripts means that users cannot perform every possible task with the wrappers as with the target binary. For example, when debugging binaries using <application>gdb</application>, the full path pointing to the <filename>/opt/provider/%{scl}</filename> file system hierarchy needs to be used, because <application>gdb</application> does not work with wrapper shell scripts.</para>
+       </section>
+       <section id="sect-Symbolic_Links_in_syspaths_Subpackages">
+       <title>Symbolic Links in syspaths Subpackages</title>
+       <para>Other than wrappers for binary files, there are more files that are suitable for installation outside of the <filename>/opt</filename>, <filename>/etc/opt/</filename>, or <filename>/var/opt/</filename> directories, and thus can be provided by <package>syspaths</package> subpackages. For example, you can make the path to database files (normally located under <filename>/var/opt/provider/%{scl}</filename>) easier to discover with a symbolic link located in <filename>/var/lib/</filename>. However, for some symbolic links, it is better not to install them in <filename>/var/lib/</filename> under their original name as they may conflict with the name of the conventional RPM package from the base system installation.</para>
+       <para>A good idea is to name the symbolic link <filename>/var/lib/software_collection_1-original_name</filename> or similar. For log files, a recommended name is <filename>/var/log/software_collection_1-original_name</filename> or similar. Keep in mind that the name itself is not important, the design goal here is make those files easy to find under the <filename>/var/lib/</filename> or <filename>/var/log/</filename> directories.</para>
+       <para>The same applies to configuration files, the goal is to make symbolic links easy to discover under the <filename>/etc</filename> directory.</para>
+       </section>
+       <section id="sect-Services_Without_a_Prefix">
+       <title>Services Without a Prefix</title>
+       <para>systemd and SysV init services are popular examples of user interaction with daemon services. In general, users do not need to include <command>scl enable</command> in the command when starting services, because services are by design started in a clean environment. But still, users are required to use the correct service name, usually prefixed with the &DSCL; name (for example, <systemitem>rh-mariadb102-mariadb</systemitem>).</para>
+       <para><package>syspaths</package> subpackages allow users to use the conventional names of the services, such as <systemitem>mariadb</systemitem>, <systemitem>mongod</systemitem>, or <systemitem>postgresql</systemitem>, if the appropriate <package>syspaths</package> subpackage is installed. To achieve this, create a symbolic link, without including the &DSCL; name in the symbolic link name, that points to the conventional service file.</para>
+       <para>For example, a service <systemitem>service_1</systemitem> in the <package>software_collection_1</package> &DSCL; that is normally provided by the file <filename>/etc/rc.d/init.d/software_collection_1-service_1</filename> can be accessed as <systemitem>service_1</systemitem> by creating the following symbolic link:</para>
+       <screen>/etc/rc.d/init.d/service_1 -> /etc/rc.d/init.d/software_collection_1-service_1</screen>
+       <para>Or, in the case of a systemd unit file:</para>
+       <screen>/usr/lib/systemd/system/service_1 -> /usr/lib/systemd/system/software_collection_1-service_1</screen>
+       </section>
+  </section>
   <section id="sect-Software_Collection_Initscript_Support">
     <title>Managing Services in &DSCL;s</title>
     <para>When packaging your &DSCL;, ensure that users can directly manage any services (daemons) provided by the &DSCL; or one of the associated applications with the system default tools, like <command>service</command> or <command>chkconfig</command> on Red Hat Enterprise Linux 6, or <command>systemctl</command> on Red Hat Enterprise Linux 7.</para>
