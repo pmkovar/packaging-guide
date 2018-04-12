@@ -179,21 +179,6 @@ EOF
     </procedure>
     <para>See the <emphasis role="bold">module</emphasis>(1) man page for more information about environment modules.</para>
   </section>
-  <section id="sect-Packaging_Wrappers_for_Software_Collections">
-    <title>Packaging Wrappers for &DSCL;s</title>
-    <para>
-      Using wrappers is an easy way to shorten commands that the user runs in the &DSCL; environment.</para>
-     <para>The following is an example of a wrapper from a Ruby-based &DSCL; named <package>rubyscl</package> that is installed as <filename>/usr/bin/rubyscl-ruby</filename> and allows the user to run <command>rubyscl-ruby <replaceable>command</replaceable></command> instead of <command>scl enable rubyscl 'ruby <replaceable>command</replaceable>'</command>:
-    </para>
-    <programlisting language="Bash">#!/bin/bash
-
-COMMAND="ruby $@"
-scl enable rubyscl "$COMMAND"
-</programlisting>
-<para>
-  It is important to package these wrappers as subpackages of the &DSCL; package that will use them. That way, you can make installation of these wrappers optional, allowing the user not to install them, for example, on systems with read-only access to the <filename>/usr/bin/</filename> directory where the wrappers would otherwise be installed.
-</para>
-  </section>
   <section id="sect-Providing_syspaths_Subpackages">
        <title>Providing syspaths Subpackages</title>
        <para>In order to use a &DSCL;'s packages, users need to perform certain tasks that differ from when using conventional RPM packages. For example, they need to use an <command>scl enable</command> call, which changes environment variables, such as <envar>PATH</envar> or <envar>LD_LIBRARY_PATH</envar>, so that binaries installed in alternative locations can be found. Users also need to use alternative names for systemd services. Some scripts may also call binaries using full paths, for example <command>/usr/bin/mysql</command>, and as a result, those scripts may not work with the &DSCL;.</para>
