@@ -183,9 +183,7 @@
       <synopsis>
         <command>scl enable software_collection_1 'perl --version'</command>
       </synopsis>
-      <para>
-      	Alternatively, you can create a wrapper script that shortens the commands for running applications in the &DSCL; environment. For more information on wrappers, see <xref linkend="sect-Packaging_Wrappers_for_Software_Collections" />.
-      </para>
+      <para>Alternatively, you can provide a <package>syspaths</package> subpackage that makes it more convenient to run commands in the &DSCL; environment. For more information on <package>syspaths</package> subpackages, see <xref linkend="sect-Providing_syspaths_Subpackages" />.</para>
     </section>
     <section id="sect-Running_a_Shell_with_Multiple_Software_Collections_Enabled">
       <title>Running a Shell with Multiple &DSCL;s Enabled</title>

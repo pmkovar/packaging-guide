@@ -194,6 +194,15 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term>The syspaths subpackage: <replaceable>%name</replaceable>-syspaths</term>
+          <listitem>
+            <para>The syspaths subpackage in the &DSCL; provides an optional way to install convenient shell wrappers and symbolic links into the standard path, thus altering the base system installation, but making binary files in the &DSCL; packages easier to use.</para>
+            <para>For example, if the name of the &DSCL; is <literal>myorganization-ruby193</literal>, then the syspaths subpackage macro is expanded to:</para>
+            <programlisting>myorganization-ruby193-syspaths</programlisting>
+            <para>For more information about the syspaths subpackage, see <xref linkend="sect-Providing_syspaths_Subpackages" />.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term>The scldevel subpackage: <replaceable>%name</replaceable>-scldevel</term>
           <listitem>
             <para>The scldevel subpackage in the %name &DSCL; contains development files, which are useful when developing packages of another &DSCL; that depends on the %name &DSCL;. The scldevel subpackage is optional and can be excluded from the %name &DSCL;.</para>
