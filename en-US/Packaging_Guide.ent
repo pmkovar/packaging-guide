@@ -1,7 +1,7 @@
 <!ENTITY PRODUCT "Red Hat Software Collections">
-<!ENTITY VERSIONNUM "3.2">
+<!ENTITY VERSIONNUM "3.3">
 <!ENTITY BOOKID "doc-Packaging_Guide">
-<!ENTITY YEAR "2018">
+<!ENTITY YEAR "2019">
 <!ENTITY HOLDER "Red Hat, Inc">
 <!ENTITY MAJOROS 'Red Hat Enterprise Linux'>
 <!ENTITY PKGOS "el6">
