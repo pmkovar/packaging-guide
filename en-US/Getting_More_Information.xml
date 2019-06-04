@@ -10,9 +10,9 @@
   <listitem>
     <para><ulink url="https://developers.redhat.com/products/softwarecollections/overview/">Overview of Red Hat Software Collections on Red Hat Developers</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Developers</citetitle> portal provides a number of tutorials to get you started with developing code using different development technologies. This includes the Node.js, Perl, PHP, Python, and Ruby &DSCL;.</para>
   </listitem>
-  <listitem>
+  <!--<listitem>
   <para><ulink url="https://access.redhat.com/products/Red_Hat_Enterprise_Linux/Developer/">Red Hat Enterprise Linux Developer Program</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program</citetitle> delivers industry-leading developer tools, instructional resources, and an ecosystem of experts to help programmers maximize productivity in building Linux applications.</para>
-  </listitem>
+  </listitem>-->
   <listitem>
     <para><ulink url="https://developers.redhat.com/blog/">RHD Blog</ulink> &ndash; The <citetitle pubwork="webpage">RHD Blog</citetitle> contains up-to-date information, best practices, opinion, product and program announcements as well as pointers to sample code and other resources for those who are designing and developing applications based on Red Hat technologies.</para>
   </listitem>
