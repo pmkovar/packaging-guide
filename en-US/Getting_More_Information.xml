@@ -14,7 +14,7 @@
   <para><ulink url="https://access.redhat.com/products/Red_Hat_Enterprise_Linux/Developer/">Red Hat Enterprise Linux Developer Program</ulink> &ndash; The <citetitle pubwork="webpage">Red Hat Enterprise Linux Developer Program</citetitle> delivers industry-leading developer tools, instructional resources, and an ecosystem of experts to help programmers maximize productivity in building Linux applications.</para>
   </listitem>-->
   <listitem>
-    <para><ulink url="https://developers.redhat.com/blog/">RHD Blog</ulink> &ndash; The <citetitle pubwork="webpage">RHD Blog</citetitle> contains up-to-date information, best practices, opinion, product and program announcements as well as pointers to sample code and other resources for those who are designing and developing applications based on Red Hat technologies.</para>
+    <para><ulink url="https://developers.redhat.com/blog/">Red&nbsp;Hat Developer Blog</ulink> &ndash; The <citetitle pubwork="webpage">Red&nbsp;Hat Developer Blog</citetitle> contains up-to-date information, best practices, opinion, product and program announcements as well as pointers to sample code and other resources for those who are designing and developing applications based on Red Hat technologies.</para>
   </listitem>
   </itemizedlist>
   </section>
@@ -35,31 +35,33 @@
   <section id="sect-Online_Documentation">
     <title>Accessing Red Hat Documentation</title>
      <para>
-       <emphasis role="strong">Red Hat Product Documentation</emphasis> located at <ulink url="https://access.redhat.com/documentation/" /> serves as a central source of information. It is currently translated in 22 languages and for each product, it provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
+       <emphasis role="strong">Red Hat Product Documentation</emphasis> located at <ulink url="https://access.redhat.com/documentation/" /> serves as a central source of information. <!--It is currently translated in 22 languages and for each product, i-->It provides different kinds of books from release and technical notes to installation, user, and reference guides in HTML, PDF, and EPUB formats.
      </para>
      <para>
        The following is a brief list of documents that are directly or indirectly relevant to this book:
      </para>
   <itemizedlist>
        <listitem>
-         <para  condition="ga">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/3/html/3.3_Release_Notes/index.html">Red Hat Software Collections 3.3 Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 3.3 document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
+         <!--para  condition="ga"-->
+				 <para>
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/&RHSCLVERLINK;/html/&RHSCLVERTITLE;_Release_Notes/index.html">Red Hat Software Collections &VERSIONNUM; Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections  &VERSIONNUM; document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
          </para>
-         <para  condition="beta">
+         <!--para  condition="beta">
            <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Software_Collections/3-beta/html/3.3_Release_Notes/index.html">Red Hat Software Collections 3.3 Beta Release Notes</ulink> &ndash; The <citetitle pubwork="book">Release Notes</citetitle> for Red Hat Software Collections 3.3 Beta document the major features and contains other information about Red Hat Software Collections, a Red Hat offering that provides a set of dynamic programming languages, database servers, and various related packages.
-         </para>
+         </para-->
        </listitem>
        <listitem>
-         <para condition="ga">
-           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/8/html/User_Guide/index.html">Red Hat Developer Toolset 8.1 User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 8.1 contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
+         <!--para condition="ga"-->
+				 <para>
+           <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/&DTSVERLINK;/html/User_Guide/index.html">Red Hat Developer Toolset &DTSVER; User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset &DTSVER; contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
          </para>
-         <para condition="beta">
+         <!--para condition="beta">
            <ulink url="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/8-beta/html/User_Guide/index.html">Red Hat Developer Toolset 8.1 Beta User Guide</ulink> &ndash; The <citetitle pubwork="book">User Guide</citetitle> for Red Hat Developer Toolset 8.1 Beta contains information about Red Hat Developer Toolset, a Red Hat offering for developers on the Red Hat Enterprise Linux platform. Using &DSCL;s, Red Hat Developer Toolset provides current versions of the <application>GCC</application> compiler, <application>GDB</application> debugger and other binary utilities.
-         </para>
+         </para-->
        </listitem>
        <listitem>
          <para>
-           <ulink url="https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/using_red_hat_software_collections_container_images/">Using Red Hat Software Collections Container Images</ulink> &ndash; This guide provides information on how to use container images based on Red Hat Software Collections. The available container images include applications, daemons, and databases. The images can be run on Red Hat Enterprise Linux 7 Server and Red Hat Enterprise Linux Atomic Host.
+           <ulink url="https://access.redhat.com/documentation/en-us/red_hat_software_collections/&RHSCLVERLINK;/html/using_red_hat_software_collections_container_images/">Using Red Hat Software Collections &VERSIONNUM; Container Images</ulink> &ndash; This guide provides information on how to use container images based on Red Hat Software Collections. The available container images include applications, daemons, and databases. The images can be run on Red Hat Enterprise Linux 7 Server and Red Hat Enterprise Linux Atomic Host.
          </para>
        </listitem>
        <listitem>
