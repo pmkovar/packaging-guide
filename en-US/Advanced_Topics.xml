@@ -288,6 +288,9 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{?scl_prefix}<replac
 ExecStart=/usr/bin/scl enable $[SCLNAME]_SCLS_ENABLED -- /&OPT;/&RH;/software_collection/root/usr/bin/daemon_binary --argument-1 --argument-2</programlisting>
       </step>
     </procedure>
+    <warning>
+      <para>Prefixing <option>ExecStart*</option> commands with <command>scl enable ...</command> as described above will prevent the service from transitioning to its target SELinux context indicated by the SELinux policy in effect. If the service is supposed to be confined using SELinux, the systemd service file needs to execute the binary directly. If the binary is linked against shared libraries which are part of the Software Collection, the <envar>DT_RUNPATH</envar> attribute may help make those shared libraries accessible at runtime without the need for using the <command>scl enable ...</command> wrapper. See <xref linkend="sect-Software_Collection_SELinux_Support-Red_Hat_Enterprise_Linux_7" /> for more information.</para>
+    </warning>
   </section>
   </section>
   <section id="sect-Software_Collection_Library_Support">
@@ -571,6 +574,9 @@ install -p -c -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{?scl:%_root_sysconfdir}%{!?scl:
     <synopsis><command>selinuxenabled &amp;&amp; load_policy || :</command></synopsis>
     <para>The last command ensures that the newly created SELinux policy is properly loaded, and that the files installed by a package in the &DSCL; are created with the correct SELinux context. By using this command in the metapackage, you do not need to include the <command>restorecon</command> command in all packages in the &DSCL;.</para>
     <para>Note that the <command>semanage fcontext</command> command is provided by the <package>policycoreutils-python</package> package, therefore it is important that you include <code>policycoreutils-python</code> in <code>Requires</code> for the &DSCL; metapackage.</para>
+    <note>
+      <para>The SELinux aspect of starting services has <ulink url="https://danwalsh.livejournal.com/70577.html">changed</ulink> significantly in Red Hat Enterprise Linux 7. Most importantly, using the <command>scl enable ...</command> wrapper in a systemd service file will cause the service to be run as an <ulink url="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-targeted_policy-unconfined_processes">unconfined process</ulink> using the <computeroutput>unconfined_service_t</computeroutput> context. As this context has no transition rules by design, the service will not be able to transition into the target SELinux context indicated by the SELinux policy, which means <command>scl enable ...</command> cannot be used on Red Hat Enterprise Linux 7 if the service being started is supposed to be confined using SELinux.</para>
+    </note>
     </section>
   </section>
   <!--TODO: BZ#968360 <section id="sect-Software_Collection_SELinux_Support">
