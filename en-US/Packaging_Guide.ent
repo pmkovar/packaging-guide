@@ -1,10 +1,15 @@
 <!ENTITY PRODUCT "Software Collections">
-<!ENTITY VERSIONNUM "3.1">
+<!ENTITY VERSIONNUM "3.4"><!-- Beta: "3.4&nbsp;Beta" -->
 <!ENTITY BOOKID "doc-Packaging_Guide">
-<!ENTITY YEAR "2018">
+<!ENTITY YEAR "2019">
 <!ENTITY HOLDER "Red Hat, Inc">
 <!ENTITY MAJOROS 'Enterprise Linux'>
 <!ENTITY PKGOS "el6">
 <!ENTITY DSCL 'Software Collection'>
 <!ENTITY OPT 'opt'>
 <!ENTITY RH 'provider'>
+<!ENTITY DTSVERLINK "9"><!-- Beta: "6-beta" -->
+<!ENTITY RHSCLVERLINK "3"><!-- Beta: "2-beta" -->
+<!ENTITY DTSVER "9.0"><!-- Beta: "6.0&nbsp;Beta" -->
+<!ENTITY DTSVERTITLE "9.0"><!-- the same for Beta and GA! in book titles -->
+<!ENTITY RHSCLVERTITLE "3.4"><!-- the same for Beta and GA! in book titles -->

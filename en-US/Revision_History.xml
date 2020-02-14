@@ -5,6 +5,90 @@
 	<title>Revision History</title>
 	<simpara>
 		<revhistory>
+				<revision>
+				<revnumber>4.1-0</revnumber>
+				<date>Tue Dec 10 2019</date>
+				<author>
+					<firstname>Lenka</firstname>
+					<surname>Špačková</surname>
+					<email>lspackova@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red&nbsp;Hat Software Collections 3.4 release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>4.0-9</revnumber>
+				<date>Mon Oct 28 2019</date>
+				<author>
+					<firstname>Lenka</firstname>
+					<surname>Špačková</surname>
+					<email>lspackova@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red&nbsp;Hat Software Collections 3.4&nbsp;Beta release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>4.0-8</revnumber>
+				<date>Tue Jun 04 2019</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red&nbsp;Hat Software Collections 3.3 release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>4.0-7</revnumber>
+				<date>Wed Apr 10 2019</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red Hat Software Collections 3.3 Beta release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>4.0-6</revnumber>
+				<date>Thu Nov 01 2018</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red Hat Software Collections 3.2 release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>4.0-5</revnumber>
+				<date>Wed Oct 17 2018</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red Hat Software Collections 3.2 Beta release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
 			<revision>
 				<revnumber>2-7</revnumber>
 				<date>Thu May 17 2018</date>
