@@ -1,5 +1,5 @@
 <!ENTITY PRODUCT "Red Hat Software Collections">
-<!ENTITY VERSIONNUM "3.5&nbsp;Beta"><!-- Beta: "3.4&nbsp;Beta" -->
+<!ENTITY VERSIONNUM "3.5"><!-- Beta: "3.4&nbsp;Beta" -->
 <!ENTITY BOOKID "doc-Packaging_Guide">
 <!ENTITY YEAR "2020">
 <!ENTITY HOLDER "Red Hat, Inc">
@@ -8,8 +8,8 @@
 <!ENTITY DSCL 'Software Collection'>
 <!ENTITY OPT 'opt'>
 <!ENTITY RH 'provider'>
-<!ENTITY DTSVERLINK "9-beta"><!-- Beta: "6-beta" -->
-<!ENTITY RHSCLVERLINK "3-beta"><!-- Beta: "2-beta" -->
-<!ENTITY DTSVER "9.1&nbsp;Beta"><!-- Beta: "6.0&nbsp;Beta" -->
+<!ENTITY DTSVERLINK "9"><!-- Beta: "6-beta" -->
+<!ENTITY RHSCLVERLINK "3"><!-- Beta: "2-beta" -->
+<!ENTITY DTSVER "9.1"><!-- Beta: "6.0&nbsp;Beta" -->
 <!ENTITY DTSVERTITLE "9.1"><!-- the same for Beta and GA! in book titles -->
 <!ENTITY RHSCLVERTITLE "3.5"><!-- the same for Beta and GA! in book titles -->
