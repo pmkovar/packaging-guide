@@ -13,3 +13,5 @@
 <!ENTITY DTSVER "10.0"><!-- Beta: "6.0&nbsp;Beta" -->
 <!ENTITY DTSVERTITLE "10.0"><!-- the same for Beta and GA! in book titles -->
 <!ENTITY RHSCLVERTITLE "3.6"><!-- the same for Beta and GA! in book titles -->
+<!ENTITY TITLEVERSION "3"><!-- Major version for GA (e.g. 3; full minor for beta, e.g. 3.6&nbsp;Beta -->
+
