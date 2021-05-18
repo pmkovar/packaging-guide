@@ -5,6 +5,20 @@
 	<title>Revision History</title>
 	<simpara>
 		<revhistory>
+				<revision>
+				<revnumber>4.1-6</revnumber>
+				<date>Thu Jun 03 2021</date>
+				<author>
+					<firstname>Lenka</firstname>
+					<surname>Špačková</surname>
+					<email>lspackova@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>Red&nbsp;Hat Software Collections 3.7 release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
 			<revision>
 				<revnumber>4.1-5</revnumber>
 				<date>Mon May 03 2021</date>
