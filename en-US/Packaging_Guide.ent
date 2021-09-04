@@ -1,5 +1,5 @@
 <!ENTITY PRODUCT "Red Hat Software Collections">
-<!ENTITY VERSIONNUM "3.7"><!-- Beta: "3.4&nbsp;Beta" -->
+<!ENTITY VERSIONNUM "3.8&nbsp;Beta"><!-- Beta: "3.4&nbsp;Beta" -->
 <!ENTITY BOOKID "doc-Packaging_Guide">
 <!ENTITY YEAR "2021">
 <!ENTITY HOLDER "Red Hat, Inc">
@@ -8,10 +8,10 @@
 <!ENTITY DSCL 'Software Collection'>
 <!ENTITY OPT 'opt'>
 <!ENTITY RH 'provider'>
-<!ENTITY DTSVERLINK "10"><!-- Beta: "6-beta" -->
-<!ENTITY RHSCLVERLINK "3"><!-- Beta: "2-beta" -->
-<!ENTITY DTSVER "10.1"><!-- Beta: "6.0&nbsp;Beta" -->
-<!ENTITY DTSVERTITLE "10.1"><!-- the same for Beta and GA! in book titles -->
-<!ENTITY RHSCLVERTITLE "3.7"><!-- the same for Beta and GA! in book titles -->
-<!ENTITY TITLEVERSION "3.7"><!-- Major version for GA (e.g. 3; full minor for beta, e.g. 3.6&nbsp;Beta -->
+<!ENTITY DTSVERLINK "11-beta"><!-- Beta: "6-beta" -->
+<!ENTITY RHSCLVERLINK "3-beta"><!-- Beta: "2-beta" -->
+<!ENTITY DTSVER "11.0&nbsp;Beta"><!-- Beta: "6.0&nbsp;Beta" -->
+<!ENTITY DTSVERTITLE "11.0"><!-- the same for Beta and GA! in book titles -->
+<!ENTITY RHSCLVERTITLE "3.8"><!-- the same for Beta and GA! in book titles -->
+<!ENTITY TITLEVERSION "3.8&nbsp;Beta"><!-- Major version for GA (e.g. 3; full minor for beta, e.g. 3.6&nbsp;Beta -->
 
