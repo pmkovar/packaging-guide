@@ -6,6 +6,20 @@
 	<simpara>
 		<revhistory>
 			<revision>
+				<revnumber>2-9</revnumber>
+				<date>Mon Mar 21 2022</date>
+				<author>
+					<firstname>Petr</firstname>
+					<surname>Kovář</surname>
+					<email>pkovar@redhat.com</email>
+				</author>
+				<revdescription>
+					<simplelist>
+						<member>2-9 release of the Packaging Guide.</member>
+					</simplelist>
+				</revdescription>
+			</revision>
+			<revision>
 				<revnumber>2-8</revnumber>
 				<date>Fri Feb 14 2020</date>
 				<author>
